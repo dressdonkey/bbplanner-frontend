@@ -1,0 +1,23 @@
+<div class="dialog-header">
+  <h3 md-dialog-title>Add Season</h3>
+</div>
+<div class="bb-dialog-container">
+  <form [formGroup]="form" (ngSubmit)="onSubmitSeason(form.value)">
+    <div fxLayout="column" fxLayoutGap="8px">
+      <div fxLayout="row" fxLayoutAlign="center center">
+        <img src="{{ form.get('avatar').value }}" width="62px" alt="" class="">
+      </div>
+      <md-input-container>
+        <input mdInput formControlName="avatar" placeholder="Avatar" maxlength="255">
+      </md-input-container>
+      <md-input-container>
+        <input mdInput formControlName="name" placeholder="Season Name" maxlength="255">
+        <md-hint align="end">{{ form.get('name').value.length }} / 255</md-hint>
+      </md-input-container>
+    </div>
+    <md-dialog-actions align="end">
+      <button md-button type="button" (click)="dialogEditRef.close()">Cancel</button>
+      <button md-button color="accent" [disabled]="!form.valid">Save Season</button>
+    </md-dialog-actions>
+  </form>
+</div>
