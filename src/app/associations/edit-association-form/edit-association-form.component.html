@@ -1,0 +1,23 @@
+<div class="dialog-header">
+  <h3 md-dialog-title>Edit Association</h3>
+</div>
+<div class="bb-dialog-container">
+  <form [formGroup]="formassociation" (ngSubmit)="onSubmitEditAssociation(formassociation.value)">
+    <div fxLayout="column" fxLayoutGap="8px">
+      <div fxLayout="row" fxLayoutAlign="center center">
+        <img src="{{ formassociation.get('avatar').value }}" width="62px" alt="" class="">
+      </div>
+      <md-input-container>
+        <input mdInput formControlName="avatar" placeholder="Avatar" maxlength="255">
+      </md-input-container>
+      <md-input-container>
+        <input mdInput formControlName="name" placeholder="Association Name" maxlength="255">
+        <md-hint align="end"> {{ formassociation.get('name').value.length }}/ 255</md-hint>
+      </md-input-container>
+    </div>
+    <md-dialog-actions align="end">
+      <button md-button type="button" (click)="dialogRef.close()">Cancel</button>
+      <button md-button color="accent" [disabled]="!formassociation.valid">Save</button>
+    </md-dialog-actions>
+  </form>
+</div>
