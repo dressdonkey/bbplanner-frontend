@@ -1,0 +1,12 @@
+<div class="content" fxLayout="column" fxFlex>
+  <div class="content-header">
+    <h2>Welcome</h2>
+  </div>
+  <div fxLayout="column" fxLayoutAlign="center center" class="bb-mt-1">
+    <div>
+      <md-icon class="md-48">person</md-icon>
+    </div>
+    <div *ngIf="userID">Users ID: {{ userID }}</div>
+    <div *ngIf="userEmail">Users Email: {{ userEmail }}</div>
+  </div>
+</div>
