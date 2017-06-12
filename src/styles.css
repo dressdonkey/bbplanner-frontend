@@ -1,1 +1,66 @@
 /* You can add global styles to this file, and also import other style files */
+/*@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';*/
+@import '~https://fonts.googleapis.com/icon?family=Material+Icons';
+@import '~https://fonts.googleapis.com/css?family=Roboto+Condensed:100,200,300,400,700';
+
+html, body {
+  display: flex;
+  flex-direction: column;
+
+  font-family: 'Roboto Condensed', Arial, sans-serif;
+  margin: 0;
+  height: 100%;
+}
+
+.content {
+  /*padding: 12px;*/
+}
+
+.content-header h2{
+  background-color: #bc477b;
+  font-size: 30px;
+  font-weight: 300;
+  margin: 0;
+  padding: 50px;
+  color: white;
+}
+
+.dialog-header h3{
+  background-color: #bc477b;
+  font-size: 20px;
+  font-weight: 100;
+  margin: 0;
+  padding: 30px;
+  color: white;
+  margin-bottom: 16px;
+}
+
+.fab-bottom-right {
+  position: fixed !important;
+  right: 16px;
+  bottom: 16px;
+}
+
+.bb-p-24{
+  padding: 24px;
+}
+
+.bb-pt-0{
+  padding-top: 0;
+}
+
+.bb-h-100{
+  height: 100%;
+}
+
+.bb-mb-0{
+  margin-bottom: 0;
+}
+
+.bb-mt-0{
+  margin-top: 0;
+}
+
+.bb-mt-8{
+  margin-top: 8px;
+}

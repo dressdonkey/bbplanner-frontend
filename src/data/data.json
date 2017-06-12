@@ -1,0 +1,77 @@
+{
+  "seasons" : {
+    "0" : {
+      "name": "2015/2016",
+      "avatar": "assets/images/avatar-1.png",
+      "users_id" : 1
+    },
+    "1" : {
+      "name": "2016/2017",
+      "avatar": "assets/images/avatar-2.png",
+      "users_id" : 1
+    },
+    "2" : {
+      "name": "2017/2018",
+      "avatar": "assets/images/avatar-3.png",
+      "users_id" : 1
+    }
+  },
+  "associations": {
+    "0": {
+      "id": "1",
+      "name": "NBA",
+      "avatar": "assets/images/avatar-1.png",
+      "users_id": "1"
+    },
+    "1": {
+      "id": "2",
+      "name": "Associação Basquetbol Santarem",
+      "avatar": "assets/images/avatar-2.png",
+      "users_id": "1"
+    },
+    "2": {
+      "id": "3",
+      "name": "Associação Basquetbol Comibra",
+      "avatar": "assets/images/avatar-3.png",
+      "users_id": "1"
+    }
+  },
+  "teams" : {
+        "0" : {
+            "name" : "L.A. Lakers",
+            "associations_id" : "1",
+            "email" : "lalakers@bbplanner.com",
+            "website" : "www.lalakers.com",
+            "facebook" : "www.facebook.lalakers.com",
+            "twitter" : "www.twitter.lalakers.com",
+            "googleplus" : "www.googleplus.lalakers.com",
+            "address" : "Los Angeles",
+            "arena" : "Staples Center",
+            "logo" : "assets/images/avatar-1.png"
+        },
+        "1" : {
+            "name" : "Chicago Bulls",
+            "associations_id" : "1",
+            "email" : "chicagobulls@bbplanner.com",
+            "website" : "www.chicagobulls.com",
+            "facebook" : "www.facebook.chicagobulls.com",
+            "twitter" : "www.twitter.chicagobulls.com",
+            "googleplus" : "www.googleplus.chicagobulls.com",
+            "address" : "Chicago",
+            "arena" : "Have No Idea",
+            "logo" : "assets/images/avatar-2.png"
+        },
+        "2" : {
+            "name" : "L.A. Clippers",
+            "associations_id" : "1",
+            "email" : "laclippers@bbplanner.com",
+            "website" : "www.laclippers.com",
+            "facebook" : "www.facebook.laclippers.com",
+            "twitter" : "www.twitter.laclippers.com",
+            "googleplus" : "www.googleplus.laclippers.com",
+            "address" : "Los Angeles",
+            "arena" : "Have No Idea",
+            "logo" : "assets/images/avatar-3.png"
+        }
+    }
+}

@@ -1,0 +1,43 @@
+{
+    "teams" : {
+        "0" : {
+            "id" : "1",
+            "name" : "L.A. Lakers",
+            "associations_id" : "1",
+            "email" : "lalakers@bbplanner.com",
+            "website" : "www.lalakers.com",
+            "facebook" : "www.facebook.lalakers.com",
+            "twitter" : "www.twitter.lalakers.com",
+            "googleplus" : "www.googleplus.lalakers.com",
+            "address" : "Los Angeles",
+            "arena" : "Staples Center",
+            "logo" : "assets/images/avatar-1.png"
+        },
+        "1" : {
+            "id" : "2",
+            "name" : "Chicago Bulls",
+            "associations_id" : "1",
+            "email" : "chicagobulls@bbplanner.com",
+            "website" : "www.chicagobulls.com",
+            "facebook" : "www.facebook.chicagobulls.com",
+            "twitter" : "www.twitter.chicagobulls.com",
+            "googleplus" : "www.googleplus.chicagobulls.com",
+            "address" : "Chicago",
+            "arena" : "Have No Idea",
+            "logo" : "assets/images/avatar-2.png"
+        },
+        "2" : {
+            "id" : "3",
+            "name" : "L.A. Clippers",
+            "associations_id" : "1",
+            "email" : "laclippers@bbplanner.com",
+            "website" : "www.laclippers.com",
+            "facebook" : "www.facebook.laclippers.com",
+            "twitter" : "www.twitter.laclippers.com",
+            "googleplus" : "www.googleplus.laclippers.com",
+            "address" : "Los Angeles",
+            "arena" : "Have No Idea",
+            "logo" : "assets/images/avatar-3.png"
+        }
+    }
+}
