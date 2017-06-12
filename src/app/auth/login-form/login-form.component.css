@@ -1,0 +1,8 @@
+.bb-login-container{
+  width: 400px;
+  padding: 0;
+}
+
+role["button"]{
+  cursor: pointer;
+}

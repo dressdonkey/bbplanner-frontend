@@ -1,0 +1,30 @@
+<div class="bb-h-100">
+    <div  fxFlex fxLayout="column" fxLayoutAlign="center center" class="bb-h-100">
+        <md-card fxLayout="column" class="bb-login-container">
+            <div class="dialog-header">
+                <h3>Register User</h3>
+            </div>
+            <md-card-content class="bb-p-24 bb-pt-0">
+                <form [formGroup]="registerform" (ngSubmit)="onSubmitUser(registerform.value)">
+                    <div fxLayout="column" fxLayoutGap="8px">
+                        <md-input-container>
+                            <input mdInput formControlName="email" placeholder="email">
+                        </md-input-container>
+                        <md-input-container>
+                            <input mdInput formControlName="password" type="password" placeholder="password">
+                            <md-hint align="end"> {{ registerform.get('password').value.length }}/ 16</md-hint>
+                        </md-input-container>
+                        <md-input-container>
+                            <input mdInput formControlName="confirm" type="password" placeholder="confirm password">
+                            <md-hint align="end"> {{ registerform.get('password').value.length }}/ 16</md-hint>
+                        </md-input-container>
+                        <button md-raised-button color="primary" [disabled]="!registerform.valid">Register</button>
+                    </div>
+                </form>
+                <div fxLayout="row" fxLayoutAlign="end" class="bb-mt-8">
+                    <a [routerLink]="['/login']" md-button color="accent">Login here</a>
+                </div>
+            </md-card-content>
+        </md-card>
+    </div>
+</div>
