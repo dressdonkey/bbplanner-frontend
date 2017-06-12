@@ -1,0 +1,20 @@
+<div class="content" fxLayout="column" fxFlex>
+  <div class="content-header">
+    <h2>Levels (Escalões)</h2>
+  </div>
+  <md-card fxFlex>
+    <md-list>
+      <md-list-item *ngFor="let level of levels">
+        <img md-list-avatar src="{{level.avatar}}" alt="...">
+        <h3 md-line> {{level.name}} </h3>
+        <span fxFlex></span>
+        <button md-icon-button>
+          <md-icon class="icon">edit</md-icon>
+        </button>
+      </md-list-item>
+    </md-list>
+  </md-card>
+  <button md-fab class="fab-bottom-right">
+    <md-icon>add</md-icon>
+  </button>
+</div>
