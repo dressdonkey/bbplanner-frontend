@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { CompetitionsService } from "./competitions.service";
+import { Competition } from "./../interfaces/competition";
+import { MdDialog } from "@angular/material";
+import { CreateCompetitionFormComponent } from './create-competition-form/create-competition-form.component';
+import { EditCompetitionFormComponent } from './edit-competition-form/edit-competition-form.component';
 
 @Component({
   selector: 'app-competitions',
@@ -6,25 +11,32 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./competitions.component.css']
 })
 export class CompetitionsComponent implements OnInit {
+  competitions: Array<any>;
 
-  constructor() { }
-
-  competitions = [
-    {
-      name: 'Under 20 Mens World Championship',
-      avatar: 'assets/images/avatar-1.png',
-    },
-    {
-      name: 'Under 18 Mens World Championship',
-      avatar: 'assets/images/avatar-2.png',
-    },
-    {
-      name: 'Under 20 Mens World Championship',
-      avatar: 'assets/images/avatar-3.png',
-    }
-  ];
+  constructor(
+    public competitionsService: CompetitionsService,
+    public dialogCreate: MdDialog,
+    public dialogEdit: MdDialog
+  ) { 
+    this.competitionsService.getCompetitions().subscribe(data => {
+      this.competitions = data;
+    });
+  }
 
   ngOnInit() {
+  }
+
+  openDialogCreateCompetitionForm(){
+    let dialogCreateRef = this.dialogCreate.open(CreateCompetitionFormComponent, {
+      width: '500px'
+    });
+  }
+
+  openDialogEditCompetitionForm(key, competition: Competition){
+    let dialogEditRef = this.dialogEdit.open(EditCompetitionFormComponent, {
+      width: '500px',
+      data: competition
+    });
   }
 
 }

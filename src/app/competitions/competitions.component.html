@@ -8,13 +8,13 @@
         <img md-list-avatar src="{{competition.avatar}}" alt="...">
         <h3 md-line> {{competition.name}} </h3>
         <span fxFlex></span>
-        <button md-icon-button>
+        <button md-icon-button (click)="openDialogEditCompetitionForm(competition.$key, competition)">
           <md-icon class="icon">edit</md-icon>
         </button>
       </md-list-item>
     </md-list>
   </md-card>
-  <button md-fab class="fab-bottom-right">
+  <button md-fab class="fab-bottom-right" (click)="openDialogCreateCompetitionForm()">
     <md-icon>add</md-icon>
   </button>
 </div>

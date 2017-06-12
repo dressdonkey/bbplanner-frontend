@@ -28,7 +28,6 @@ export class SeasonsComponent implements OnInit {
         data => this.seasons = data,
         error => this.error = error.statusText
       )
-      console.log(this.seasons);
       
     this.seasonsService.newSeasonSubject.subscribe(
       data => this.seasons.push(data)

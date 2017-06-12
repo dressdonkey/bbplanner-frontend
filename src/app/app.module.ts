@@ -20,7 +20,6 @@ import { PracticesComponent } from './practices/practices.component';
 import { SeasonComponent } from './season/season.component';
 import { LevelsComponent } from './levels/levels.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { FormComponent } from './form/form.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { LoginFormComponent } from './auth/login-form/login-form.component';
 import { RegisterFormComponent } from './auth/register-form/register-form.component';
@@ -33,6 +32,7 @@ import { AssociationsService } from './associations/associations.service';
 import { TeamsService } from './teams/teams.service';
 import { PlayersService } from './players/players.service';
 import { AuthService } from './auth/auth.service';
+import { CompetitionsService } from './competitions/competitions.service';
 
 /* Dialogs */
 import { CreateSeasonFormComponent } from './seasons/create-season-form/create-season-form.component';
@@ -49,6 +49,8 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { environment } from '../environments/environment';
 import { ToolbarComponent } from './toolbar/toolbar.component';
+import { CreateCompetitionFormComponent } from './competitions/create-competition-form/create-competition-form.component';
+import { EditCompetitionFormComponent } from './competitions/edit-competition-form/edit-competition-form.component';
 
 
 @NgModule({
@@ -65,7 +67,6 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
     LevelsComponent,
     CreateSeasonFormComponent,
     EditSeasonFormComponent,
-    FormComponent,
     SidenavComponent,
     LoginFormComponent,
     RegisterFormComponent,
@@ -77,7 +78,9 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
     CreatePlayerFormComponent,
     EditPlayerFormComponent,
     HomeComponent,
-    ToolbarComponent
+    ToolbarComponent,
+    CreateCompetitionFormComponent,
+    EditCompetitionFormComponent
   ],
   imports: [
     BrowserModule,
@@ -98,7 +101,8 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
     AssociationsService,
     TeamsService,
     PlayersService,
-    AuthService
+    AuthService,
+    CompetitionsService
   ],
   entryComponents: [
     CreateSeasonFormComponent,
@@ -108,7 +112,9 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
     CreateTeamFormComponent,
     EditTeamFormComponent,
     CreatePlayerFormComponent,
-    EditPlayerFormComponent
+    EditPlayerFormComponent,
+    CreateCompetitionFormComponent,
+    EditCompetitionFormComponent
   ],
   bootstrap: [AppComponent]
 })
