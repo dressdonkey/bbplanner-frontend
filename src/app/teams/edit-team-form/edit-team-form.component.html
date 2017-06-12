@@ -1,0 +1,51 @@
+<div class="dialog-header">
+  <h3 md-dialog-title>Edit Association</h3>
+</div>
+<div class="bb-dialog-container">
+  <form [formGroup]="formteam" (ngSubmit)="onSubmitEditTeam(formteam.value)">
+    <div fxLayout="column" fxLayoutGap="8px">
+      <md-input-container>
+        <input mdInput formControlName="name" placeholder="Team Name">
+        <md-hint align="end"> {{ formteam.get('name').value.length }}/ 255</md-hint>
+      </md-input-container>
+      <md-select formControlName="associations_id" placeholder="Association">
+          <md-option *ngFor="let association of associations" [value]="association.id">
+              {{ association.name }}
+          </md-option>
+      </md-select>
+      <md-input-container>
+        <input mdInput formControlName="email" placeholder="Email">
+        <md-hint align="end"> {{ formteam.get('email').value.length }}/ 255</md-hint>
+      </md-input-container>
+      <a md-button (click)="toggleShowMore()">
+          {{ showMoreText }}<md-icon *ngIf="!showMore"> arrow_drop_down</md-icon><md-icon *ngIf="showMore"> arrow_drop_up</md-icon>
+      </a>
+      <div *ngIf="showMore" fxLayout="column" fxLayoutGap="8px">
+        <md-input-container>
+          <input mdInput formControlName="address" placeholder="Address">
+          <md-hint align="end"> {{ formteam.get('address').value.length }}/ 255</md-hint>
+        </md-input-container>
+        <md-input-container>
+          <input mdInput formControlName="facebook" placeholder="Facebook">
+          <md-hint align="end"> {{ formteam.get('facebook').value.length }}/ 255</md-hint>
+        </md-input-container>
+        <md-input-container>
+          <input mdInput formControlName="twitter" placeholder="Twitter">
+          <md-hint align="end"> {{ formteam.get('twitter').value.length }}/ 255</md-hint>
+        </md-input-container>
+        <md-input-container>
+          <input mdInput formControlName="googleplus" placeholder="Googleplus">
+          <md-hint align="end"> {{ formteam.get('googleplus').value.length }}/ 255</md-hint>
+        </md-input-container>
+        <md-input-container>
+          <input mdInput formControlName="arena" placeholder="Arena">
+          <md-hint align="end"> {{ formteam.get('arena').value.length }}/ 255</md-hint>
+        </md-input-container>
+      </div>
+    </div>
+    <md-dialog-actions align="end">
+      <button md-button type="button" (click)="dialogRef.close()">Cancel</button>
+      <button md-button color="accent" [disabled]="!formteam.valid">Save</button>
+    </md-dialog-actions>
+  </form>
+</div>
