@@ -1,0 +1,13 @@
+:host {
+  display: flex;
+  flex: 1;
+}
+
+body{
+  font-family: 'Roboto Condensed', sans-serif;
+  margin: 0;
+}
+
+md-sidenav {
+  width: 320px;
+}
