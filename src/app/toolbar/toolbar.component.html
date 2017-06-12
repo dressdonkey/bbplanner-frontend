@@ -1,0 +1,23 @@
+<md-toolbar color="primary">
+  <button md-icon-button (click)="sidenav.toggle()" *ngIf="isLoggedIn">
+    <md-icon>dehaze</md-icon>
+  </button>
+  <span>BBPlanner - Basketball Banner V.0.1</span>
+  <span fxFlex></span>
+  <a md-button *ngIf="!isLoggedIn" [mdMenuTriggerFor]="menuguest">
+    <md-icon>account_circle</md-icon>Guest
+  </a>
+  <md-menu #menuguest="mdMenu">
+    <button md-menu-item routerLink="login">
+      <span>Login</span>
+    </button>
+  </md-menu>
+  <a md-button *ngIf="isLoggedIn" [mdMenuTriggerFor]="menuloggedin">
+    <md-icon>account_circle</md-icon>{{ userName }}
+  </a>
+  <md-menu #menuloggedin="mdMenu">
+    <button md-menu-item (click)="logout()">
+      <span>Logout</span>
+    </button>
+  </md-menu>
+</md-toolbar>

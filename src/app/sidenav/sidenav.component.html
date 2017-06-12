@@ -1,0 +1,66 @@
+<md-sidenav #sidenav mode="side" opened fxHide.sm="true" *ngIf="isLoggedIn">
+  <md-tab-group>
+    <md-tab label="Your Season">
+      <md-nav-list>
+        <md-list-item>
+          <md-icon md-list-icon>folder</md-icon>
+          <a routerLink="season">
+            <span>Season</span>
+          </a>
+        </md-list-item>
+        <md-list-item>
+          <md-icon md-list-icon>folder</md-icon>
+          <a routerLink="practices">
+            <span>Pratices</span>
+          </a>
+        </md-list-item>
+        <md-list-item>
+          <md-icon md-list-icon>folder</md-icon>
+          <a routerLink="roster">
+            <span>Roster</span>
+          </a>
+        </md-list-item>
+      </md-nav-list>
+    </md-tab>
+    <md-tab label="Config">
+      <md-nav-list>
+        <md-list-item>
+          <md-icon md-list-icon>folder</md-icon>
+          <a routerLink="seasons">
+            <span>Seasons (Epoca)</span>
+          </a>
+        </md-list-item>
+        <md-list-item>
+          <md-icon md-list-icon>folder</md-icon>
+          <a routerLink="associations">
+            <span>Divisions/Associations</span>
+          </a>
+        </md-list-item>
+        <md-list-item>
+          <md-icon md-list-icon>folder</md-icon>
+          <a routerLink="teams">
+            <span>Clubs/Teams</span>
+          </a>
+        </md-list-item>
+        <md-list-item>
+          <md-icon md-list-icon>folder</md-icon>
+          <a routerLink="competitions">
+            <span>Competitions</span>
+          </a>
+        </md-list-item>
+        <md-list-item>
+          <md-icon md-list-icon>folder</md-icon>
+          <a routerLink="levels">
+            <span>Levels (Escalões)</span>
+          </a>
+        </md-list-item>
+        <md-list-item>
+          <md-icon md-list-icon>people</md-icon>
+          <a routerLink="players">
+            <span>Players</span>
+          </a>
+        </md-list-item>
+      </md-nav-list>
+    </md-tab>
+  </md-tab-group>
+</md-sidenav>
