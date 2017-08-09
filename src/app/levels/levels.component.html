@@ -5,16 +5,15 @@
   <md-card fxFlex>
     <md-list>
       <md-list-item *ngFor="let level of levels">
-        <img md-list-avatar src="{{level.avatar}}" alt="...">
         <h3 md-line> {{level.name}} </h3>
         <span fxFlex></span>
-        <button md-icon-button>
+        <button md-icon-button (click)="openDialogEditLevel(level)">
           <md-icon class="icon">edit</md-icon>
         </button>
       </md-list-item>
     </md-list>
   </md-card>
-  <button md-fab class="fab-bottom-right">
+  <button md-fab class="fab-bottom-right" (click)="openDialogCreateLevel()">
     <md-icon>add</md-icon>
   </button>
 </div>

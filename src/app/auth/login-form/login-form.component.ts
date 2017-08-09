@@ -16,7 +16,7 @@ import { AuthService } from "./../auth.service";
 export class LoginFormComponent implements OnInit {
   loginform: FormGroup;
   user: Observable<firebase.User>;
-  result: any;
+  result: firebase.Promise<any>;
 
   constructor( 
     public fb: FormBuilder,
@@ -33,13 +33,16 @@ export class LoginFormComponent implements OnInit {
   }
 
   loginWithEmail(data) {
-    this.result = this.authService.loginWithEmail(data.email, data.password);
-    this.router.navigate(['home']);
-  }
 
-  loginWithGoogle() {
-    this.result = this.authService.loginWithGoogle();
-    this.router.navigate(['home']);
+    this.authService.loginWithEmail(data.email, data.password)
+      .then( data => {
+        this.router.navigate(['home']);
+      })
+      .catch( err => {
+        //@TODO
+      });
+    
+    //this.router.navigate(['home']);
   }
 
   logout() {

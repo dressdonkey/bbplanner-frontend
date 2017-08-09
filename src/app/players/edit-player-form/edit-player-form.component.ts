@@ -30,13 +30,15 @@ export class EditPlayerFormComponent implements OnInit {
       active : '',
       data_nascimento : '',
       avatar : '',
-      users_id : '',
+      user_id : '',
+      gender_id : '',
       mothers_name : ['', Validators.compose([Validators.maxLength(255)])],
       fathers_name : ['', Validators.compose([Validators.maxLength(255)])],
       mothers_name_email : ['', Validators.compose([Validators.maxLength(255)])],
       fathers_name_email : ['', Validators.compose([Validators.maxLength(255)])],
       mothers_name_number : ['', Validators.compose([Validators.maxLength(255)])],
-      fathers_name_number : ['', Validators.compose([Validators.maxLength(255)])]
+      fathers_name_number : ['', Validators.compose([Validators.maxLength(255)])],
+      phone_number : ['', Validators.compose([Validators.maxLength(255)])]
     });
   }
 
@@ -47,19 +49,16 @@ export class EditPlayerFormComponent implements OnInit {
       active: this.data.active,
       data_nascimento: this.data.data_nascimento,
       avatar: this.data.avatar,
-      users_id: this.data.users_id,
+      user_id: this.data.user_id,
+      gender_id: this.data.gender_id,
       mothers_name : (this.data.mothers_name) ? this.data.mothers_name : '',
       fathers_name : (this.data.fathers_name) ? this.data.fathers_name : '',
       mothers_name_email : (this.data.mothers_name_email) ? this.data.mothers_name_email : '',
       fathers_name_email : (this.data.fathers_name_email) ? this.data.fathers_name_email : '',
       mothers_name_number : (this.data.mothers_name_number) ? this.data.mothers_name_number : '',
-      fathers_name_number : (this.data.fathers_name_number) ? this.data.fathers_name_number : ''
+      fathers_name_number : (this.data.fathers_name_number) ? this.data.fathers_name_number : '',
+      phone_number : (this.data.phone_number) ? this.data.phone_number : ''
     });
-
-    const storageRef = firebase.storage().ref().child(this.data.path);
-    storageRef.getDownloadURL().then(url => this.imageUrl = url);
-
-    this.key = this.data.$key;
   }
 
   onSubmitEditPlayer(player): void {

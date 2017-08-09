@@ -1,32 +1,28 @@
 import { Injectable } from '@angular/core';
-import { Subject } from "rxjs/Subject";
 import { Http } from "@angular/http";
-import 'rxjs/add/operator/map';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 
 @Injectable()
 export class TeamsService {
-  public newTeamSubject = new Subject<any>();
-  public newEditTeamSubject = new Subject<any>();
+  teams: FirebaseListObservable<any>;
 
   constructor(
     public http: Http,
-    private db: AngularFireDatabase
-  ) { }
+    public af: AngularFireDatabase
+  ) { 
+    this.teams = this.af.list('/teams') as FirebaseListObservable<any>;
+  }
 
   getTeams(){
-    //return this.http.get('data/teams.json')
-    //.map(res => res.json());
-    
-    return this.db.list('/teams');
+    return this.teams;
   }
 
-  addTeam(data){
-    data.users_id = 1;
-    this.newTeamSubject.next(data);
+  addTeam(team){
+    const teams = this.af.list('/teams');
+    teams.push(team);
   }
 
-  editTeam(data){
-    
+  editTeam(key, team){
+    this.teams.update(key, team);
   }
 }

@@ -31,7 +31,7 @@ export class CreateCompetitionFormComponent implements OnInit {
   }
 
   onSubmitCompetition(competition): void {
-    competition.avatar = 'assets/images/avatar-default.png'; //@TODO - Find a default image
+    competition.logo = 'assets/images/avatar-default.png'; //@TODO - Find a default image
     competition.users_id = this.authService.getCurrentUserID();
     this.competitionsService.addCompetition(competition);
     this.formcompetition.reset({

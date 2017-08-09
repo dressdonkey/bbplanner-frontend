@@ -1,13 +1,7 @@
 export interface Team{
     id : number,
     name : string,
-    associations_id : number,
-    association : {
-            id : number,
-            name: string,
-            avatar? : string,
-            users_id : number 
-            },
+    associations_id : string,
     email? : string,
     website? : string,
     facebook? : string,

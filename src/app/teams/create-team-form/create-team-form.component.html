@@ -9,7 +9,7 @@
         <md-hint align="end"> {{ formteam.get('name').value.length }}/ 255</md-hint>
       </md-input-container>
       <md-select formControlName="associations_id" placeholder="Association">
-          <md-option *ngFor="let association of associations" [value]="association.id">
+          <md-option *ngFor="let association of associations" [value]="association.$key">
               {{ association.name }}
           </md-option>
       </md-select>

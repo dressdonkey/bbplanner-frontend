@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { CdkTableModule } from '@angular/cdk';
 
 import { routes } from './app.router';
 
@@ -33,6 +34,7 @@ import { TeamsService } from './teams/teams.service';
 import { PlayersService } from './players/players.service';
 import { AuthService } from './auth/auth.service';
 import { CompetitionsService } from './competitions/competitions.service';
+import { LevelsService } from './levels/levels.service';
 
 /* Dialogs */
 import { CreateSeasonFormComponent } from './seasons/create-season-form/create-season-form.component';
@@ -51,6 +53,8 @@ import { environment } from '../environments/environment';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { CreateCompetitionFormComponent } from './competitions/create-competition-form/create-competition-form.component';
 import { EditCompetitionFormComponent } from './competitions/edit-competition-form/edit-competition-form.component';
+import { CreateLevelFormComponent } from './levels/create-level-form/create-level-form.component';
+import { EditLevelFormComponent } from './levels/edit-level-form/edit-level-form.component';
 
 
 @NgModule({
@@ -80,7 +84,9 @@ import { EditCompetitionFormComponent } from './competitions/edit-competition-fo
     HomeComponent,
     ToolbarComponent,
     CreateCompetitionFormComponent,
-    EditCompetitionFormComponent
+    EditCompetitionFormComponent,
+    CreateLevelFormComponent,
+    EditLevelFormComponent
   ],
   imports: [
     BrowserModule,
@@ -94,7 +100,8 @@ import { EditCompetitionFormComponent } from './competitions/edit-competition-fo
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    CdkTableModule
   ],
   providers : [
     SeasonsService,
@@ -102,7 +109,8 @@ import { EditCompetitionFormComponent } from './competitions/edit-competition-fo
     TeamsService,
     PlayersService,
     AuthService,
-    CompetitionsService
+    CompetitionsService,
+    LevelsService
   ],
   entryComponents: [
     CreateSeasonFormComponent,
@@ -114,7 +122,9 @@ import { EditCompetitionFormComponent } from './competitions/edit-competition-fo
     CreatePlayerFormComponent,
     EditPlayerFormComponent,
     CreateCompetitionFormComponent,
-    EditCompetitionFormComponent
+    EditCompetitionFormComponent,
+    CreateLevelFormComponent,
+    EditLevelFormComponent
   ],
   bootstrap: [AppComponent]
 })

@@ -2,7 +2,7 @@
   <div class="content-header">
     <h2>Players</h2>
   </div>
-  <md-card fxFlex>
+  <!--<md-card fxFlex>
     <md-list>
       <md-list-item *ngFor="let player of players">
         <img md-list-avatar [src]="player.imageurl" alt="...">
@@ -16,7 +16,40 @@
         </button>
       </md-list-item>
     </md-list>
-  </md-card>
+  </md-card>-->
+  <md-table #table [dataSource]="dataSource">
+
+    <ng-container cdkColumnDef="avatar">
+      <md-header-cell *cdkHeaderCellDef> ID </md-header-cell>
+      <md-cell *cdkCellDef="let row"> {{row.avatar}} A</md-cell>
+    </ng-container>
+
+    <!-- Progress Column -->
+    <ng-container cdkColumnDef="email">
+      <md-header-cell *cdkHeaderCellDef> EMail </md-header-cell>
+      <md-cell *cdkCellDef="let row"> {{row.email}} </md-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container cdkColumnDef="userName">
+      <md-header-cell *cdkHeaderCellDef> Name </md-header-cell>
+      <md-cell *cdkCellDef="let row"> {{row.name}} </md-cell>
+    </ng-container>
+
+    <ng-container cdkColumnDef="id">
+      <md-header-cell *cdkHeaderCellDef>OP</md-header-cell>
+      <md-cell *cdkCellDef="let row">
+        <button md-icon-button (click)="openEditPlayerFormDialog(row)">
+          <md-icon class="icon">edit</md-icon>
+        </button>
+      </md-cell>
+    </ng-container>
+
+    <md-header-row *cdkHeaderRowDef="displayedColumns"></md-header-row>
+    <md-row *cdkRowDef="let row; columns: displayedColumns;"></md-row>
+
+  </md-table>
+
   <button md-fab class="fab-bottom-right" (click)="openCreatePlayerFormDialog()">
     <md-icon>add</md-icon>
   </button>

@@ -16,9 +16,10 @@ export class EditTeamFormComponent implements OnInit {
   error: string;
   showMore: Boolean = false;
   showMoreText: string = "Show More";
+  key: string;
 
   constructor(
-    public dialogRef: MdDialogRef<EditTeamFormComponent>,
+    public dialogEditRef: MdDialogRef<EditTeamFormComponent>,
     public associationsService: AssociationsService,
     public teamsService: TeamsService,
     @Inject(MD_DIALOG_DATA) public data: any,
@@ -36,7 +37,6 @@ export class EditTeamFormComponent implements OnInit {
         arena : ['', Validators.maxLength(255)],
         logo : ['', Validators.maxLength(255)]
       });
-
       
   }
 
@@ -57,10 +57,16 @@ export class EditTeamFormComponent implements OnInit {
       googleplus : this.data.googleplus,
       address : this.data.address,
       arena : this.data.arena,
-      logo : this.data.logo
-    })
+      logo : (this.data.logo) ? this.data.logo : ''
+    });
 
+    this.key = this.data.$key;
     
+  }
+
+  onSubmitEditTeam(team){
+    this.teamsService.editTeam(this.key, team);
+    this.dialogEditRef.close();
   }
 
   toggleShowMore(){

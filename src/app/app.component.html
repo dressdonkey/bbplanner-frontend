@@ -1,7 +1,7 @@
 <div fxLayout="column" fxFlex>
-  <app-toolbar [loggedIn]="isLoggedIn" [userName]="userName"></app-toolbar>
+  <app-toolbar [userName]="userName"></app-toolbar>
   <md-sidenav-container fxFlex>
-    <app-sidenav [loggedIn]="isLoggedIn"></app-sidenav>
+    <app-sidenav></app-sidenav>
     <router-outlet></router-outlet>
   </md-sidenav-container>
 </div>

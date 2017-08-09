@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, FormControl, Validators, AbstractControl } from
 import { AssociationsService } from "./../../associations/associations.service";
 import { TeamsService } from "./../../teams/teams.service";
 import { MdDialogRef } from "@angular/material";
+import { AuthService } from "./../../auth/auth.service";
 
 @Component({
   selector: 'app-create-team-form',
@@ -20,7 +21,8 @@ export class CreateTeamFormComponent implements OnInit {
     public fb:FormBuilder,
     public associationsService: AssociationsService, 
     private dialogRef: MdDialogRef<CreateTeamFormComponent>,
-    public teamsService: TeamsService
+    public teamsService: TeamsService,
+    public authService: AuthService
   ) { 
       this.formteam = this.fb.group({
         name: ['', Validators.compose([Validators.required, Validators.maxLength(255)])],
@@ -45,15 +47,21 @@ export class CreateTeamFormComponent implements OnInit {
     
   }
 
-  onSubmitCreateTeam(data){
-    this.teamsService.addTeam(data);
-    this.formteam.reset();
+  onSubmitCreateTeam(team){
+    team.avatar = 'assets/images/avatar-default.png'; //@TODO - Find a default image
+    team.users_id = this.authService.getCurrentUserID();
+
+    this.teamsService.addTeam(team);
+
+    this.formteam.reset({
+      name : '',
+      email : ''
+    });
     this.dialogRef.close();
   }
 
   toggleShowMore(){
     this.showMore = !this.showMore;
-
     this.showMoreText = (!this.showMore) ? 'Show More' : 'Show Less';
   }
 

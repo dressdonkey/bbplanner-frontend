@@ -27,15 +27,7 @@ export class TeamsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.teamsService.newTeamSubject .subscribe(
-      data => this.teams.push(data)
-    )
-
-    this.teamsService.newEditTeamSubject.subscribe(
-      (data) => {
-        this.teams[data.id-1] = data;
-      }
-    )
+    
   }
 
   openCreateTeamFormDialog(){

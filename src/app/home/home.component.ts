@@ -15,14 +15,15 @@ export class HomeComponent implements OnInit {
     private authService: AuthService, 
     private router: Router
   ) {
-    this.authService.getCurrentUser().subscribe(data => {
-      this.userID = data.uid;
-      this.userEmail = data.email;
-    });
+    
   }
 
   ngOnInit() {
-    
+    /*this.authService.getCurrentUser().subscribe(data => {
+      this.userID = data.uid;
+      this.userEmail = data.email;
+    });*/
+    this.userID = this.authService.getCurrentUserID();
   }
 
   logout() {
