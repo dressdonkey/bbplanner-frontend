@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, FormControl, Validators, AbstractControl } from
 import { MdDialogRef, MdDatepickerModule } from '@angular/material';
 import { PlayersService } from "./../players.service";
 import { MD_DIALOG_DATA } from '@angular/material';
-import * as firebase from 'firebase';
 
 @Component({
   selector: 'app-edit-player-form',
@@ -16,6 +15,7 @@ export class EditPlayerFormComponent implements OnInit {
   showMore: Boolean = false;
   showMoreText: string = "Show More";
   imageUrl: string;
+  playerId: number;
 
   constructor(
     public fb: FormBuilder,
@@ -48,7 +48,7 @@ export class EditPlayerFormComponent implements OnInit {
       email: this.data.email,
       active: this.data.active,
       data_nascimento: this.data.data_nascimento,
-      avatar: this.data.avatar,
+      avatar: (this.data.avatar) ? this.data.avatar : '/assets/images/avatar-default.png',
       user_id: this.data.user_id,
       gender_id: this.data.gender_id,
       mothers_name : (this.data.mothers_name) ? this.data.mothers_name : '',
@@ -59,11 +59,16 @@ export class EditPlayerFormComponent implements OnInit {
       fathers_name_number : (this.data.fathers_name_number) ? this.data.fathers_name_number : '',
       phone_number : (this.data.phone_number) ? this.data.phone_number : ''
     });
+
+    this.playerId = this.data.id;
   }
 
   onSubmitEditPlayer(player): void {
-    this.playersService.editPlayer(this.key, player);
+    
+    this.playersService.updatePlayer(this.playerId, player)
+      .subscribe();
     this.dialogRef.close();
+
   }
 
   toggleShowMore(){

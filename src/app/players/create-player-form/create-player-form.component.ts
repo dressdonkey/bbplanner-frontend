@@ -9,6 +9,7 @@ import { Player } from "./../../interfaces/player";
   templateUrl: './create-player-form.component.html',
   styleUrls: ['./create-player-form.component.css']
 })
+
 export class CreatePlayerFormComponent implements OnInit {
   formplayer: FormGroup;
   player: Player;
@@ -42,24 +43,36 @@ export class CreatePlayerFormComponent implements OnInit {
 
   onSubmitCreatePlayer(player): void {
 
-    console.log(player);
-    
-    player.data_nascimento = player.data_nascimento.getFullYear() + '-' + player.data_nascimento.getMonth() + '-'+ player.data_nascimento.getDay();
-    //player.avatar = 'assets/images/avatar-2.png'; //@TODO - Find a default imge
-    player.users_id = 1 // @TODO - modify to dynamic user - logged in user
+    if(player.data_nascimento != '')
+      player.data_nascimento = this.convertDate(player.data_nascimento);
 
-    this.playersService.addPlayer(player);
+    //player.avatar = 'assets/images/avatar-2.png'; //@TODO - Find a default image
+    player.user_id = 1 // @TODO - modify to dynamic user - logged in user
+    player.gender_id = 1
+
+    this.playersService.addPlayer(player)
+      .subscribe(
+        //data => this.players = data,
+        //error => this.error = error.statusText
+      );
+    
     this.formplayer.reset({
       name : '',
       email : ''
     });
+
     this.dialogRef.close();
+    
   }
 
   toggleShowMore(){
     this.showMore = !this.showMore;
 
     this.showMoreText = (!this.showMore) ? 'Show More' : 'Show Less';
+  }
+
+  convertDate(dataToConvert){
+    return dataToConvert.getFullYear() + '-' + dataToConvert.getMonth() + '-'+ dataToConvert.getDay();
   }
 
 }

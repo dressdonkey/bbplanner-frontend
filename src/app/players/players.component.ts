@@ -4,10 +4,13 @@ import { PlayersService } from "./players.service";
 import { Player } from "./../interfaces/player";
 import { CreatePlayerFormComponent } from './create-player-form/create-player-form.component';
 import { EditPlayerFormComponent } from './edit-player-form/edit-player-form.component';
-import 'rxjs/Rx';
+import { DeletePlayerComponent } from './delete-player/delete-player.component';
+import { EditPlayerFotoComponent } from "./edit-player-foto/edit-player-foto.component";
 import { DataSource } from '@angular/cdk';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
+import { MdSnackBar } from '@angular/material';
+import 'rxjs/Rx';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/observable/merge';
 import 'rxjs/add/operator/map';
@@ -18,22 +21,80 @@ import 'rxjs/add/operator/map';
   styleUrls: ['./players.component.css']
 })
 
-
 export class PlayersComponent {
-  displayedColumns = ['avatar', 'userName', 'email', 'id'];
-  
-  playerDatabase = new PlayerDatabase(this.playersService);
+  displayedColumns = ['avatar', 'userName', 'email', 'dateOfBirth', 'menu'];
   dataSource: ExampleDataSource | null;
+  players: Array<any>;
 
   constructor(
     private dialog: MdDialog, 
     private dialogedit: MdDialog, 
-    private playersService: PlayersService){
+    private dialogdelete: MdDialog, 
+    private dialogeditimage: MdDialog,
+    private playersService: PlayersService,
+    public snackBar: MdSnackBar){
   }
 
   ngOnInit() {
-    this.dataSource = new ExampleDataSource(this.playerDatabase);
+    this.dataSource = new ExampleDataSource(this.playersService);
+
+    /**
+     * 
+     */
+
+    this.playersService.addedPlayer.subscribe(
+      (data) => {
+        this.dataSource.addUser(data.player);
+        
+        this.snackBar.open(data.message, null, {
+          duration: 2000,
+        });
+      },
+      error => console.log('Problem Creating Player')
+      
+    );
+
+    /**
+     * 
+     */
+
+    this.playersService.deletedPlayer.subscribe(
+      (data) => {
+        
+        this.snackBar.open(data.message, null, {
+          duration: 2000,
+        });
+
+        this.dataSource.deleteUser(data.player);
+      },
+      error => console.log('Problem Deleting Player')
+      
+    );
+
+    /**
+     * 
+     */
+
+    this.playersService.updatedPlayer.subscribe(
+      (data) => {
+        
+        this.snackBar.open(data.message, null, {
+          duration: 2000,
+        });
+        
+        console.log(data.player);
+        
+        this.dataSource.updateUser(data.player);
+      },
+      error => console.log('Problem Updating Player')
+      
+    );
+    
   }
+
+  /**
+   * Open Dialog to create a new player
+   */
 
   private openCreatePlayerFormDialog() {
 
@@ -42,6 +103,11 @@ export class PlayersComponent {
     });
     
   }
+
+  /**
+   * Open Dialog to update player data
+   * @param player player data json
+   */
 
   private openEditPlayerFormDialog(player: Player) {
     
@@ -52,36 +118,74 @@ export class PlayersComponent {
 
   }
 
+  /**
+   * Open Dialog to delete player
+   * @param player players data in json
+   */
+  
+  private openDeletePlayerDialog(player: Player) {
+    
+    let dialogDeleteRef = this.dialogdelete.open(DeletePlayerComponent, {
+      width: '500px',
+      data: player
+    });
+
+  }
+
+  /**
+   * Open Dialog to edit or insert player foto
+   * @param player players data in json
+   */
+  
+  private openEditPlayerFotoDialog(player: Player) {
+    
+    let dialogEditImageRef = this.dialogeditimage.open(EditPlayerFotoComponent, {
+      width: '500px',
+      data: player
+    });
+
+  }
+
 }
 
-/** An example database that the data source uses to retrieve data for the table. */
-export class PlayerDatabase {
+export class ExampleDataSource extends DataSource<any> {
   players: Array<any>;
-  /** Stream that emits whenever the data has been modified. */
   dataChange: BehaviorSubject<Player[]> = new BehaviorSubject<Player[]>([]);
+     
+  constructor(
+    private playersService: PlayersService) {
+      super();
+  }
 
-  get data(): Player[] {     
+  get data(): Player[] {
     return this.dataChange.value; 
   }
 
-  constructor(private playersService: PlayersService) {
+  ngOnInit() {
     
+  }
+
+  /** Connect function called by the table to retrieve one stream containing the data to render. */
+  connect(): Observable<Player[]> {
+
     this.playersService.getAllPlayers()
       .subscribe(data => {
         
         this.players = data; 
 
         for (let player of this.players) {
-            this.addUser(player);
+            this.addUser(player); 
         }
 
       },err => {
         console.log('ERROR');
       }
     );
+
+    return this.dataChange;
+
   }
 
-  /** Adds a new user to the database. */
   addUser(player) {
     
     const copiedData = this.data.slice();
@@ -89,34 +193,35 @@ export class PlayerDatabase {
     copiedData.push(player);
 
     this.dataChange.next(copiedData);
-
-  }
-
-  /** Builds and returns a new User. */
-  private createNewUser() {
-
-  }
-}
-
-/**
- * Data source to provide what data should be rendered in the table. Note that the data source
- * can retrieve its data in any way. In this case, the data source is provided a reference
- * to a common data base, PlayerDatabase. It is not the data source's responsibility to manage
- * the underlying data. Instead, it only needs to take the data and send the table exactly what
- * should be rendered.
- */
-
-export class ExampleDataSource extends DataSource<any> {
-  
-  constructor(private _playerDatabase: PlayerDatabase) {
-    super();
-  }
-
-  /** Connect function called by the table to retrieve one stream containing the data to render. */
-  connect(): Observable<Player[]> {
     
-    return this._playerDatabase.dataChange;
+  }
 
+  deleteUser(player){
+    const copiedData = this.data.slice();
+
+    const position = copiedData.findIndex(
+      (playerEl: Player) => {
+        return playerEl.id == player.id;
+      }
+    );
+
+    copiedData.splice(position, 1);
+
+    this.dataChange.next(copiedData);
+
+  }
+
+  updateUser(player){
+    const copiedData = this.data.slice();
+
+    const position = copiedData.findIndex(
+      (playerEl: Player) => {
+        return playerEl.id == player.id;
+      }
+    );
+
+    copiedData[position] = player;
+    this.dataChange.next(copiedData);
   }
 
   disconnect() {}

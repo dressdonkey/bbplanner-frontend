@@ -4,9 +4,6 @@
 <div class="bb-dialog-container">
   <form [formGroup]="formplayer" (ngSubmit)="onSubmitEditPlayer(formplayer.value)">
     <div fxLayout="column" fxLayoutGap="8px">
-      <div fxLayout="row" fxLayoutAlign="center center">
-        <img [src]="imageUrl" width="100px" alt="" class="">
-      </div>
       <md-input-container>
         <input mdInput formControlName="name" placeholder="Team Name">
         <md-hint align="end"> {{ formplayer.get('name').value.length }}/ 255</md-hint>
