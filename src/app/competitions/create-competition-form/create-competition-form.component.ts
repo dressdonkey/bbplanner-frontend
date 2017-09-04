@@ -31,12 +31,6 @@ export class CreateCompetitionFormComponent implements OnInit {
   }
 
   onSubmitCompetition(competition): void {
-    competition.logo = 'assets/images/avatar-default.png'; //@TODO - Find a default image
-    competition.users_id = this.authService.getCurrentUserID();
-    this.competitionsService.addCompetition(competition);
-    this.formcompetition.reset({
-      name : ''
-    });
-    this.dialogCreateRef.close();
+    
   }
 }

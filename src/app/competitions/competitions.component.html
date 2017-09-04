@@ -2,18 +2,54 @@
   <div class="content-header">
     <h2>Competitions</h2>
   </div>
-  <md-card fxFlex>
-    <md-list>
-      <md-list-item *ngFor="let competition of competitions">
-        <img md-list-avatar src="{{competition.avatar}}" alt="...">
-        <h3 md-line> {{competition.name}} </h3>
-        <span fxFlex></span>
-        <button md-icon-button (click)="openDialogEditCompetitionForm(competition.$key, competition)">
-          <md-icon class="icon">edit</md-icon>
+  <md-table #table [dataSource]="dataSource">
+  
+    <!-- Avatar Column -->
+    <ng-container cdkColumnDef="avatar">
+      <md-header-cell *cdkHeaderCellDef> Logo </md-header-cell>
+      <md-cell *cdkCellDef="let row">
+        <img *ngIf="row.avatar" src="http://192.168.33.10/assets/uploads/{{ row.avatar }}" width="30px" alt="" class="md-avatar">
+        <img *ngIf="!row.avatar" src="/assets/images/avatar-default.png" width="30px" alt="" class="md-avatar">
+      </md-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container cdkColumnDef="name">
+      <md-header-cell *cdkHeaderCellDef> Competition Name </md-header-cell>
+      <md-cell *cdkCellDef="let row"> {{row.name}} </md-cell>
+    </ng-container>
+
+    <ng-container cdkColumnDef="menu">
+      <md-header-cell *cdkHeaderCellDef></md-header-cell>
+      <md-cell *cdkCellDef="let row">
+        <button md-icon-button [mdMenuTriggerFor]="menu">
+          <md-icon>more_vert</md-icon>
         </button>
-      </md-list-item>
-    </md-list>
-  </md-card>
+        <md-menu #menu="mdMenu">
+          <!-- Edit Button -->
+          <button md-menu-item (click)="openEditCompetitionFormDialog(row)">
+            <md-icon class="icon">edit</md-icon>
+            <span>Edit Competition</span>
+          </button>
+          <!-- Edit Image | Avatar -->
+          <button md-menu-item (click)="openEditCompetitionFotoDialog(row)">
+            <md-icon class="icons">photo</md-icon>
+            <span>Edit Competition Photo</span>
+          </button>
+          <!-- Delete Button -->
+          <button md-menu-item (click)="openDeleteCompetitionDialog(row)">
+            <md-icon class="icons">delete</md-icon>
+            <span>Remove Competition</span>
+          </button>
+        </md-menu>
+      </md-cell>
+    </ng-container> 
+
+    <md-header-row *cdkHeaderRowDef="displayedColumns"></md-header-row>
+    <md-row *cdkRowDef="let row; columns: displayedColumns;"></md-row>
+
+  </md-table>
+
   <button md-fab class="fab-bottom-right" (click)="openDialogCreateCompetitionForm()">
     <md-icon>add</md-icon>
   </button>
