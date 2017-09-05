@@ -31,6 +31,15 @@ export class CreateCompetitionFormComponent implements OnInit {
   }
 
   onSubmitCompetition(competition): void {
+    competition.user_id = 1
     
+    this.competitionsService.addCompetition(competition)
+      .subscribe();
+
+    this.formcompetition.reset({
+      name : ''
+    });
+
+    this.dialogCreateRef.close();
   }
 }

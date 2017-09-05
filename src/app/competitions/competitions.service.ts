@@ -26,7 +26,24 @@ export class CompetitionsService {
       );
   }
 
-  addCompetition(data){
+  /**
+   * Create a new competition
+   * @param competition 
+   */
+
+  addCompetition(competition: Competition){
+    
+    const body = JSON.stringify(competition);
+    const hds = new Headers({'Content-Type': 'application/json'});
+    return this.http.post('http://192.168.33.10/api/competitions', body, { headers: hds })
+      .map(
+        (response: Response) => {
+          
+          this.addedCompetition.next(response.json());
+          
+        }
+      );
+
   }
 
   editCompetition(key, competition){

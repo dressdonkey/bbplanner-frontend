@@ -36,6 +36,32 @@ export class CompetitionsComponent implements OnInit {
 
   ngOnInit() {
     this.dataSource = new CompetitionDataSource(this.competitionsService);
+
+    /**
+     * 
+     */
+
+    this.competitionsService.addedCompetition.subscribe(
+      (data) => {
+        this.dataSource.addCompetition(data.competition);
+        
+        this.snackBar.open(data.message, null, {
+          duration: 2000,
+        });
+      },
+      error => console.log('Problem Creating Competition')
+    );
+  }
+
+  /**
+   *  Open Dialog to create a new competition
+   */
+
+  openCreateCompetitionDialog(){
+    this.dialog.open(CreateCompetitionFormComponent, 
+    {
+      width: '500px'
+    })
   }
 
 }

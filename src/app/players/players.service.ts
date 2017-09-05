@@ -37,7 +37,6 @@ export class PlayersService {
    */
 
   addPlayer(player: Player){
-    console.log(JSON.stringify(player));
     
     const body = JSON.stringify(player);
     const hds = new Headers({'Content-Type': 'application/json'});
