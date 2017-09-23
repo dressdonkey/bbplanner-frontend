@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { CdkTableModule } from '@angular/cdk';
+import { NgUploaderModule } from 'ngx-uploader';
 
 import { routes } from './app.router';
 
@@ -45,17 +46,16 @@ import { CreateTeamFormComponent } from './teams/create-team-form/create-team-fo
 import { EditTeamFormComponent } from './teams/edit-team-form/edit-team-form.component';
 import { CreatePlayerFormComponent } from './players/create-player-form/create-player-form.component';
 import { EditPlayerFormComponent } from './players/edit-player-form/edit-player-form.component';
+import { DeletePlayerComponent } from './players/delete-player/delete-player.component';
 
-import { AngularFireModule } from 'angularfire2';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
-import { AngularFireAuthModule } from 'angularfire2/auth';
-import { environment } from '../environments/environment';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { CreateCompetitionFormComponent } from './competitions/create-competition-form/create-competition-form.component';
 import { EditCompetitionFormComponent } from './competitions/edit-competition-form/edit-competition-form.component';
 import { CreateLevelFormComponent } from './levels/create-level-form/create-level-form.component';
 import { EditLevelFormComponent } from './levels/edit-level-form/edit-level-form.component';
-
+import { EditPlayerFotoComponent } from './players/edit-player-foto/edit-player-foto.component';
+import { EditCompetitionLogoComponent } from './competitions/edit-competition-logo/edit-competition-logo.component';
+import { DeleteCompetitionComponent } from './competitions/delete-competition/delete-competition.component';
 
 @NgModule({
   declarations: [
@@ -86,7 +86,11 @@ import { EditLevelFormComponent } from './levels/edit-level-form/edit-level-form
     CreateCompetitionFormComponent,
     EditCompetitionFormComponent,
     CreateLevelFormComponent,
-    EditLevelFormComponent
+    EditLevelFormComponent,
+    DeletePlayerComponent,
+    EditPlayerFotoComponent,
+    EditCompetitionLogoComponent,
+    DeleteCompetitionComponent
   ],
   imports: [
     BrowserModule,
@@ -98,10 +102,8 @@ import { EditLevelFormComponent } from './levels/edit-level-form/edit-level-form
     BrowserAnimationsModule,
     routes,
     ReactiveFormsModule,
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFireDatabaseModule,
-    AngularFireAuthModule,
-    CdkTableModule
+    CdkTableModule,
+    NgUploaderModule
   ],
   providers : [
     SeasonsService,
@@ -123,8 +125,12 @@ import { EditLevelFormComponent } from './levels/edit-level-form/edit-level-form
     EditPlayerFormComponent,
     CreateCompetitionFormComponent,
     EditCompetitionFormComponent,
+    EditCompetitionLogoComponent,
     CreateLevelFormComponent,
-    EditLevelFormComponent
+    EditLevelFormComponent,
+    DeletePlayerComponent,
+    EditPlayerFotoComponent,
+    DeleteCompetitionComponent
   ],
   bootstrap: [AppComponent]
 })

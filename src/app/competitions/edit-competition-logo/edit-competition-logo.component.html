@@ -1,0 +1,31 @@
+<div class="dialog-header">
+  <h3 md-dialog-title>Insert/Update</h3>
+</div>
+<div class="bb-dialog-container">  
+  <div fxLayout="column" fxLayoutGap="8px">
+
+    <div fxLayout="row" fxLayoutAlign="center center" class="bb-pos-rel">
+      <img *ngIf="!competition.avatar" src="/assets/images/avatar-default.png" width="100px" alt="" class="">
+      <img *ngIf="competition.avatar" src="http://192.168.33.10/assets/uploads/{{ competition.avatar }}" width="100px" alt="" class="">
+    </div>
+
+    <div class="bb-dialog-container">
+      <div class="drop-container" ngFileDrop (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput" [ngClass]="{ 'is-drop-over': dragOver }" fxLayout="column" fxLayoutAlign="center center">
+        <h1>Drag & Drop</h1>
+        <div>
+          <span>your files here or</span>
+          <label class="upload-button">
+            <input type="file" ngFileSelect (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput"> browse
+          </label>
+        </div>
+        <md-chip-list *ngIf="filename" class="bb-mt-8"  [selectable]="selectable">
+            <md-chip>Chosen File: {{ filename }}</md-chip>
+        </md-chip-list>
+      </div>
+    </div>   
+
+  <md-dialog-actions align="end">
+    <button md-button type="button" (click)="dialogRef.close()">Cancel</button>
+    <button md-button color="accent" class="start-upload-btn" (click)="startUpload(competition.id)" [disabled]="!filename">Start Upload</button>
+  </md-dialog-actions>
+</div>

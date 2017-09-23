@@ -1,6 +1,4 @@
 import { Component, ViewChild } from '@angular/core';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
-import { AngularFireAuth } from 'angularfire2/auth';
 import { AuthService } from "./auth/auth.service";
 import { Router } from '@angular/router';
 import { MdSidenav } from '@angular/material';
@@ -16,17 +14,8 @@ export class AppComponent {
   @ViewChild('loggedIn') isLoggedIn: Boolean;
   @ViewChild('userName') userName: Boolean;
 
-  user: Observable<firebase.User>;
 
   constructor(public authService: AuthService, private router: Router) {
-    authService.afAuth.auth.onAuthStateChanged(user => {
-      if(user){
-        this.userName = user.uid;
-        this.isLoggedIn = true;
-      }else{
-        this.isLoggedIn = false;
-      }
-    });
 
   }
 

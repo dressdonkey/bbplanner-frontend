@@ -27,17 +27,17 @@
         </button>
         <md-menu #menu="mdMenu">
           <!-- Edit Button -->
-          <button md-menu-item (click)="openEditCompetitionFormDialog(row)">
-            <md-icon class="icon">edit</md-icon>
+          <button md-menu-item (click)="openEditCompetitionDialog(row)">
+            <md-icon class="icon">edit </md-icon>
             <span>Edit Competition</span>
           </button>
           <!-- Edit Image | Avatar -->
-          <button md-menu-item (click)="openEditCompetitionFotoDialog(row)">
+          <button md-menu-item (click)="openEditCompetitionLogoDialog(row)">
             <md-icon class="icons">photo</md-icon>
             <span>Edit Competition Photo</span>
           </button>
           <!-- Delete Button -->
-          <button md-menu-item (click)="openDeleteCompetitionDialog(row)">
+          <button *ngIf="!row.has_seasons" md-menu-item (click)="openDeleteCompetitionDialog(row)">
             <md-icon class="icons">delete</md-icon>
             <span>Remove Competition</span>
           </button>

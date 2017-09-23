@@ -4,6 +4,8 @@ import { Competition } from "./../interfaces/competition";
 import { MdDialog } from "@angular/material";
 import { CreateCompetitionFormComponent } from './create-competition-form/create-competition-form.component';
 import { EditCompetitionFormComponent } from './edit-competition-form/edit-competition-form.component';
+import { EditCompetitionLogoComponent } from './edit-competition-logo/edit-competition-logo.component';
+import { DeleteCompetitionComponent } from './delete-competition/delete-competition.component';
 import { DataSource } from '@angular/cdk';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
@@ -51,6 +53,40 @@ export class CompetitionsComponent implements OnInit {
       },
       error => console.log('Problem Creating Competition')
     );
+
+    /**
+     * 
+     */
+
+    this.competitionsService.updatedCompetition.subscribe(
+      (data) => {
+        
+        this.snackBar.open(data.message, null, {
+          duration: 2000,
+        });
+        
+        this.dataSource.updateCompetition(data.competition);
+      },
+      error => console.log('Problem Updating Competition')
+      
+    );
+
+    /**
+     * 
+     */
+
+    this.competitionsService.deletedCompetition.subscribe(
+      (data) => {
+        
+        this.snackBar.open(data.message, null, {
+          duration: 2000,
+        });
+
+        this.dataSource.deleteCompetition(data.competition);
+      },
+      error => console.log('Problem Deleting Competition')
+      
+    );
   }
 
   /**
@@ -62,6 +98,46 @@ export class CompetitionsComponent implements OnInit {
     {
       width: '500px'
     })
+  }
+
+  /**
+   *  Open Dialog to edit a new competition
+   */
+
+  openEditCompetitionDialog(competition: Competition){
+    this.dialog.open(EditCompetitionFormComponent, 
+    {
+      width: '500px',
+      data : competition
+    })
+  }
+
+  /**
+   * Open Dialog to edit or insert player foto
+   * @param player players data in json
+   */
+  
+  private openEditCompetitionLogoDialog(competition: Competition) {
+    
+    let dialogEditImageRef = this.dialogeditimage.open(EditCompetitionLogoComponent, {
+      width: '500px',
+      data: competition
+    });
+
+  }
+
+  /**
+   * Open Dialog to delete player
+   * @param player players data in json
+   */
+  
+  private openDeleteCompetitionDialog(competition: Competition) {
+    
+    let dialogDeleteRef = this.dialogdelete.open(DeleteCompetitionComponent, {
+      width: '500px',
+      data: competition
+    });
+
   }
 
 }
@@ -100,12 +176,55 @@ export class CompetitionDataSource extends DataSource<any> {
     return this.dataChange;
   }
 
+  /**
+   * 
+   * @param competition 
+   */
+
   addCompetition(competition){
     const copiedData = this.data.slice();
     
     copiedData.push(competition);
 
     this.dataChange.next(copiedData);
+  }
+
+  /**
+   * 
+   * @param competition 
+   */
+
+  updateCompetition(competition){
+    const copiedData = this.data.slice();
+
+    const position = copiedData.findIndex(
+      (competitionEl: Competition) => {
+        return competitionEl.id == competition.id;
+      }
+    );
+
+    copiedData[position] = competition;
+    this.dataChange.next(copiedData);
+  }
+
+  /**
+   * 
+   * @param competition 
+   */
+
+  deleteCompetition(competition){
+    const copiedData = this.data.slice();
+
+    const position = copiedData.findIndex(
+      (competitionEl: Competition) => {
+        return competitionEl.id == competition.id;
+      }
+    );
+
+    copiedData.splice(position, 1);
+
+    this.dataChange.next(copiedData);
+
   }
 
   disconnect() {}

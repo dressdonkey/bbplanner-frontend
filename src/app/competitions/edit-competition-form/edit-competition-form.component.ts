@@ -14,6 +14,7 @@ export class EditCompetitionFormComponent implements OnInit {
   competition: Competition;
   formcompetition: FormGroup;
   key: string;
+  competitionId: number;
 
   constructor(
     public dialogEditRef: MdDialogRef<EditCompetitionFormComponent>, 
@@ -24,24 +25,27 @@ export class EditCompetitionFormComponent implements OnInit {
       this.formcompetition = this.fb.group({
         name : ['', Validators.required],
         avatar : '',
-        users_id : ''
+        user_id : ''
       })
   }
 
   ngOnInit() {
+    
     this.formcompetition.setValue({
       name : this.data.name,
       avatar : this.data.avatar,
-      users_id : this.data.users_id
+      user_id : this.data.user_id
     })
 
-    this.key = this.data.$key;
+    this.competitionId = this.data.id;
   }
 
   onSubmitCompetition(competition): void {
     
-    this.competitionsService.editCompetition(this.key, competition);
+    this.competitionsService.editCompetition(this.competitionId, competition)
+      .subscribe();
     this.dialogEditRef.close();
+
   }
 
 }
