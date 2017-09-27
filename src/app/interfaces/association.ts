@@ -1,6 +1,6 @@
 export interface Association {
   id: number,
   name: string,
-  avatar: string,
+  logo: string,
   users_id: number
 }

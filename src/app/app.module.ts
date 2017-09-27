@@ -56,6 +56,8 @@ import { EditLevelFormComponent } from './levels/edit-level-form/edit-level-form
 import { EditPlayerFotoComponent } from './players/edit-player-foto/edit-player-foto.component';
 import { EditCompetitionLogoComponent } from './competitions/edit-competition-logo/edit-competition-logo.component';
 import { DeleteCompetitionComponent } from './competitions/delete-competition/delete-competition.component';
+import { EditAssociationLogoComponent } from './associations/edit-association-logo/edit-association-logo.component';
+import { DeleteAssociationComponent } from './associations/delete-association/delete-association.component';
 
 @NgModule({
   declarations: [
@@ -90,7 +92,9 @@ import { DeleteCompetitionComponent } from './competitions/delete-competition/de
     DeletePlayerComponent,
     EditPlayerFotoComponent,
     EditCompetitionLogoComponent,
-    DeleteCompetitionComponent
+    DeleteCompetitionComponent,
+    EditAssociationLogoComponent,
+    DeleteAssociationComponent
   ],
   imports: [
     BrowserModule,
@@ -130,7 +134,9 @@ import { DeleteCompetitionComponent } from './competitions/delete-competition/de
     EditLevelFormComponent,
     DeletePlayerComponent,
     EditPlayerFotoComponent,
-    DeleteCompetitionComponent
+    DeleteCompetitionComponent,
+    EditAssociationLogoComponent,
+    DeleteAssociationComponent
   ],
   bootstrap: [AppComponent]
 })

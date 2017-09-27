@@ -1,8 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MdDialogRef } from "@angular/material";
-import { FormBuilder, FormGroup, FormControl, Validators, AbstractControl } from "@angular/forms";
+import { FormControl, FormBuilder, FormGroup, Validators, AbstractControl } from "@angular/forms";
+import { MdDialogRef, MD_DIALOG_DATA } from "@angular/material";
 import { AssociationsService } from "./../associations.service";
-import { MD_DIALOG_DATA } from '@angular/material';
+import { AuthService } from "./../../auth/auth.service";
 import { Association } from "./../../interfaces/association";
 
 @Component({
@@ -11,37 +11,41 @@ import { Association } from "./../../interfaces/association";
   styleUrls: ['./edit-association-form.component.css']
 })
 export class EditAssociationFormComponent implements OnInit {
+  association: Association;
   formassociation: FormGroup;
   key: string;
+  associationId: number;
 
   constructor(
-    private associationsService: AssociationsService,
-    private dialogRef: MdDialogRef<EditAssociationFormComponent>,
-    private fb: FormBuilder,
-    @Inject(MD_DIALOG_DATA) public data: any
+    public dialogEditRef: MdDialogRef<EditAssociationFormComponent>, 
+    public associationsService: AssociationsService,
+    @Inject(MD_DIALOG_DATA) public data: any,
+    public fb: FormBuilder
   ) { 
       this.formassociation = this.fb.group({
-        id: [''],
-        name : ['', Validators.compose([Validators.required, Validators.maxLength(255)])],
-        avatar : ['', Validators.maxLength(255)],
-        users_id : ['']
+        name : ['', Validators.required],
+        logo : '',
+        user_id : ''
       })
   }
 
   ngOnInit() {
+    
     this.formassociation.setValue({
-      id : this.data.id,
       name : this.data.name,
-      avatar : this.data.avatar,
-      users_id : this.data.users_id
-    });
+      logo : this.data.logo,
+      user_id : this.data.user_id
+    })
 
-    this.key = this.data.$key;
+    this.associationId = this.data.id;
   }
 
-  onSubmitEditAssociation(association: Association): void {   
-    this.associationsService.editAssociation(this.key, association);
-    this.dialogRef.close();
+  onSubmitAssociation(association): void {
+    
+    this.associationsService.editAssociation(this.associationId, association)
+      .subscribe();
+    this.dialogEditRef.close();
+
   }
 
 }
