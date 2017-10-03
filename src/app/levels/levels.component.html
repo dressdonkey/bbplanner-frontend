@@ -1,19 +1,42 @@
 <div class="content" fxLayout="column" fxFlex>
   <div class="content-header">
-    <h2>Levels (Escalões)</h2>
+    <h2>Levels</h2>
   </div>
-  <md-card fxFlex>
-    <md-list>
-      <md-list-item *ngFor="let level of levels">
-        <h3 md-line> {{level.name}} </h3>
-        <span fxFlex></span>
-        <button md-icon-button (click)="openDialogEditLevel(level)">
-          <md-icon class="icon">edit</md-icon>
+  <md-table #table [dataSource]="dataSource">
+
+    <!-- Name Column -->
+    <ng-container cdkColumnDef="name">
+      <md-header-cell *cdkHeaderCellDef> Level Name </md-header-cell>
+      <md-cell *cdkCellDef="let row"> {{row.name}} </md-cell>
+    </ng-container>
+
+    <ng-container cdkColumnDef="menu">
+      <md-header-cell *cdkHeaderCellDef></md-header-cell>
+      <md-cell *cdkCellDef="let row">
+        <button md-icon-button [mdMenuTriggerFor]="menu">
+          <md-icon>more_vert</md-icon>
         </button>
-      </md-list-item>
-    </md-list>
-  </md-card>
-  <button md-fab class="fab-bottom-right" (click)="openDialogCreateLevel()">
+        <md-menu #menu="mdMenu">
+          <!-- Edit Button -->
+          <button md-menu-item (click)="openEditLevelDialog(row)">
+            <md-icon class="icon">edit </md-icon>
+            <span>Edit Level</span>
+          </button>
+          <!-- Delete Button -->
+          <button md-menu-item (click)="openDeleteLevelDialog(row)">
+            <md-icon class="icons">delete</md-icon>
+            <span>Remove Level</span>
+          </button>
+        </md-menu>
+      </md-cell>
+    </ng-container> 
+
+    <md-header-row *cdkHeaderRowDef="displayedColumns"></md-header-row>
+    <md-row *cdkRowDef="let row; columns: displayedColumns;"></md-row>
+
+  </md-table>
+
+  <button md-fab class="fab-bottom-right" (click)="openCreateLevelDialog()">
     <md-icon>add</md-icon>
   </button>
 </div>

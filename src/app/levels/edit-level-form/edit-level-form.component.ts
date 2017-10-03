@@ -1,8 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl, Validators } from "@angular/forms";
+import { FormControl, FormBuilder, FormGroup, Validators, AbstractControl } from "@angular/forms";
 import { MdDialogRef, MD_DIALOG_DATA } from "@angular/material";
-import { AuthService } from "./../../auth/auth.service";
 import { LevelsService } from "./../levels.service";
+import { AuthService } from "./../../auth/auth.service";
 import { Level } from "./../../interfaces/level";
 
 @Component({
@@ -11,34 +11,39 @@ import { Level } from "./../../interfaces/level";
   styleUrls: ['./edit-level-form.component.css']
 })
 export class EditLevelFormComponent implements OnInit {
+  level: Level;
   formlevel: FormGroup;
   key: string;
+  levelId: number;
 
   constructor(
-    private fb: FormBuilder,
-    public dialogEditRef: MdDialogRef<EditLevelFormComponent>,
+    public dialogEditRef: MdDialogRef<EditLevelFormComponent>, 
     public levelsService: LevelsService,
-    public authService: AuthService,
-    @Inject(MD_DIALOG_DATA) public data: any) { 
+    @Inject(MD_DIALOG_DATA) public data: any,
+    public fb: FormBuilder
+  ) { 
       this.formlevel = this.fb.group({
         name : ['', Validators.required],
-        users_id : ''
-      });
-        
-    }
-
-  ngOnInit() {
-    this.formlevel.setValue({
-      name: this.data.name,
-      users_id: this.data.users_id
-    })
-
-    this.key = this.data.$key;
+        user_id : ''
+      })
   }
 
-  onSubmitEditLevel(level): void{
-    this.levelsService.editLevel(this.key, level);
+  ngOnInit() {
+    
+    this.formlevel.setValue({
+      name : this.data.name,
+      user_id : this.data.user_id
+    })
+
+    this.levelId = this.data.id;
+  }
+
+  onSubmitEditLevel(level): void {
+    
+    this.levelsService.editLevel(this.levelId, level)
+      .subscribe();
     this.dialogEditRef.close();
+
   }
 
 }

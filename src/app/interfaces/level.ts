@@ -1,4 +1,5 @@
 export interface Level {
+  id: number
   name: string,
-  users_id: string
+  user_id: number
 }
