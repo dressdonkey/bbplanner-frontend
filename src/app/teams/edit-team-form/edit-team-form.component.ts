@@ -4,6 +4,7 @@ import { AssociationsService } from "./../../associations/associations.service";
 import { TeamsService } from "./../../teams/teams.service";
 import { MdDialogRef } from "@angular/material";
 import { MD_DIALOG_DATA } from '@angular/material';
+import { Association } from "./../../interfaces/association";
 
 @Component({
   selector: 'app-edit-team-form',
@@ -16,10 +17,10 @@ export class EditTeamFormComponent implements OnInit {
   error: string;
   showMore: Boolean = false;
   showMoreText: string = "Show More";
-  key: string;
+  teamId: number;
 
   constructor(
-    public dialogEditRef: MdDialogRef<EditTeamFormComponent>,
+    public dialogRef: MdDialogRef<EditTeamFormComponent>,
     public associationsService: AssociationsService,
     public teamsService: TeamsService,
     @Inject(MD_DIALOG_DATA) public data: any,
@@ -27,7 +28,7 @@ export class EditTeamFormComponent implements OnInit {
   ) { 
       this.formteam = this.fb.group({
         name: ['', Validators.compose([Validators.required, Validators.maxLength(255)])],
-        associations_id : ['', Validators.required ],
+        association_id : ['', Validators.required ],
         email: ['', Validators.compose([Validators.maxLength(255), Validators.email])],
         website : ['', Validators.maxLength(255)],
         facebook : ['', Validators.maxLength(255)],
@@ -35,13 +36,15 @@ export class EditTeamFormComponent implements OnInit {
         googleplus : ['', Validators.maxLength(255)],
         address : ['', Validators.maxLength(255)],
         arena : ['', Validators.maxLength(255)],
-        logo : ['', Validators.maxLength(255)]
+        logo : ['', Validators.maxLength(255)],
+        user_id : '',
       });
       
   }
 
   ngOnInit() {
-    this.associationsService.getAssociations()
+    
+    this.associationsService.getAllAssociations()
         .subscribe( 
           data => this.associations = data,
           error => this.error = error.statusText
@@ -49,7 +52,7 @@ export class EditTeamFormComponent implements OnInit {
 
     this.formteam.setValue({
       name : this.data.name,
-      associations_id : this.data.associations_id,
+      association_id : this.data.association_id,
       email : this.data.email,
       website : this.data.website,
       facebook : this.data.facebook,
@@ -57,21 +60,24 @@ export class EditTeamFormComponent implements OnInit {
       googleplus : this.data.googleplus,
       address : this.data.address,
       arena : this.data.arena,
-      logo : (this.data.logo) ? this.data.logo : ''
+      logo : (this.data.logo) ? this.data.logo : '',
+      user_id: this.data.user_id
     });
 
-    this.key = this.data.$key;
+    this.teamId = this.data.id;
     
   }
 
-  onSubmitEditTeam(team){
-    this.teamsService.editTeam(this.key, team);
-    this.dialogEditRef.close();
+  onSubmitEditTeam(team): void {
+    
+    this.teamsService.updateTeam(this.teamId, team)
+      .subscribe();
+    this.dialogRef.close();
+
   }
 
   toggleShowMore(){
     this.showMore = !this.showMore;
-
     this.showMoreText = (!this.showMore) ? 'Show More' : 'Show Less';
   }
 

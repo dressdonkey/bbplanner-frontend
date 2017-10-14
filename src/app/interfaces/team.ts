@@ -1,7 +1,7 @@
 export interface Team{
     id : number,
     name : string,
-    associations_id : string,
+    association_id : string,
     email? : string,
     website? : string,
     facebook? : string,
@@ -9,5 +9,7 @@ export interface Team{
     googleplus? : string,
     address? : string,
     arena? : string,
-    logo? : string
+    logo? : string,
+    user_id : number,
+    is_used : number
 }

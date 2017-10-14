@@ -2,20 +2,55 @@
   <div class="content-header">
     <h2>Teams</h2>
   </div>
-  <md-card fxFlex>
-    <md-list>
-      <md-list-item *ngFor="let team of teams">
-        <img md-list-avatar src="{{team.logo}}" alt="...">
-        <h3 md-line> {{team.name}} </h3>
-        <p md-line>  </p>
-        <span fxFlex></span>
-        <button md-icon-button (click)="openEditTeamFormDialog(team)">
-          <md-icon class="icon">edit</md-icon>
+  <md-table #table [dataSource]="dataSource">
+  
+    <!-- Avatar Column -->
+    <ng-container cdkColumnDef="logo">
+      <md-header-cell *cdkHeaderCellDef> Logo </md-header-cell>
+      <md-cell *cdkCellDef="let row">
+        <img *ngIf="row.logo" src="http://192.168.33.10/assets/uploads/{{ row.logo }}" width="30px" alt="" class="md-avatar">
+        <img *ngIf="!row.logo" src="/assets/images/avatar-default.png" width="30px" alt="" class="md-avatar">
+      </md-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container cdkColumnDef="name">
+      <md-header-cell *cdkHeaderCellDef> Team Name </md-header-cell>
+      <md-cell *cdkCellDef="let row"> {{row.name}} </md-cell>
+    </ng-container>
+
+    <ng-container cdkColumnDef="menu">
+      <md-header-cell *cdkHeaderCellDef></md-header-cell>
+      <md-cell *cdkCellDef="let row">
+        <button md-icon-button [mdMenuTriggerFor]="menu">
+          <md-icon>more_vert</md-icon>
         </button>
-      </md-list-item>
-    </md-list>
-  </md-card>
-  <button md-fab class="fab-bottom-right" (click)="openCreateTeamFormDialog()">
+        <md-menu #menu="mdMenu">
+          <!-- Edit Button -->
+          <button md-menu-item (click)="openEditTeamDialog(row)">
+            <md-icon class="icon">edit </md-icon>
+            <span>Edit Team</span>
+          </button>
+          <!-- Edit Image | Avatar -->
+          <button md-menu-item (click)="openEditTeamLogoDialog(row)">
+            <md-icon class="icons">photo</md-icon>
+            <span>Edit Team Logo</span>
+          </button>
+          <!-- Delete Button -->
+          <button *ngIf="!row.is_used" md-menu-item (click)="openDeleteTeamDialog(row)">
+            <md-icon class="icons">delete</md-icon>
+            <span>Remove Team</span>
+          </button>
+        </md-menu>
+      </md-cell>
+    </ng-container> 
+
+    <md-header-row *cdkHeaderRowDef="displayedColumns"></md-header-row>
+    <md-row *cdkRowDef="let row; columns: displayedColumns;"></md-row>
+
+  </md-table>
+
+  <button md-fab class="fab-bottom-right" (click)="openCreateTeamDialog()">
     <md-icon>add</md-icon>
   </button>
 </div>

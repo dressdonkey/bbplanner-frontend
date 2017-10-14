@@ -1,0 +1,10 @@
+<div class="dialog-header">
+  <h3 md-dialog-title>Delete Team</h3>
+</div>
+<div class="bb-dialog-container">
+  <p>Do you want to remove this team?</p>
+  <md-dialog-actions align="end">
+    <button md-button type="button" (click)="dialogRef.close()">No</button>
+    <button md-button type="button" color="accent" (click)="onDelete(team.id)">Yes</button>
+  </md-dialog-actions>
+</div>
