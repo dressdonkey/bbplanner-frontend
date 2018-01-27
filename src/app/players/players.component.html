@@ -1,68 +1,71 @@
 <div class="content" fxLayout="column" fxFlex>
-  <div class="content-header">
-    <h2>Players</h2>
+  <h2 class="bb-p-24 bb-color--lime-A400">Players</h2>
+  <div class="bb-search-filter-wrapper">
+    <mat-form-field floatPlaceholder="never">
+      <input matInput #filter placeholder="Search for Player">
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
   </div>
-  <md-table #table [dataSource]="dataSource">
+  <mat-table #table [dataSource]="dataSource">
   
     <!-- Avatar Column -->
     <ng-container cdkColumnDef="avatar">
-      <md-header-cell *cdkHeaderCellDef> Foto </md-header-cell>
-      <md-cell *cdkCellDef="let row">
-        <img *ngIf="row.avatar" src="http://192.168.33.10/assets/uploads/{{ row.avatar }}" width="30px" alt="" class="md-avatar">
-        <img *ngIf="!row.avatar" src="/assets/images/avatar-default.png" width="30px" alt="" class="md-avatar">
-      </md-cell>
+      <mat-header-cell *cdkHeaderCellDef> Foto </mat-header-cell>
+      <mat-cell *cdkCellDef="let row">
+        <img *ngIf="row.avatar" src="http://192.168.33.10/assets/uploads/{{ row.avatar }}" width="30px" alt="" class="mat-avatar">
+        <img *ngIf="!row.avatar" src="/assets/images/avatar-default.png" width="30px" alt="" class="mat-avatar">
+      </mat-cell>
     </ng-container>
 
     <!-- Email Column -->
     <ng-container cdkColumnDef="email">
-      <md-header-cell *cdkHeaderCellDef> EMail </md-header-cell>
-      <md-cell *cdkCellDef="let row"> {{row.email}} </md-cell>
+      <mat-header-cell *cdkHeaderCellDef> EMail </mat-header-cell>
+      <mat-cell *cdkCellDef="let row"> {{row.email}} </mat-cell>
     </ng-container>
 
     <!-- Name Column -->
     <ng-container cdkColumnDef="userName">
-      <md-header-cell *cdkHeaderCellDef> Name </md-header-cell>
-      <md-cell *cdkCellDef="let row"> {{row.name}} </md-cell>
+      <mat-header-cell *cdkHeaderCellDef> Name </mat-header-cell>
+      <mat-cell *cdkCellDef="let row"> {{row.name}} </mat-cell>
     </ng-container>
 
     <!-- Date of Birth Column -->
     <ng-container cdkColumnDef="dateOfBirth">
-      <md-header-cell *cdkHeaderCellDef> Date of Birth </md-header-cell>
-      <md-cell *cdkCellDef="let row"> {{row.data_nascimento}} </md-cell>
+      <mat-header-cell *cdkHeaderCellDef> Date of Birth </mat-header-cell>
+      <mat-cell *cdkCellDef="let row"> {{row.data_nascimento}} </mat-cell>
     </ng-container>
 
     <ng-container cdkColumnDef="menu">
-      <md-header-cell *cdkHeaderCellDef></md-header-cell>
-      <md-cell *cdkCellDef="let row">
-        <button md-icon-button [mdMenuTriggerFor]="menu">
-          <md-icon>more_vert</md-icon>
+      <mat-header-cell *cdkHeaderCellDef></mat-header-cell>
+      <mat-cell *cdkCellDef="let row">
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>more_vert</mat-icon>
         </button>
-        <md-menu #menu="mdMenu">
+        <mat-menu #menu="matMenu">
           <!-- Edit Button -->
-          <button md-menu-item (click)="openEditPlayerFormDialog(row)">
-            <md-icon class="icon">edit</md-icon>
+          <button mat-menu-item (click)="openEditPlayerFormDialog(row)">
+            <mat-icon class="icon">edit</mat-icon>
             <span>Edit Player</span>
           </button>
           <!-- Edit Image | Avatar -->
-          <button md-menu-item (click)="openEditPlayerFotoDialog(row)">
-            <md-icon class="icons">photo</md-icon>
+          <button mat-menu-item (click)="openEditPlayerFotoDialog(row)">
+            <mat-icon class="icons">photo</mat-icon>
             <span>Edit Player Photo</span>
           </button>
           <!-- Delete Button -->
-          <button md-menu-item (click)="openDeletePlayerDialog(row)">
-            <md-icon class="icons">delete</md-icon>
+          <button mat-menu-item (click)="openDeletePlayerDialog(row)">
+            <mat-icon class="icons">delete</mat-icon>
             <span>Remove Player</span>
           </button>
-        </md-menu>
-      </md-cell>
+        </mat-menu>
+      </mat-cell>
     </ng-container>    
 
-    <md-header-row *cdkHeaderRowDef="displayedColumns"></md-header-row>
-    <md-row *cdkRowDef="let row; columns: displayedColumns;"></md-row>
-
-  </md-table>
+    <mat-header-row *cdkHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *cdkRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
 
 </div>
-<button md-fab class="fab-bottom-right" (click)="openCreatePlayerFormDialog()">
-  <md-icon>add</md-icon>
+<button mat-fab class="fab-bottom-right" (click)="openCreatePlayerFormDialog()">
+  <mat-icon>add</mat-icon>
 </button>

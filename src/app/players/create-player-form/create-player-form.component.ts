@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { MdDialogRef, MdDatepickerModule } from '@angular/material';
+import { MatDialogRef} from '@angular/material/dialog';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { PlayersService } from './../../players/players.service';
 import { AbstractControl, FormArray, FormBuilder, FormControl, Validators, FormGroup } from "@angular/forms";
 import { Player } from "./../../interfaces/player";
@@ -17,7 +18,7 @@ export class CreatePlayerFormComponent implements OnInit {
   showMoreText: string = "Show More";
 
   constructor(
-    public dialogRef: MdDialogRef<CreatePlayerFormComponent>, 
+    public dialogRef: MatDialogRef<CreatePlayerFormComponent>, 
     public playersService: PlayersService,
     public fb: FormBuilder
   ) { 

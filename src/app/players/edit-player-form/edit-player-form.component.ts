@@ -1,8 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators, AbstractControl } from "@angular/forms";
-import { MdDialogRef, MdDatepickerModule } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { PlayersService } from "./../players.service";
-import { MD_DIALOG_DATA } from '@angular/material';
 
 @Component({
   selector: 'app-edit-player-form',
@@ -19,9 +19,9 @@ export class EditPlayerFormComponent implements OnInit {
 
   constructor(
     public fb: FormBuilder,
-    public dialogRef: MdDialogRef<EditPlayerFormComponent>, 
+    public dialogRef: MatDialogRef<EditPlayerFormComponent>, 
     public playersService: PlayersService,
-    @Inject(MD_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any
   ) {
 
     this.formplayer = this.fb.group({

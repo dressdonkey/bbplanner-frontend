@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { PlayersService } from "./players.service";
 import { Player } from "./../interfaces/player";
@@ -14,9 +14,6 @@ import 'rxjs/Rx';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/observable/merge';
 import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/operator/distinctUntilChanged';
-import 'rxjs/add/observable/fromEvent';
 
 @Component({
   selector: 'app-players',
@@ -26,35 +23,20 @@ import 'rxjs/add/observable/fromEvent';
 
 export class PlayersComponent {
   displayedColumns = ['avatar', 'userName', 'email', 'dateOfBirth', 'menu'];
-  playerDatabase = new PlayerDatabase(this.playersService);
-  dataSource: PlayerDataSource | null;
+  dataSource: ExampleDataSource | null;
+  players: Array<any>;
 
-  @ViewChild('filter') filter: ElementRef;
-  
   constructor(
-    private playersService: PlayersService,
     private dialog: MatDialog, 
     private dialogedit: MatDialog, 
     private dialogdelete: MatDialog, 
     private dialogeditimage: MatDialog,
-    public snackBar: MatSnackBar
-  ){
-    
+    private playersService: PlayersService,
+    public snackBar: MatSnackBar){
   }
 
   ngOnInit() {
-    
-    this.dataSource = new PlayerDataSource(this.playerDatabase);
-
-    Observable.fromEvent(this.filter.nativeElement, 'keyup')
-      .debounceTime(150)
-      .distinctUntilChanged()
-      .subscribe(() => {
-        if (!this.dataSource) { 
-          return; 
-        }
-        this.dataSource.filter = this.filter.nativeElement.value;
-      });
+    this.dataSource = new ExampleDataSource(this.playersService);
 
     /**
      * 
@@ -62,7 +44,7 @@ export class PlayersComponent {
 
     this.playersService.addedPlayer.subscribe(
       (data) => {
-        this.playerDatabase.addPlayer(data.player);
+        this.dataSource.addPlayer(data.player);
         
         this.snackBar.open(data.message, null, {
           duration: 2000,
@@ -83,7 +65,7 @@ export class PlayersComponent {
           duration: 2000,
         });
 
-        this.playerDatabase.deletePlayer(data.player);
+        this.dataSource.deletePlayer(data.player);
       },
       error => console.log('Problem Deleting Player')
       
@@ -100,12 +82,12 @@ export class PlayersComponent {
           duration: 2000,
         });
         
-        this.playerDatabase.updatePlayer(data.player);
+        this.dataSource.updatePlayer(data.player);
       },
       error => console.log('Problem Updating Player')
       
     );
-      
+    
   }
 
   /**
@@ -164,18 +146,26 @@ export class PlayersComponent {
 
 }
 
-/** An example database that the data source uses to retrieve data for the table. */
-export class PlayerDatabase {
-
-  dataChange: BehaviorSubject<Player[]> = new BehaviorSubject<Player[]>([]);
+export class ExampleDataSource extends DataSource<any> {
   players: Array<any>;
+  dataChange: BehaviorSubject<Player[]> = new BehaviorSubject<Player[]>([]);
+     
+  constructor(
+    private playersService: PlayersService) {
+      super();
+  }
 
-  get data(): Player[] { 
+  get data(): Player[] {
     return this.dataChange.value; 
   }
 
-  constructor(private playersService: PlayersService) {
+  ngOnInit() {
     
+  }
+
+  /** Connect function called by the table to retrieve one stream containing the data to render. */
+  connect(): Observable<Player[]> {
+
     this.playersService.getAllPlayers()
       .subscribe(data => {
         
@@ -189,7 +179,9 @@ export class PlayerDatabase {
         console.log('ERROR');
       }
     );
-    
+
+    return this.dataChange;
+
   }
 
   addPlayer(player) {
@@ -230,40 +222,5 @@ export class PlayerDatabase {
     this.dataChange.next(copiedData);
   }
 
-}
-
-export class PlayerDataSource extends DataSource<any>{
-  _filterChange = new BehaviorSubject('');
-
-  get filter(): string { 
-    return this._filterChange.value; 
-  }
-
-  set filter(filter: string) { 
-    this._filterChange.next(filter); 
-  }
-
-  constructor(private _playerDatabase: PlayerDatabase) {
-    super();
-  }
-
-  /** Connect function called by the table to retrieve one stream containing the data to render. */
-  connect(): Observable<Player[]> {
-    const displayDataChanges = [
-      this._playerDatabase.dataChange,
-      this._filterChange
-    ];
-
-    return Observable.merge(...displayDataChanges).map(() => {
-      return this._playerDatabase.data.slice().filter((player: Player) => {
-        let searchStr = (player.name).toLowerCase();
-        return searchStr.indexOf(this.filter.toLowerCase()) != -1;
-      });
-    });
-
-    //return this._exampleDatabase.dataChange;
-  }
-
   disconnect() {}
-
 }

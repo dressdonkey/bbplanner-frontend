@@ -1,60 +1,59 @@
-<div class="dialog-header">
-  <h3 md-dialog-title>Create Player</h3>
-</div>
-<div class="bb-dialog-container">
-  <form [formGroup]="formplayer" (ngSubmit)="onSubmitCreatePlayer(formplayer.value)">
+<h3 mat-dialog-title class="bb-color--lime-A400">Create Player</h3>
+<form [formGroup]="formplayer" (ngSubmit)="onSubmitCreatePlayer(formplayer.value)">
+  <mat-dialog-content>  
     <div fxLayout="column" fxLayoutGap="8px">
-      <md-input-container>
-        <input mdInput formControlName="name" placeholder="Team Name">
-        <md-hint align="end"> {{ formplayer.get('name').value.length }}/ 255</md-hint>
-      </md-input-container>
-      <md-input-container>
-        <input mdInput formControlName="email" placeholder="Email">
-        <md-hint align="end"> {{ formplayer.get('email').value.length }}/ 255</md-hint>
-      </md-input-container>
-      <md-select formControlName="active" placeholder="Active">
-        <md-option [value]="0">Não</md-option>
-        <md-option [value]="1" selected="selected">Sim</md-option>
-      </md-select>
-      <md-input-container>
-        <input mdInput formControlName="data_nascimento" [mdDatepicker]="picker" placeholder="Choose a date">
-        <button mdSuffix [mdDatepickerToggle]="picker"></button>
-      </md-input-container>
-      <md-datepicker #picker></md-datepicker>
-      <input type="file" id="avatar" formControlName="avatar" placeholder="avatar">
-      <a md-button (click)="toggleShowMore()">
-          {{ showMoreText }}<md-icon *ngIf="!showMore"> arrow_drop_down</md-icon><md-icon *ngIf="showMore"> arrow_drop_up</md-icon>
+      <mat-input-container>
+        <input matInput formControlName="name" placeholder="Team Name">
+        <mat-hint align="end"> {{ formplayer.get('name').value.length }}/ 255</mat-hint>
+      </mat-input-container>
+      <mat-input-container>
+        <input matInput formControlName="email" placeholder="Email">
+        <mat-hint align="end"> {{ formplayer.get('email').value.length }}/ 255</mat-hint>
+      </mat-input-container>
+      <mat-form-field>
+        <mat-select formControlName="active" placeholder="Active">
+          <mat-option [value]="0">Não</mat-option>
+          <mat-option [value]="1" selected="selected">Sim</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput formControlName="data_nascimento" [matDatepicker]="myDatepicker" placeholder="Choose a date">
+        <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
+        <mat-datepicker #myDatepicker></mat-datepicker>
+      </mat-form-field>
+      <a mat-button (click)="toggleShowMore()">
+          {{ showMoreText }}<mat-icon *ngIf="!showMore"> arrow_drop_down</mat-icon><mat-icon *ngIf="showMore"> arrow_drop_up</mat-icon>
       </a>
       <div *ngIf="showMore" fxLayout="column" fxLayoutGap="8px">
-        <md-input-container>
-          <input mdInput formControlName="mothers_name" placeholder="Mothers Name">
-          <md-hint align="end"> {{ formplayer.get('mothers_name').value.length }}/ 255</md-hint>
-        </md-input-container>
-        <md-input-container>
-          <input mdInput formControlName="mothers_name_email" placeholder="Mothers Name Email">
-          <md-hint align="end"> {{ formplayer.get('mothers_name_email').value.length }}/ 255</md-hint>
-        </md-input-container>
-        <md-input-container>
-          <input mdInput formControlName="mothers_name_number" placeholder="Mothers Name Phone Number">
-          <md-hint align="end"> {{ formplayer.get('mothers_name_email').value.length }}/ 255</md-hint>
-        </md-input-container>
-        <md-input-container>
-          <input mdInput formControlName="fathers_name" placeholder="Fathers Name">
-          <md-hint align="end"> {{ formplayer.get('fathers_name').value.length }}/ 255</md-hint>
-        </md-input-container>
-        <md-input-container>
-          <input mdInput formControlName="fathers_name_email" placeholder="Fathers Name Email">
-          <md-hint align="end"> {{ formplayer.get('fathers_name_email').value.length }}/ 255</md-hint>
-        </md-input-container>
-        <md-input-container>
-          <input mdInput formControlName="fathers_name_number" placeholder="Fathers Name Phone Number">
-          <md-hint align="end"> {{ formplayer.get('fathers_name_number').value.length }}/ 255</md-hint>
-        </md-input-container>
+        <mat-input-container>
+          <input matInput formControlName="mothers_name" placeholder="Mothers Name">
+          <mat-hint align="end"> {{ formplayer.get('mothers_name').value.length }}/ 255</mat-hint>
+        </mat-input-container>
+        <mat-input-container>
+          <input matInput formControlName="mothers_name_email" placeholder="Mothers Name Email">
+          <mat-hint align="end"> {{ formplayer.get('mothers_name_email').value.length }}/ 255</mat-hint>
+        </mat-input-container>
+        <mat-input-container>
+          <input matInput formControlName="mothers_name_number" placeholder="Mothers Name Phone Number">
+          <mat-hint align="end"> {{ formplayer.get('mothers_name_email').value.length }}/ 255</mat-hint>
+        </mat-input-container>
+        <mat-input-container>
+          <input matInput formControlName="fathers_name" placeholder="Fathers Name">
+          <mat-hint align="end"> {{ formplayer.get('fathers_name').value.length }}/ 255</mat-hint>
+        </mat-input-container>
+        <mat-input-container>
+          <input matInput formControlName="fathers_name_email" placeholder="Fathers Name Email">
+          <mat-hint align="end"> {{ formplayer.get('fathers_name_email').value.length }}/ 255</mat-hint>
+        </mat-input-container>
+        <mat-input-container>
+          <input matInput formControlName="fathers_name_number" placeholder="Fathers Name Phone Number">
+          <mat-hint align="end"> {{ formplayer.get('fathers_name_number').value.length }}/ 255</mat-hint>
+        </mat-input-container>
       </div>
     </div>
-    <md-dialog-actions align="end">
-      <button md-button type="button" (click)="dialogRef.close()">Cancel</button>
-      <button md-button color="accent" [disabled]="!formplayer.valid">Save</button>
-    </md-dialog-actions>
-  </form>
-</div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button type="button" (click)="dialogRef.close()">Cancel</button>
+    <button mat-button color="accent" [disabled]="!formplayer.valid">Save</button>
+  </mat-dialog-actions>
+</form>

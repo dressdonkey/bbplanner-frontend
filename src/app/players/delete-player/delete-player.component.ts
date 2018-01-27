@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MdDialogRef, MdDatepickerModule } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { PlayersService } from './../../players/players.service';
-import { MD_DIALOG_DATA } from '@angular/material';
 import { Player } from "./../../interfaces/player";
 
 @Component({
@@ -13,9 +13,9 @@ export class DeletePlayerComponent implements OnInit {
   player: Player;
 
   constructor(
-    public dialogRef: MdDialogRef<DeletePlayerComponent>, 
+    public dialogRef: MatDialogRef<DeletePlayerComponent>, 
     private playerService: PlayersService,
-    @Inject(MD_DIALOG_DATA) public data: any) { 
+    @Inject(MAT_DIALOG_DATA) public data: any) { 
 
       this.player = this.data;
            
