@@ -2,8 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators, AbstractControl } from "@angular/forms";
 import { AssociationsService } from "./../../associations/associations.service";
 import { TeamsService } from "./../../teams/teams.service";
-import { MdDialogRef } from "@angular/material";
-import { MD_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { Association } from "./../../interfaces/association";
 
 @Component({
@@ -20,10 +19,10 @@ export class EditTeamFormComponent implements OnInit {
   teamId: number;
 
   constructor(
-    public dialogRef: MdDialogRef<EditTeamFormComponent>,
+    public dialogEditRef: MatDialogRef<EditTeamFormComponent>,
     public associationsService: AssociationsService,
     public teamsService: TeamsService,
-    @Inject(MD_DIALOG_DATA) public data: any,
+    @Inject(MAT_DIALOG_DATA) public data: any,
     public fb:FormBuilder
   ) { 
       this.formteam = this.fb.group({
@@ -72,7 +71,7 @@ export class EditTeamFormComponent implements OnInit {
     
     this.teamsService.updateTeam(this.teamId, team)
       .subscribe();
-    this.dialogRef.close();
+    this.dialogEditRef.close();
 
   }
 

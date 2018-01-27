@@ -1,7 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MdDialogRef, MdDatepickerModule } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { TeamsService } from './../../teams/teams.service';
-import { MD_DIALOG_DATA } from '@angular/material';
+import {  } from '@angular/material';
 import { Team } from "./../../interfaces/team";
 
 @Component({
@@ -13,9 +14,9 @@ export class DeleteTeamComponent implements OnInit {
   team: Team;
 
   constructor(
-    public dialogRef: MdDialogRef<DeleteTeamComponent>, 
+    public dialogRef: MatDialogRef<DeleteTeamComponent>, 
     private teamService: TeamsService,
-    @Inject(MD_DIALOG_DATA) public data: any) { 
+    @Inject(MAT_DIALOG_DATA) public data: any) { 
 
       this.team = this.data;
            

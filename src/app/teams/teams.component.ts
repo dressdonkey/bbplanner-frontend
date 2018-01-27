@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { TeamsService } from "./teams.service";
 import { Team } from "./../interfaces/team";
-import { MdDialog } from "@angular/material";
+import { MatDialog } from "@angular/material/dialog";
 import { CreateTeamFormComponent } from './create-team-form/create-team-form.component';
 import { EditTeamFormComponent } from './edit-team-form/edit-team-form.component';
 import { EditTeamLogoComponent } from './edit-team-logo/edit-team-logo.component';
 import { DeleteTeamComponent } from './delete-team/delete-team.component';
-import { DataSource } from '@angular/cdk';
+import { DataSource } from '@angular/cdk/table';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
-import { MdSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import 'rxjs/Rx';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/observable/merge';
@@ -26,18 +26,19 @@ export class TeamsComponent implements OnInit {
   displayedColumns = ['logo', 'name', 'menu'];
   dataSource: TeamDataSource | null;
   teams: Array<any>;
+  teamsDatabase = new TeamsDatabase(this.teamsService);
 
   constructor(
-    private dialog: MdDialog, 
-    private dialogedit: MdDialog, 
-    private dialogdelete: MdDialog, 
-    private dialogeditimage: MdDialog,
+    private dialog: MatDialog, 
+    private dialogedit: MatDialog, 
+    private dialogdelete: MatDialog, 
+    private dialogeditimage: MatDialog,
     private teamsService: TeamsService,
-    public snackBar: MdSnackBar) {
+    public snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
-    this.dataSource = new TeamDataSource(this.teamsService);
+    this.dataSource = new TeamDataSource(this.teamsDatabase);
 
     /**
      * 
@@ -45,7 +46,7 @@ export class TeamsComponent implements OnInit {
 
     this.teamsService.addedTeam.subscribe(
       (data) => {
-        this.dataSource.addTeam(data.team);
+        this.teamsDatabase.addTeam(data.team);
         
         this.snackBar.open(data.message, null, {
           duration: 2000,
@@ -65,7 +66,7 @@ export class TeamsComponent implements OnInit {
           duration: 2000,
         });
         
-        this.dataSource.updateTeam(data.team);
+        this.teamsDatabase.updateTeam(data.team);
       },
       error => console.log('Problem Updating Team')
       
@@ -82,7 +83,7 @@ export class TeamsComponent implements OnInit {
           duration: 2000,
         });
 
-        this.dataSource.deleteTeam(data.team);
+        this.teamsDatabase.deleteTeam(data.team);
       },
       error => console.log('Problem Deleting Team')
       
@@ -142,23 +143,18 @@ export class TeamsComponent implements OnInit {
 
 }
 
-export class TeamDataSource extends DataSource<any> {
+export class TeamsDatabase{
   teams: Array<any>;
   dataChange: BehaviorSubject<Team[]> = new BehaviorSubject<Team[]>([]);
-
-  constructor(private teamsService: TeamsService) {
-      super();
-  }
-
+  
   get data(): Team[] {
     return this.dataChange.value; 
   }
 
-  ngOnInit() {
-    
-  }
+  constructor(
+    private teamsService: TeamsService
+  ){
 
-  connect(): Observable<Team[]> {
     this.teamsService.getAllTeams()
       .subscribe(data => {
         
@@ -172,8 +168,7 @@ export class TeamDataSource extends DataSource<any> {
         console.log('ERROR');
       }
     );
-    
-    return this.dataChange;
+
   }
 
   /**
@@ -224,6 +219,22 @@ export class TeamDataSource extends DataSource<any> {
     copiedData.splice(position, 1);
 
     this.dataChange.next(copiedData);
+
+  }
+}
+export class TeamDataSource extends DataSource<any> {
+
+  constructor(private _teamsDatabase: TeamsDatabase) {
+      super();
+  }
+
+  ngOnInit() {
+    
+  }
+
+  connect(): Observable<Team[]> {
+    
+    return this._teamsDatabase.dataChange;
 
   }
 

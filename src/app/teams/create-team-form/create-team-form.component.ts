@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators, AbstractControl } from "@angular/forms";
 import { AssociationsService } from "./../../associations/associations.service";
 import { TeamsService } from "./../../teams/teams.service";
-import { MdDialogRef } from "@angular/material";
+import { MatDialogRef } from "@angular/material/dialog";
 import { AuthService } from "./../../auth/auth.service";
 import { Team } from "./../../interfaces/team";
 import { Association } from "./../../interfaces/association";
@@ -23,7 +23,7 @@ export class CreateTeamFormComponent implements OnInit {
 
   constructor(
     public associationsService: AssociationsService,
-    public dialogRef: MdDialogRef<CreateTeamFormComponent>, 
+    public dialogRef: MatDialogRef<CreateTeamFormComponent>, 
     public teamsService: TeamsService,
     public fb: FormBuilder,
     public authService: AuthService

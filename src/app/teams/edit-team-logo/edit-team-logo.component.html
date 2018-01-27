@@ -1,6 +1,4 @@
-<div class="dialog-header">
-  <h3 md-dialog-title>Insert | Edit team Logo</h3>
-</div>
+<h3 mat-dialog-title class="bb-color--lime-A400">Insert | Edit team Logo</h3>
 <div class="bb-dialog-container">  
   <div fxLayout="column" fxLayoutGap="8px">
 
@@ -18,14 +16,17 @@
             <input type="file" ngFileSelect (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput"> browse
           </label>
         </div>
-        <md-chip-list *ngIf="filename" class="bb-mt-8"  [selectable]="selectable">
-            <md-chip>Chosen File: {{ filename }}</md-chip>
-        </md-chip-list>
+        <mat-chip-list *ngIf="filename" class="bb-mt-8">
+            <mat-chip>Chosen File: {{ filename }}</mat-chip>
+        </mat-chip-list>
+        <mat-chip-list *ngIf="errorMessage" class="bb-mt-8">
+            <mat-chip class="bb-bg-color--red-500">{{ errorMessage }}</mat-chip>
+        </mat-chip-list>
       </div>
     </div>   
 
-  <md-dialog-actions align="end">
-    <button md-button type="button" (click)="dialogRef.close()">Cancel</button>
-    <button md-button color="accent" class="start-upload-btn" (click)="startUpload(team.id)" [disabled]="!filename">Start Upload</button>
-  </md-dialog-actions>
+  <mat-dialog-actions align="end">
+    <button mat-button type="button" (click)="dialogRef.close()">Cancel</button>
+    <button mat-button color="accent" class="start-upload-btn" (click)="startUpload(team.id)" [disabled]="!filename">Start Upload</button>
+  </mat-dialog-actions>
 </div>

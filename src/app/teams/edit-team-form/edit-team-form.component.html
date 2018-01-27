@@ -1,51 +1,51 @@
-<div class="dialog-header">
-  <h3 md-dialog-title>Edit Association</h3>
-</div>
-<div class="bb-dialog-container">
-  <form [formGroup]="formteam" (ngSubmit)="onSubmitEditTeam(formteam.value)">
+<h3 mat-dialog-title class="bb-color--lime-A400">Edit Association</h3>
+<form [formGroup]="formteam" (ngSubmit)="onSubmitEditTeam(formteam.value)">
+  <mat-dialog-content>
     <div fxLayout="column" fxLayoutGap="8px">
-      <md-input-container>
-        <input mdInput formControlName="name" placeholder="Team Name">
-        <md-hint align="end"> {{ formteam.get('name').value.length }}/ 255</md-hint>
-      </md-input-container>
-      <md-select formControlName="association_id" placeholder="Association">
-          <md-option *ngFor="let association of associations" [value]="association.id">
+      <mat-form-field>
+        <input matInput formControlName="name" placeholder="Team Name">
+        <mat-hint align="end"> {{ formteam.get('name').value.length }}/ 255</mat-hint>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select formControlName="association_id" placeholder="Association">
+          <mat-option *ngFor="let association of associations" [value]="association.id">
               {{ association.name }}
-          </md-option>
-      </md-select>
-      <md-input-container>
-        <input mdInput formControlName="email" placeholder="Email">
-        <md-hint align="end"> {{ formteam.get('email').value.length }}/ 255</md-hint>
-      </md-input-container>
-      <a md-button (click)="toggleShowMore()">
-          {{ showMoreText }}<md-icon *ngIf="!showMore"> arrow_drop_down</md-icon><md-icon *ngIf="showMore"> arrow_drop_up</md-icon>
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput formControlName="email" placeholder="Email">
+        <mat-hint align="end"> {{ formteam.get('email').value.length }}/ 255</mat-hint>
+      </mat-form-field>
+      <a mat-button (click)="toggleShowMore()">
+          {{ showMoreText }}<mat-icon *ngIf="!showMore"> arrow_drop_down</mat-icon><mat-icon *ngIf="showMore"> arrow_drop_up</mat-icon>
       </a>
       <div *ngIf="showMore" fxLayout="column" fxLayoutGap="8px">
-        <md-input-container>
-          <input mdInput formControlName="address" placeholder="Address">
-          <md-hint align="end"> {{ formteam.get('address').value.length }}/ 255</md-hint>
-        </md-input-container>
-        <md-input-container>
-          <input mdInput formControlName="facebook" placeholder="Facebook">
-          <md-hint align="end"> {{ formteam.get('facebook').value.length }}/ 255</md-hint>
-        </md-input-container>
-        <md-input-container>
-          <input mdInput formControlName="twitter" placeholder="Twitter">
-          <md-hint align="end"> {{ formteam.get('twitter').value.length }}/ 255</md-hint>
-        </md-input-container>
-        <md-input-container>
-          <input mdInput formControlName="googleplus" placeholder="Googleplus">
-          <md-hint align="end"> {{ formteam.get('googleplus').value.length }}/ 255</md-hint>
-        </md-input-container>
-        <md-input-container>
-          <input mdInput formControlName="arena" placeholder="Arena">
-          <md-hint align="end"> {{ formteam.get('arena').value.length }}/ 255</md-hint>
-        </md-input-container>
+        <mat-form-field>
+          <input matInput formControlName="address" placeholder="Address">
+          <mat-hint align="end"> {{ formteam.get('address').value.length }}/ 255</mat-hint>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput formControlName="facebook" placeholder="Facebook">
+          <mat-hint align="end"> {{ formteam.get('facebook').value.length }}/ 255</mat-hint>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput formControlName="twitter" placeholder="Twitter">
+          <mat-hint align="end"> {{ formteam.get('twitter').value.length }}/ 255</mat-hint>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput formControlName="googleplus" placeholder="Googleplus">
+          <mat-hint align="end"> {{ formteam.get('googleplus').value.length }}/ 255</mat-hint>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput formControlName="arena" placeholder="Arena">
+          <mat-hint align="end"> {{ formteam.get('arena').value.length }}/ 255</mat-hint>
+        </mat-form-field>
       </div>
     </div>
-    <md-dialog-actions align="end">
-      <button md-button type="button" (click)="dialogEditRef.close()">Cancel</button>
-      <button md-button color="accent" [disabled]="!formteam.valid">Save</button>
-    </md-dialog-actions>
-  </form>
-</div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button type="button" (click)="dialogEditRef.close()">Cancel</button>
+    <button mat-button color="accent" [disabled]="!formteam.valid">Save</button>
+  </mat-dialog-actions>
+</form>
