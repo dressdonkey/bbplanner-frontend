@@ -1,23 +1,23 @@
-<md-toolbar color="primary">
-  <button md-icon-button (click)="sidenav.toggle()" *ngIf="isLoggedIn">
-    <md-icon>dehaze</md-icon>
+<mat-toolbar color="primary">
+  <button mat-icon-button (click)="sidenav.toggle()">
+    <mat-icon>dehaze</mat-icon>
   </button>
   <span>BBPlanner - Basketball Banner V.0.1</span>
   <span fxFlex></span>
-  <a md-button *ngIf="!isLoggedIn" [mdMenuTriggerFor]="menuguest">
-    <md-icon>account_circle</md-icon>Guest
+  <a mat-button *ngIf="!isLoggedIn" [matMenuTriggerFor]="menuguest">
+    <mat-icon>account_circle</mat-icon>Guest
   </a>
-  <md-menu #menuguest="mdMenu">
-    <button md-menu-item routerLink="login">
+  <mat-menu #menuguest="matMenu">
+    <button mat-menu-item routerLink="login">
       <span>Login</span>
     </button>
-  </md-menu>
-  <a md-button *ngIf="isLoggedIn" [mdMenuTriggerFor]="menuloggedin">
-    <md-icon>account_circle</md-icon>{{ userName }}
+  </mat-menu>
+  <a mat-button *ngIf="isLoggedIn" [matMenuTriggerFor]="menuloggedin">
+    <mat-icon>account_circle</mat-icon>{{ userName }}
   </a>
-  <md-menu #menuloggedin="mdMenu">
-    <button md-menu-item (click)="logout()">
+  <mat-menu #menuloggedin="matMenu">
+    <button mat-menu-item (click)="logout()">
       <span>Logout</span>
     </button>
-  </md-menu>
-</md-toolbar>
+  </mat-menu>
+</mat-toolbar>
