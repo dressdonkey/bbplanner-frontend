@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { LevelsService } from "./levels.service";
 import { Level } from "./../interfaces/level";
-import { MdDialog } from "@angular/material";
+import { MatDialog } from "@angular/material/dialog";
 import { CreateLevelFormComponent } from './create-level-form/create-level-form.component';
 import { EditLevelFormComponent } from './edit-level-form/edit-level-form.component';
 import { DeleteLevelComponent } from './delete-level/delete-level.component';
-import { DataSource } from '@angular/cdk';
+import { DataSource } from '@angular/cdk/table';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
-import { MdSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import 'rxjs/Rx';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/observable/merge';
@@ -25,18 +25,19 @@ export class LevelsComponent implements OnInit {
   displayedColumns = ['name', 'menu'];
   dataSource: LevelDataSource | null;
   levels: Array<any>;
+  levelsDatabase = new LevelsDatabase(this.levelsService);
 
   constructor(
-    private dialog: MdDialog, 
-    private dialogedit: MdDialog, 
-    private dialogdelete: MdDialog, 
-    private dialogeditimage: MdDialog,
+    private dialog: MatDialog, 
+    private dialogedit: MatDialog, 
+    private dialogdelete: MatDialog, 
+    private dialogeditimage: MatDialog,
     private levelsService: LevelsService,
-    public snackBar: MdSnackBar) {
+    public snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
-    this.dataSource = new LevelDataSource(this.levelsService);
+    this.dataSource = new LevelDataSource(this.levelsDatabase);
 
     /**
      * 
@@ -44,7 +45,7 @@ export class LevelsComponent implements OnInit {
 
     this.levelsService.addedLevel.subscribe(
       (data) => {
-        this.dataSource.addLevel(data.level);
+        this.levelsDatabase.addLevel(data.level);
         
         this.snackBar.open(data.message, null, {
           duration: 2000,
@@ -64,7 +65,7 @@ export class LevelsComponent implements OnInit {
           duration: 2000,
         });
         
-        this.dataSource.updateLevel(data.level);
+        this.levelsDatabase.updateLevel(data.level);
       },
       error => console.log('Problem Updating Level')
       
@@ -81,7 +82,7 @@ export class LevelsComponent implements OnInit {
           duration: 2000,
         });
 
-        this.dataSource.deleteLevel(data.level);
+        this.levelsDatabase.deleteLevel(data.level);
       },
       error => console.log('Problem Deleting Level')
       
@@ -127,23 +128,14 @@ export class LevelsComponent implements OnInit {
 
 }
 
-export class LevelDataSource extends DataSource<any> {
+export class LevelsDatabase{
   levels: Array<any>;
-  dataChange: BehaviorSubject<Level[]> = new BehaviorSubject<Level[]>([]);
+  dataChange:BehaviorSubject<Level[]> = new BehaviorSubject<Level[]>([]);
 
-  constructor(private levelsService: LevelsService) {
-      super();
-  }
+  constructor(
+    private levelsService: LevelsService
+  ){
 
-  get data(): Level[] {
-    return this.dataChange.value; 
-  }
-
-  ngOnInit() {
-    
-  }
-
-  connect(): Observable<Level[]> {
     this.levelsService.getAllLevels()
       .subscribe(data => {
         
@@ -157,8 +149,11 @@ export class LevelDataSource extends DataSource<any> {
         console.log('ERROR');
       }
     );
-    
-    return this.dataChange;
+
+  }
+
+  get data(): Level[] {
+    return this.dataChange.value; 
   }
 
   /**
@@ -209,6 +204,23 @@ export class LevelDataSource extends DataSource<any> {
     copiedData.splice(position, 1);
 
     this.dataChange.next(copiedData);
+
+  }
+}
+
+export class LevelDataSource extends DataSource<any> {
+
+  constructor(private _levelsDatabase: LevelsDatabase) {
+      super();
+  }
+
+  ngOnInit() {
+    
+  }
+
+  connect(): Observable<Level[]> {
+    
+    return this._levelsDatabase.dataChange;
 
   }
 

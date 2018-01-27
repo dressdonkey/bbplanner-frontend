@@ -1,18 +1,14 @@
-<div class="dialog-header">
-  <h3 md-dialog-title>Add Level</h3>
-</div>
-<div class="bb-dialog-container">
-  <form [formGroup]="formlevel" (ngSubmit)="onSubmitCreateLevel(formlevel.value)">
-    <div fxLayout="column" fxLayoutGap="8px">
-      <md-input-container>
-        <input mdInput formControlName="name" placeholder="Level Name" maxlength="255">
-        <md-hint align="end"> {{ formlevel.get('name').value.length }}/ 255</md-hint>
-      </md-input-container>
-    </div>
-    <md-dialog-actions align="end">
-      <button md-button type="button" (click)="dialogCreateRef.close()">Cancel</button>
-      <button md-button color="accent" [disabled]="!formlevel.valid">Save</button>
-    </md-dialog-actions>
-  </form>
-</div>
+<h3 mat-dialog-title class="bb-color--lime-A400">Add Age Level</h3>
+<form [formGroup]="formlevel" (ngSubmit)="onSubmitCreateLevel(formlevel.value)">
+  <div fxLayout="column" fxLayoutGap="8px">
+    <mat-form-field>
+      <input matInput formControlName="name" placeholder="Level Name" maxlength="255">
+      <mat-hint align="end"> {{ formlevel.get('name').value.length }}/ 255</mat-hint>
+    </mat-form-field>
+  </div>
+  <mat-dialog-actions align="end">
+    <button mat-button type="button" (click)="dialogCreateRef.close()">Cancel</button>
+    <button mat-button color="accent" [disabled]="!formlevel.valid">Save</button>
+  </mat-dialog-actions>
+</form>
 

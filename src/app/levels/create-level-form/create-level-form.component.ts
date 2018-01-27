@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormBuilder, FormGroup, Validators, AbstractControl } from "@angular/forms";
-import { MdDialogRef } from "@angular/material";
+import { MatDialogRef } from "@angular/material/dialog";
 import { LevelsService } from "./../levels.service";
 import { AuthService } from "./../../auth/auth.service";
 import { Level } from "./../../interfaces/level";
@@ -16,7 +16,7 @@ export class CreateLevelFormComponent implements OnInit {
   Level: Level;
 
   constructor(
-    public dialogCreateRef: MdDialogRef<CreateLevelFormComponent>, 
+    public dialogCreateRef: MatDialogRef<CreateLevelFormComponent>, 
     public levelsService: LevelsService,
     public fb: FormBuilder,
     public authService: AuthService

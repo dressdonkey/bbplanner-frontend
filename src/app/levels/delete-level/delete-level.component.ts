@@ -1,7 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MdDialogRef } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { LevelsService } from './../../levels/levels.service';
-import { MD_DIALOG_DATA } from '@angular/material';
 import { Level } from "./../../interfaces/level";
 
 @Component({
@@ -13,9 +12,9 @@ export class DeleteLevelComponent implements OnInit {
   level: Level;
 
   constructor(
-    public dialogRef: MdDialogRef<DeleteLevelComponent>, 
+    public dialogRef: MatDialogRef<DeleteLevelComponent>, 
     private levelsService: LevelsService,
-    @Inject(MD_DIALOG_DATA) public data:any
+    @Inject(MAT_DIALOG_DATA) public data:any
   ) { 
       this.level = this.data;
   }

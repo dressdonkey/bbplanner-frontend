@@ -1,42 +1,40 @@
 <div class="content" fxLayout="column" fxFlex>
-  <div class="content-header">
-    <h2>Levels</h2>
-  </div>
-  <md-table #table [dataSource]="dataSource">
+  <h2 class="bb-p-24 bb-color--lime-A400">Age Levels</h2>
+  <mat-table #table [dataSource]="dataSource">
 
     <!-- Name Column -->
     <ng-container cdkColumnDef="name">
-      <md-header-cell *cdkHeaderCellDef> Level Name </md-header-cell>
-      <md-cell *cdkCellDef="let row"> {{row.name}} </md-cell>
+      <mat-header-cell *cdkHeaderCellDef> Level Name </mat-header-cell>
+      <mat-cell *cdkCellDef="let row"> {{row.name}} </mat-cell>
     </ng-container>
 
     <ng-container cdkColumnDef="menu">
-      <md-header-cell *cdkHeaderCellDef></md-header-cell>
-      <md-cell *cdkCellDef="let row">
-        <button md-icon-button [mdMenuTriggerFor]="menu">
-          <md-icon>more_vert</md-icon>
+      <mat-header-cell *cdkHeaderCellDef></mat-header-cell>
+      <mat-cell *cdkCellDef="let row">
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>more_vert</mat-icon>
         </button>
-        <md-menu #menu="mdMenu">
+        <mat-menu #menu="matMenu">
           <!-- Edit Button -->
-          <button md-menu-item (click)="openEditLevelDialog(row)">
-            <md-icon class="icon">edit </md-icon>
+          <button mat-menu-item (click)="openEditLevelDialog(row)">
+            <mat-icon class="icon">edit </mat-icon>
             <span>Edit Level</span>
           </button>
           <!-- Delete Button -->
-          <button md-menu-item (click)="openDeleteLevelDialog(row)">
-            <md-icon class="icons">delete</md-icon>
+          <button mat-menu-item (click)="openDeleteLevelDialog(row)">
+            <mat-icon class="icons">delete</mat-icon>
             <span>Remove Level</span>
           </button>
-        </md-menu>
-      </md-cell>
+        </mat-menu>
+      </mat-cell>
     </ng-container> 
 
-    <md-header-row *cdkHeaderRowDef="displayedColumns"></md-header-row>
-    <md-row *cdkRowDef="let row; columns: displayedColumns;"></md-row>
+    <mat-header-row *cdkHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *cdkRowDef="let row; columns: displayedColumns;"></mat-row>
 
-  </md-table>
+  </mat-table>
 
-  <button md-fab class="fab-bottom-right" (click)="openCreateLevelDialog()">
-    <md-icon>add</md-icon>
+  <button mat-fab class="fab-bottom-right" (click)="openCreateLevelDialog()">
+    <mat-icon>add</mat-icon>
   </button>
 </div>
