@@ -1,10 +1,7 @@
 import { Component, OnInit, ViewChild, HostBinding } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, Validators, FormGroup } from "@angular/forms";
-import { AngularFireModule } from "angularfire2";
 import { Router } from "@angular/router";
 import { Observable } from 'rxjs/Observable';
-import { AngularFireAuth } from 'angularfire2/auth';
-import * as firebase from 'firebase/app';
 import { AuthService } from "./../auth.service";
 
 @Component({
@@ -15,8 +12,6 @@ import { AuthService } from "./../auth.service";
 
 export class LoginFormComponent implements OnInit {
   loginform: FormGroup;
-  user: Observable<firebase.User>;
-  result: firebase.Promise<any>;
 
   constructor( 
     public fb: FormBuilder,
@@ -34,19 +29,10 @@ export class LoginFormComponent implements OnInit {
 
   loginWithEmail(data) {
 
-    this.authService.loginWithEmail(data.email, data.password)
-      .then( data => {
-        this.router.navigate(['home']);
-      })
-      .catch( err => {
-        //@TODO
-      });
-    
-    //this.router.navigate(['home']);
   }
 
   logout() {
-    this.result = this.authService.logout();
+    
   }
 
 }

@@ -2,13 +2,38 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { CdkTableModule } from '@angular/cdk';
+import { CdkTableModule } from '@angular/cdk/table';
 import { NgUploaderModule } from 'ngx-uploader';
+import { HttpClientModule } from '@angular/common/http';
 
 import { routes } from './app.router';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MaterialModule, MdNativeDateModule } from '@angular/material';
+
+import { 
+  MatNativeDateModule, 
+  MatIconModule, 
+  MatMenuModule, 
+  MatTableModule, 
+  MatSelectModule, 
+  MatDatepickerModule, 
+  MatChipsModule, 
+  MatSnackBarModule, 
+  MatToolbarModule, 
+  MatSidenavModule,
+  MatButtonModule,
+  MatListModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatDialogModule,
+  MatStepperModule,
+  MatCardModule,
+  MatTabsModule,
+  MatSlideToggleModule,
+  MatGridListModule,
+  MatCheckboxModule
+} from '@angular/material';
+
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { AppComponent } from './app.component';
@@ -34,8 +59,16 @@ import { AssociationsService } from './associations/associations.service';
 import { TeamsService } from './teams/teams.service';
 import { PlayersService } from './players/players.service';
 import { AuthService } from './auth/auth.service';
-import { CompetitionsService } from './competitions/competitions.service';
+import { CompetitionsService } from './competitions/competitions.service'
 import { LevelsService } from './levels/levels.service';
+import { GenderService } from './gender/gender.service';
+import { SeasonService } from './season/season.service';
+import { RosterService } from './roster/roster.service';
+import { PracticesService } from './practices/practices.service';
+import { DrillService } from './drill/drill.service';
+import { PlaysService } from './plays/plays.service';
+import { AttendanceService } from "./practices/attendance/attendance.service";
+
 
 /* Dialogs */
 import { CreateSeasonFormComponent } from './seasons/create-season-form/create-season-form.component';
@@ -61,6 +94,14 @@ import { DeleteAssociationComponent } from './associations/delete-association/de
 import { DeleteLevelComponent } from './levels/delete-level/delete-level.component';
 import { DeleteTeamComponent } from './teams/delete-team/delete-team.component';
 import { EditTeamLogoComponent } from './teams/edit-team-logo/edit-team-logo.component';
+import { GenderComponent } from './gender/gender.component';
+import { MessageComponent } from './message/message.component';
+import { AddPlayerComponent } from './roster/add-player/add-player.component';
+import { PlaysComponent } from './plays/plays.component';
+import { PracticeComponent } from './practices/practice/practice.component';
+import { AttendanceComponent } from './practices/attendance/attendance.component';
+import { DrillComponent } from './drill/drill.component';
+import { CreateDrillFormComponent } from './drill/create-drill-form/create-drill-form.component';
 
 @NgModule({
   declarations: [
@@ -100,20 +141,48 @@ import { EditTeamLogoComponent } from './teams/edit-team-logo/edit-team-logo.com
     DeleteAssociationComponent,
     DeleteLevelComponent,
     DeleteTeamComponent,
-    EditTeamLogoComponent
+    EditTeamLogoComponent,
+    GenderComponent,
+    MessageComponent,
+    AddPlayerComponent,
+    DrillComponent,
+    PlaysComponent,
+    PracticeComponent,
+    AttendanceComponent,
+    CreateDrillFormComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    MaterialModule,
-    MdNativeDateModule,
+    MatNativeDateModule,
     FlexLayoutModule,
     BrowserAnimationsModule,
     routes,
     ReactiveFormsModule,
     CdkTableModule,
-    NgUploaderModule
+    NgUploaderModule,
+    MatIconModule,
+    MatMenuModule,
+    MatTableModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatChipsModule,
+    MatSnackBarModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatButtonModule,
+    MatListModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDialogModule,
+    MatStepperModule,
+    MatTabsModule,
+    MatSlideToggleModule,
+    HttpClientModule,
+    MatCardModule,
+    MatGridListModule,
+    MatCheckboxModule    
   ],
   providers : [
     SeasonsService,
@@ -122,7 +191,14 @@ import { EditTeamLogoComponent } from './teams/edit-team-logo/edit-team-logo.com
     PlayersService,
     AuthService,
     CompetitionsService,
-    LevelsService
+    LevelsService,
+    GenderService,
+    SeasonService,
+    RosterService,
+    PracticesService,
+    DrillService,
+    PlaysService,
+    AttendanceService,
   ],
   entryComponents: [
     CreateSeasonFormComponent,
@@ -145,7 +221,10 @@ import { EditTeamLogoComponent } from './teams/edit-team-logo/edit-team-logo.com
     EditAssociationLogoComponent,
     DeleteAssociationComponent,
     DeleteTeamComponent,
-    EditTeamLogoComponent
+    EditTeamLogoComponent,
+    MessageComponent,
+    AddPlayerComponent,
+    CreateDrillFormComponent
   ],
   bootstrap: [AppComponent]
 })

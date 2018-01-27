@@ -1,89 +1,101 @@
 <div fxLayout="column" fxFlex>
-  <md-toolbar color="primary">
-    <button md-icon-button (click)="sidenav.toggle()">
-      <md-icon>dehaze</md-icon>
+  <mat-toolbar color="primary" class="mat-elevation-z6">
+    <button mat-icon-button (click)="sidenav.toggle()">
+      <mat-icon>dehaze</mat-icon>
     </button>
     <span>BBPlanner - Basketball Banner V.0.1</span>
     <span fxFlex></span>
-    <a md-button *ngIf="!isLoggedIn" [mdMenuTriggerFor]="menuguest">
-      <md-icon>account_circle</md-icon>Guest
+    <a mat-button *ngIf="!isLoggedIn" [matMenuTriggerFor]="menuguest">
+      <mat-icon>account_circle</mat-icon>Guest
     </a>
-    <md-menu #menuguest="mdMenu">
-      <button md-menu-item routerLink="login">
+    <mat-menu #menuguest="matMenu">
+      <button mat-menu-item routerLink="login">
         <span>Login</span>
       </button>
-    </md-menu>
-    <a md-button *ngIf="isLoggedIn" [mdMenuTriggerFor]="menuloggedin">
-      <md-icon>account_circle</md-icon>{{ userName }}
+    </mat-menu>
+    <a mat-button *ngIf="isLoggedIn" [matMenuTriggerFor]="menuloggedin">
+      <mat-icon>account_circle</mat-icon>{{ userName }}
     </a>
-    <md-menu #menuloggedin="mdMenu">
-      <button md-menu-item (click)="logout()">
+    <mat-menu #menuloggedin="matMenu">
+      <button mat-menu-item (click)="logout()">
         <span>Logout</span>
       </button>
-    </md-menu>
-  </md-toolbar>
-  <md-sidenav-container>
-    <md-sidenav #sidenav mode="over">
-        <md-nav-list>
-          <h3 md-subheader>Your Season</h3>
-          <md-list-item>
-            <md-icon md-list-icon>folder</md-icon>
-            <a routerLink="season">
+    </mat-menu>
+  </mat-toolbar>
+  <mat-sidenav-container>
+    <mat-sidenav #sidenav mode="over">
+        <mat-nav-list>
+          <h3 mat-subheader>Your Season</h3>
+          <mat-list-item>
+            <mat-icon mat-list-icon>folder</mat-icon>
+            <a routerLink="home">
               <span>Season</span>
             </a>
-          </md-list-item>
-          <md-list-item>
-            <md-icon md-list-icon>folder</md-icon>
-            <a routerLink="practices">
+          </mat-list-item>
+          <mat-list-item>
+            <mat-icon mat-list-icon>folder</mat-icon>
+            <a routerLink="practices/season/{{ seasonID }}">
               <span>Pratices</span>
             </a>
-          </md-list-item>
-          <md-list-item>
-            <md-icon md-list-icon>folder</md-icon>
-            <a routerLink="roster">
+          </mat-list-item>
+          <mat-list-item>
+            <mat-icon mat-list-icon>folder</mat-icon>
+            <a routerLink="roster/season/{{ seasonID }}">
               <span>Roster</span>
             </a>
-          </md-list-item>
-          <md-divider></md-divider>
-          <h3 md-subheader>Config</h3>
-          <md-list-item>
-            <md-icon md-list-icon>folder</md-icon>
+          </mat-list-item>
+          <mat-list-item>
+            <mat-icon mat-list-icon>folder</mat-icon>
+            <a routerLink="drills">
+              <span>Drills</span>
+            </a>
+          </mat-list-item>
+          <mat-list-item>
+            <mat-icon mat-list-icon>folder</mat-icon>
+            <a routerLink="plays">
+              <span>Plays</span>
+            </a>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+          <h3 mat-subheader>Config</h3>
+          <mat-list-item>
+            <mat-icon md-list-icon>folder</mat-icon>
             <a routerLink="seasons">
               <span>Seasons (Epoca)</span>
             </a>
-          </md-list-item>
-          <md-list-item>
-            <md-icon md-list-icon>folder</md-icon>
+          </mat-list-item>
+          <mat-list-item>
+            <mat-icon md-list-icon>folder</mat-icon>
             <a routerLink="associations">
               <span>Divisions/Associations</span>
             </a>
-          </md-list-item>
-          <md-list-item>
-            <md-icon md-list-icon>folder</md-icon>
+          </mat-list-item>
+          <mat-list-item>
+            <mat-icon md-list-icon>folder</mat-icon>
             <a routerLink="teams">
               <span>Clubs/Teams</span>
             </a>
-          </md-list-item>
-          <md-list-item>
-            <md-icon md-list-icon>folder</md-icon>
+          </mat-list-item>
+          <mat-list-item>
+            <mat-icon md-list-icon>folder</mat-icon>
             <a routerLink="competitions">
               <span>Competitions</span>
             </a>
-          </md-list-item>
-          <md-list-item>
-            <md-icon md-list-icon>folder</md-icon>
+          </mat-list-item>
+          <mat-list-item>
+            <mat-icon md-list-icon>folder</mat-icon>
             <a routerLink="levels">
-              <span>Levels (Escalões)</span>
+              <span>Age Group (Escalões)</span>
             </a>
-          </md-list-item>
-          <md-list-item>
-            <md-icon md-list-icon>people</md-icon>
+          </mat-list-item>
+          <mat-list-item>
+            <mat-icon md-list-icon>people</mat-icon>
             <a routerLink="players">
               <span>Players</span>
             </a>
-          </md-list-item>
-        </md-nav-list>
-    </md-sidenav>
+          </mat-list-item>
+        </mat-nav-list>
+    </mat-sidenav>
     <router-outlet></router-outlet>
-  </md-sidenav-container>
+  </mat-sidenav-container>
 </div>

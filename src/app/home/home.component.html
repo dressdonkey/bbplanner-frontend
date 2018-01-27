@@ -1,12 +1,85 @@
 <div class="content" fxLayout="column" fxFlex>
-  <div class="content-header">
-    <h2>Welcome</h2>
-  </div>
-  <div fxLayout="column" fxLayoutAlign="center center" class="bb-mt-1">
-    <div>
-      <md-icon class="md-48">person</md-icon>
-    </div>
-    <div *ngIf="userID">Users ID: {{ userID }}</div>
-    <div *ngIf="userEmail">Users Email: {{ userEmail }}</div>
+  <mat-toolbar class="bb-p-24 bb-color--lime-A400">Season: {{ seasonName }}</mat-toolbar>
+  <div fxLayout="column" fxLayoutAlign=" stretch" class="bb-mt-1">
+    <mat-tab-group flex dynamicHeight="true">
+      <mat-tab label="Your Season">
+        <p class="bb-p-24">{{ observations }}</p>
+      </mat-tab>
+      <mat-tab label="Roster">
+        <mat-table #table [dataSource]="dataSource">
+          
+          <!-- Avatar Column -->
+          <ng-container cdkColumnDef="avatar">
+            <mat-header-cell *cdkHeaderCellDef fxFlex="10"> Foto </mat-header-cell>
+            <mat-cell *cdkCellDef="let row" fxFlex="10">
+              <img *ngIf="row.avatar" src="http://192.168.33.10/assets/uploads/{{ row.avatar }}" width="30px" alt="" class="mat-avatar">
+              <img *ngIf="!row.avatar" src="/assets/images/avatar-default.png" width="30px" alt="" class="mat-avatar">
+            </mat-cell>
+          </ng-container>
+      
+          <!-- Name Column -->
+          <ng-container cdkColumnDef="userName">
+            <mat-header-cell *cdkHeaderCellDef fxFlex="40"> Name </mat-header-cell>
+            <mat-cell *cdkCellDef="let row" fxFlex="40"> {{ row.name }} </mat-cell>
+          </ng-container>
+      
+          <!-- Date of Birth Column -->
+          <ng-container cdkColumnDef="dateOfBirth">
+            <mat-header-cell *cdkHeaderCellDef fxFlex="20"> Date of Birth </mat-header-cell>
+            <mat-cell *cdkCellDef="let row" fxFlex="20"> {{ row.data_nascimento }} </mat-cell>
+          </ng-container>    
+
+          <!-- Date of Birth Column -->
+          <ng-container cdkColumnDef="active">
+            <mat-header-cell *cdkHeaderCellDef fxFlex="20"> Activo </mat-header-cell>
+            <mat-cell *cdkCellDef="let row" fxFlex="20"> {{ row.active }} </mat-cell>
+          </ng-container>
+          
+          <ng-container cdkColumnDef="menu">
+            <mat-header-cell *cdkHeaderCellDef fxFlex="10"></mat-header-cell>
+            <mat-cell *cdkCellDef="let row" fxFlex="10">
+              <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu" xPosition="after" yPosition="below">
+                <!-- Edit Button -->
+                <button mat-menu-item (click)="openEditPlayerFormDialog(row)">
+                  <mat-icon class="icon">edit</mat-icon>
+                  <span>Edit Player</span>
+                </button>
+                <!-- Edit Image | Avatar -->
+                <button mat-menu-item (click)="openEditPlayerFotoDialog(row)">
+                  <mat-icon class="icons">photo</mat-icon>
+                  <span>Edit Player Photo</span>
+                </button>
+                <!-- Delete Button -->
+                <button mat-menu-item (click)="openDeletePlayerDialog(row)">
+                  <mat-icon class="icons">delete</mat-icon>
+                  <span>Remove Player</span>
+                </button>
+              </mat-menu>
+            </mat-cell>
+          </ng-container> 
+      
+          <mat-header-row *cdkHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *cdkRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+        <button mat-fab class="fab-bottom-right" (click)="openAddPlayerDialog()">
+          <mat-icon>add</mat-icon>
+        </button>
+      </mat-tab>
+      <mat-tab label="Practices">
+          <mat-card *ngFor="let practice of practices; let i = index" class="bb-my-2">
+              <mat-card-title>Practice #{{ i+1 }} </mat-card-title>
+              <mat-card-subtitle class="bb-color--lime-A400">{{ practice.practice_date | date }} at {{ practice.practice_time }} - {{ practice.duration }} mins</mat-card-subtitle>
+              <mat-card-content>{{ practice.objective }}</mat-card-content>
+              <mat-card-actions align="end">
+                  <button mat-icon-button [routerLink]="['/practices', practice.id]">
+                    <mat-icon>remove_red_eye</mat-icon>
+                  </button>
+              </mat-card-actions>
+          </mat-card>
+      </mat-tab>
+    </mat-tab-group>
   </div>
 </div>

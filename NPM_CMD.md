@@ -1,0 +1,1 @@
+npm install --save @angular/forms@5.1.0 @angular/http@5.1.0 @angular/router@5.1.0 @angular/platform-browser@5.1.0 @angular/platform-browser-dynamic@5.1.0 @angular/platform-server@5.1.0 @angular/compiler@5.1.0 @angular/compiler-cli@5.1.0

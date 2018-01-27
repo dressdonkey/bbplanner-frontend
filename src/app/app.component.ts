@@ -1,7 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
 import { AuthService } from "./auth/auth.service";
 import { Router } from '@angular/router';
-import { MdSidenav } from '@angular/material';
+import { MatSidenav } from '@angular/material/sidenav';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 
 @Component({
@@ -11,9 +13,10 @@ import { Observable } from 'rxjs/Observable';
 })
 
 export class AppComponent {
-  @ViewChild('loggedIn') isLoggedIn: Boolean;
-  @ViewChild('userName') userName: Boolean;
+  //@ViewChild('loggedIn') isLoggedIn: Boolean;
+  //@ViewChild('userName') userName: Boolean;
 
+  seasonID: number = 1; //@TODO Get season default
 
   constructor(public authService: AuthService, private router: Router) {
 
