@@ -1,0 +1,66 @@
+<div class="content" fxLayout="column" fxFlex>
+  <mat-toolbar class="bb-p-24 bb-color--lime-A400">
+    <button mat-icon-button color="accent" [routerLink]="['/practices/season/', practice?.season_id]">
+      <mat-icon class="material-icons md-36">keyboard_arrow_left</mat-icon>
+    </button>
+    <div class="bb-ml-3">Practice</div>
+  </mat-toolbar>
+  <div fxLayout="column" fxLayoutAlign=" stretch" class="bb-mt-1">
+    <mat-toolbar>
+      <div>{{ practice?.practice_date | date }} {{ practice?.practice_time }}</div> 
+      <span class="bb-spacer"></span>
+      <div>Duration {{ practice?.duration }} mins.</div>
+    </mat-toolbar>
+    <div fxLayout="column" fxLayoutGap="24px" class="bb-mt-1">
+      <mat-card *ngFor="let drill of drills" >
+        <mat-card-header>
+          <mat-card-title class="bb-color--lime-A400 bb-font-weight-light">{{drill.name}}</mat-card-title>
+          <mat-card-subtitle>{{drill.pivot.duration}} mins</mat-card-subtitle>
+        </mat-card-header>
+        <div fxLayout="column" class="bb-mt-1">
+          <div fxLayout="row" class="bb-mt-1" *ngFor="let diagram of drill.drilldiagrams; let i = index">
+            <div fxFlex="20" >
+              <div  class="bb-mb-2">
+                <img mat-card-image src="http://192.168.33.10/assets/uploads/drill_diagrams/{{ diagram.file }}">
+                <div class="bb-text-center bb-font-size-14">Fig. {{ i+1 }}</div>
+              </div>
+            </div>
+            <div class="pm-drill-discription" fxFlex="80">{{diagram.drill_diagram_note}}</div>
+          </div>
+        </div>
+        <mat-card-actions align="end">
+          <button mat-icon-button>
+              <mat-icon class="material-icons">edit</mat-icon>
+          </button>
+          <button mat-icon-button>
+              <mat-icon class="material-icons">arrow_upward</mat-icon>
+          </button>
+          <button mat-icon-button>
+              <mat-icon class="material-icons">arrow_downward</mat-icon>
+          </button>
+          <button mat-icon-button>
+              <mat-icon class="material-icons">delete</mat-icon>
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+    <button mat-fab class="fab-bottom-right" (click)="openCreatePlayerFormDialog()" [matMenuTriggerFor]="menu">
+      <mat-icon>add</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>
+        <mat-icon>dialpad</mat-icon>
+        <span>Add Drill</span>
+      </button>
+      <button mat-menu-item disabled>
+        <mat-icon>voicemail</mat-icon>
+        <span>Add Play</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>notifications_off</mat-icon>
+        <span>Disable alerts</span>
+      </button>
+    </mat-menu>
+  </div>
+</div>
+  

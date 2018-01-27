@@ -1,0 +1,43 @@
+<div class="content" fxLayout="column" fxFlex>
+    <mat-toolbar class="bb-p-24 bb-color--lime-A400">
+        <button mat-icon-button color="accent" [routerLink]="['/practices/season/', seasonID]">
+          <mat-icon class="material-icons md-36">keyboard_arrow_left</mat-icon>
+        </button>
+        <div class="bb-ml-3">Attendance</div>
+    </mat-toolbar>
+    <mat-table #table [dataSource]="dataSource">
+  
+        <!-- Avatar Column -->
+        <ng-container cdkColumnDef="avatar">
+          <mat-header-cell *cdkHeaderCellDef> Foto </mat-header-cell>
+          <mat-cell *cdkCellDef="let row">
+            <img *ngIf="row.player.avatar" src="http://192.168.33.10/assets/uploads/{{ row.player.avatar }}" width="30px" alt="" class="mat-avatar">
+            <img *ngIf="!row.player.avatar" src="/assets/images/avatar-default.png" width="30px" alt="" class="mat-avatar">
+          </mat-cell>
+        </ng-container>
+    
+        <!-- Name Column -->
+        <ng-container cdkColumnDef="name">
+          <mat-header-cell *cdkHeaderCellDef> Name </mat-header-cell>
+          <mat-cell *cdkCellDef="let row"> {{row.player.name}} </mat-cell>
+        </ng-container>
+    
+        <!-- Date of Birth Column -->
+        <ng-container cdkColumnDef="must_attend">
+          <mat-header-cell *cdkHeaderCellDef> Must Attend </mat-header-cell>
+          <mat-cell *cdkCellDef="let row">
+              <mat-slide-toggle [checked]="row.must_attend"></mat-slide-toggle>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container cdkColumnDef="attended">
+          <mat-header-cell *cdkHeaderCellDef> Attened </mat-header-cell>
+          <mat-cell *cdkCellDef="let row"> 
+            <mat-slide-toggle [checked]="row.attended"></mat-slide-toggle>
+          </mat-cell>
+        </ng-container>   
+    
+        <mat-header-row *cdkHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *cdkRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+  </div>

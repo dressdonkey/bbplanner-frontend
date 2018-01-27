@@ -1,9 +1,18 @@
 <div class="content" fxLayout="column" fxFlex>
-  <div class="content-header">
-    <h2>Practices</h2>
+  <mat-toolbar class="bb-p-24 bb-color--lime-A400">Practices</mat-toolbar>
+  <div fxLayout="column" fxLayoutAlign=" stretch" class="bb-mt-1">
+      <mat-card *ngFor="let practice of practices; let i = index" class="bb-my-2">
+          <mat-card-title>Practice #{{ i+1 }} </mat-card-title>
+          <mat-card-subtitle class="bb-color--lime-A400">{{ practice.practice_date | date }} at {{ practice.practice_time }} - {{ practice.duration }} mins</mat-card-subtitle>
+          <mat-card-content>{{ practice.objective }}</mat-card-content>
+          <mat-card-actions align="end">
+              <button mat-icon-button [routerLink]="['/practice', practice.id]">
+                <mat-icon>remove_red_eye</mat-icon>
+              </button>
+              <button mat-icon-button [routerLink]="['/attendance', practice.id]">
+                <mat-icon>people</mat-icon>
+              </button>
+          </mat-card-actions>
+      </mat-card>
   </div>
-
-  <button md-fab class="fab-bottom-right">
-    <md-icon>add</md-icon>
-  </button>
 </div>
