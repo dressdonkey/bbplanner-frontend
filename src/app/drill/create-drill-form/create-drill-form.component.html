@@ -1,0 +1,37 @@
+<h3 mat-dialog-title class="bb-color--lime-A400">Create Drill</h3>
+<form [formGroup]="formdrill" (ngSubmit)="onSubmitCreateDrill(formdrill.value)">
+  <div fxLayout="column" fxLayoutGap="8px">
+    <mat-form-field>
+      <input matInput formControlName="name" placeholder="Level Name" maxlength="255">
+      <mat-hint align="end"> {{ formdrill.get('name').value.length }}/ 255</mat-hint>
+    </mat-form-field>
+    <mat-form-field>
+      <textarea matInput formControlName="description" placeholder="Drill Description" rows="5"></textarea>
+    </mat-form-field>
+    <mat-form-field>
+      <textarea matInput formControlName="goals" placeholder="Goals" rows="5"></textarea>
+    </mat-form-field>
+    <mat-form-field>
+      <textarea matInput formControlName="variations" placeholder="Variations" rows="5"></textarea>
+    </mat-form-field>
+    <mat-form-field>
+      <textarea matInput formControlName="tips" placeholder="Tips" rows="5"></textarea>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput formControlName="balls" placeholder="N. Balls" maxlength="255">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput formControlName="name" placeholder="N. of Baskets" maxlength="255">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput formControlName="cones" placeholder="Nº of Cones" maxlength="255">
+    </mat-form-field>
+    <mat-form-field>
+      <textarea matInput formControlName="other" placeholder="Other" rows="5"></textarea>
+    </mat-form-field>
+  </div>
+  <mat-dialog-actions align="end">
+    <button mat-button type="button" (click)="dialogRef.close()">Cancel</button>
+    <button mat-button color="accent" [disabled]="!formdrill.valid">Save</button>
+  </mat-dialog-actions>
+</form>

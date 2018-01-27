@@ -1,0 +1,45 @@
+<div class="content" fxLayout="column" fxFlex>
+  <mat-toolbar class="bb-p-24 bb-color--lime-A400">Drills</mat-toolbar>
+  <div class="bb-search-filter-wrapper">
+    <mat-form-field floatPlaceholder="never">
+      <input matInput #filter placeholder="Search for Drill">
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+  </div>
+  <mat-table #table [dataSource]="dataSource">
+
+    <!-- Name Column -->
+    <ng-container cdkColumnDef="name">
+      <mat-header-cell *cdkHeaderCellDef> Name </mat-header-cell>
+      <mat-cell *cdkCellDef="let row"> {{row.name}} </mat-cell>
+    </ng-container>
+
+    <ng-container cdkColumnDef="menu">
+      <mat-header-cell *cdkHeaderCellDef>Actions</mat-header-cell>
+      <mat-cell *cdkCellDef="let row">
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <!-- Edit Button -->
+          <button mat-menu-item (click)="openEditDrillFormDialog(row)">
+            <mat-icon class="icon">edit</mat-icon>
+            <span>Edit Drill</span>
+          </button>
+          <!-- Delete Button -->
+          <button mat-menu-item (click)="openDeleteDrillDialog(row)">
+            <mat-icon class="icons">delete</mat-icon>
+            <span>Remove Drill</span>
+          </button>
+        </mat-menu>
+      </mat-cell>
+    </ng-container>    
+
+    <mat-header-row *cdkHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *cdkRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+</div>
+<button mat-fab class="fab-bottom-right" (click)="openCreateDrillFormDialog()">
+  <mat-icon>add</mat-icon>
+</button>
