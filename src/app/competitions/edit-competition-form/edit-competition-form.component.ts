@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormControl, FormBuilder, FormGroup, Validators, AbstractControl } from "@angular/forms";
-import { MdDialogRef, MD_DIALOG_DATA } from "@angular/material";
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { CompetitionsService } from "./../competitions.service";
 import { AuthService } from "./../../auth/auth.service";
 import { Competition } from "./../../interfaces/competition";
@@ -17,9 +17,9 @@ export class EditCompetitionFormComponent implements OnInit {
   competitionId: number;
 
   constructor(
-    public dialogEditRef: MdDialogRef<EditCompetitionFormComponent>, 
+    public dialogEditRef: MatDialogRef<EditCompetitionFormComponent>, 
     public competitionsService: CompetitionsService,
-    @Inject(MD_DIALOG_DATA) public data: any,
+    @Inject(MAT_DIALOG_DATA) public data: any,
     public fb: FormBuilder
   ) { 
       this.formcompetition = this.fb.group({

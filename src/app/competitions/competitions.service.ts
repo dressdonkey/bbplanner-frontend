@@ -46,6 +46,36 @@ export class CompetitionsService {
 
   }
 
-  editCompetition(key, competition){
+  editCompetition(id: number, competition: Competition){
+
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    const body = JSON.stringify(competition);
+    
+    return this.http.put('http://192.168.33.10/api/competitions/'+id, body, options)
+      .map(
+        (response: Response) => {
+          
+          this.updatedCompetition.next(response.json());
+          
+        }
+      );
+
+  }
+
+   /**
+   * Delete Competition
+   * @param id player id
+   */
+
+  deleteCompetition(id: number){
+    
+    return this.http.delete('http://192.168.33.10/api/competitions/' + id)
+      .map(
+        (response: Response) => {
+          this.deletedCompetition.next(response.json());
+        }
+      );
+  
   }
 }

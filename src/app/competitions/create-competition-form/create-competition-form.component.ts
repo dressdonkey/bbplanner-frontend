@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormBuilder, FormGroup, Validators, AbstractControl } from "@angular/forms";
-import { MdDialogRef } from "@angular/material";
+import { MatDialogRef } from "@angular/material/dialog";
 import { CompetitionsService } from "./../competitions.service";
 import { AuthService } from "./../../auth/auth.service";
 import { Competition } from "./../../interfaces/competition";
@@ -15,7 +15,7 @@ export class CreateCompetitionFormComponent implements OnInit {
   competition: Competition;
 
   constructor(
-    public dialogCreateRef: MdDialogRef<CreateCompetitionFormComponent>, 
+    public dialogCreateRef: MatDialogRef<CreateCompetitionFormComponent>, 
     public competitionsService: CompetitionsService,
     public fb: FormBuilder,
     public authService: AuthService

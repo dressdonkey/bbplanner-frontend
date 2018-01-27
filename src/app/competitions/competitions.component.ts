@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { CompetitionsService } from "./competitions.service";
 import { Competition } from "./../interfaces/competition";
-import { MdDialog } from "@angular/material";
+import { MatDialog } from "@angular/material/dialog";
 import { CreateCompetitionFormComponent } from './create-competition-form/create-competition-form.component';
 import { EditCompetitionFormComponent } from './edit-competition-form/edit-competition-form.component';
 import { EditCompetitionLogoComponent } from './edit-competition-logo/edit-competition-logo.component';
 import { DeleteCompetitionComponent } from './delete-competition/delete-competition.component';
-import { DataSource } from '@angular/cdk';
+import { DataSource } from '@angular/cdk/table';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
-import { MdSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import 'rxjs/Rx';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/observable/merge';
@@ -24,20 +24,21 @@ import 'rxjs/add/operator/map';
 export class CompetitionsComponent implements OnInit {
   
   displayedColumns = ['avatar', 'name', 'menu'];
-  dataSource: CompetitionDataSource | null;
+  competitionDatabase = new CompetitionsDatabase(this.competitionsService);
+  dataSource: CompetitionsDataSource | null;
   competitions: Array<any>;
 
   constructor(
-    private dialog: MdDialog, 
-    private dialogedit: MdDialog, 
-    private dialogdelete: MdDialog, 
-    private dialogeditimage: MdDialog,
+    private dialog: MatDialog, 
+    private dialogedit: MatDialog, 
+    private dialogdelete: MatDialog, 
+    private dialogeditimage: MatDialog,
     private competitionsService: CompetitionsService,
-    public snackBar: MdSnackBar) {
+    public snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
-    this.dataSource = new CompetitionDataSource(this.competitionsService);
+    this.dataSource = new CompetitionsDataSource(this.competitionDatabase);
 
     /**
      * 
@@ -45,7 +46,7 @@ export class CompetitionsComponent implements OnInit {
 
     this.competitionsService.addedCompetition.subscribe(
       (data) => {
-        this.dataSource.addCompetition(data.competition);
+        this.competitionDatabase.addCompetition(data.competition);
         
         this.snackBar.open(data.message, null, {
           duration: 2000,
@@ -65,7 +66,7 @@ export class CompetitionsComponent implements OnInit {
           duration: 2000,
         });
         
-        this.dataSource.updateCompetition(data.competition);
+        this.competitionDatabase.updateCompetition(data.competition);
       },
       error => console.log('Problem Updating Competition')
       
@@ -82,7 +83,7 @@ export class CompetitionsComponent implements OnInit {
           duration: 2000,
         });
 
-        this.dataSource.deleteCompetition(data.competition);
+        this.competitionDatabase.deleteCompetition(data.competition);
       },
       error => console.log('Problem Deleting Competition')
       
@@ -142,23 +143,16 @@ export class CompetitionsComponent implements OnInit {
 
 }
 
-export class CompetitionDataSource extends DataSource<any> {
-  competitions: Array<any>;
+export class CompetitionsDatabase{
   dataChange: BehaviorSubject<Competition[]> = new BehaviorSubject<Competition[]>([]);
-
-  constructor(private competitionsService: CompetitionsService) {
-      super();
-  }
+  competitions: Array<any>;
 
   get data(): Competition[] {
     return this.dataChange.value; 
   }
 
-  ngOnInit() {
-    
-  }
+  constructor(private competitionsService:CompetitionsService){
 
-  connect(): Observable<Competition[]> {
     this.competitionsService.getAllCompetitions()
       .subscribe(data => {
         
@@ -172,8 +166,7 @@ export class CompetitionDataSource extends DataSource<any> {
         console.log('ERROR');
       }
     );
-    
-    return this.dataChange;
+
   }
 
   /**
@@ -227,5 +220,25 @@ export class CompetitionDataSource extends DataSource<any> {
 
   }
 
+}
+
+export class CompetitionsDataSource extends DataSource<any> {
+
+  constructor(private _competitionsDatabase: CompetitionsDatabase) {
+      super();
+  }
+
+
+  ngOnInit() {
+    
+  }
+
+  connect(): Observable<Competition[]> {
+    
+    return this._competitionsDatabase.dataChange;
+
+  }
+
   disconnect() {}
+  
 }

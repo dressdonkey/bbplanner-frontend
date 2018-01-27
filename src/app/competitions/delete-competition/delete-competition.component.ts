@@ -1,7 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MdDialogRef } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CompetitionsService } from './../../competitions/competitions.service';
-import { MD_DIALOG_DATA } from '@angular/material';
 import { Competition } from "./../../interfaces/competition";
 
 @Component({
@@ -13,9 +12,9 @@ export class DeleteCompetitionComponent implements OnInit {
   competition: Competition;
 
   constructor(
-    public dialogRef: MdDialogRef<DeleteCompetitionComponent>, 
+    public dialogRef: MatDialogRef<DeleteCompetitionComponent>, 
     private competitionService: CompetitionsService,
-    @Inject(MD_DIALOG_DATA) public data:any
+    @Inject(MAT_DIALOG_DATA) public data:any
   ) { 
       this.competition = this.data;
   }
