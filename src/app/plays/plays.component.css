@@ -1,0 +1,21 @@
+.mat-row .mat-cell:nth-child(1), 
+.mat-header-row .mat-header-cell:nth-child(1) {
+    flex: 1;
+    flex-grow: 8;
+}
+
+.mat-row .mat-cell:nth-child(2), 
+.mat-header-row .mat-header-cell:nth-child(2) {
+    flex: 1;
+    flex-grow: 1;
+}
+
+.fab-bottom-right .mat-fab {
+  position: fixed !important;
+  right: 16px;
+  bottom: 16px;
+}
+
+.mat-form-field{
+    width: 100%;
+}
