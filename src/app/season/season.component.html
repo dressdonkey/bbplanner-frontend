@@ -1,5 +1,88 @@
 <div class="content" fxLayout="column" fxFlex>
-  <div class="content-header">
-    <h2>Your Season</h2>
+  <h2 class="bb-p-24 bb-color--lime-A400">Welcome </h2>
+  <div class="bb-p-24 bb-bg-color--lime-A400 bb-pos-rel" *ngIf="errorMsg">
+      <mat-card class="bb-color--grey-900">
+          <div div fxLayout="column" fxLayoutAlign="center center" >
+            <div>
+              <mat-icon>error</mat-icon>
+            </div> 
+            <div>{{ errorMsg }}</div>
+          </div>
+      </mat-card>
+      <button class="bb-close-icon bb-color--grey-900" mat-icon-button (click)="closeAlert()">
+        <mat-icon >close</mat-icon>
+      </button>
   </div>
+  <form [formGroup]="formSeason" (ngSubmit)="onSubmitSeason(formSeason.value)">
+    <mat-vertical-stepper>
+      <mat-step>
+          <ng-template matStepLabel>Looks like you haven't created a season yet. Please follow the steps below. Click the continue button.</ng-template>
+          <div>
+            <button mat-button matStepperNext color="accent" type="button">Continue</button>
+          </div>
+      </mat-step>
+      <mat-step [stepControl]="secondFormGroup">
+        <ng-template matStepLabel>Season Name/Description</ng-template>
+        <mat-form-field>
+          <input matInput placeholder="Description" formControlName="name">
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious type="button">Back</button>
+          <button mat-button matStepperNext color="accent" type="button">Next</button>
+        </div>
+      </mat-step>
+      <mat-step [stepControl]="thirdFormGroup">
+        <ng-template matStepLabel>Insert Team/Clube Name.</ng-template>
+        <mat-form-field>
+          <input matInput placeholder="Address" formControlName="team">
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious type="button">Back</button>
+          <button mat-button matStepperNext color="accent" type="button">Next</button>
+        </div>
+      </mat-step>
+      <mat-step [stepControl]="forthFormGroup">
+        <ng-template matStepLabel>Association that the Team/Clube belongs too. (Ex: NBA, Spainish League, etc)</ng-template>
+        <mat-form-field>
+          <input matInput placeholder="Address" formControlName="association">
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious type="button">Back</button>
+          <button mat-button matStepperNext color="accent" type="button">Next</button>
+        </div>
+      </mat-step>
+      <mat-step [stepControl]="fifthFormGroup">
+        <ng-template matStepLabel>Insert Age Level (Ex: Under 12, Under 14, Seniores, etc)</ng-template>
+        <mat-form-field>
+          <input matInput placeholder="Age Level" formControlName="level">
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious type="button">Back</button>
+          <button mat-button matStepperNext color="accent" type="button">Next</button>
+        </div>
+      </mat-step>
+      <mat-step [stepControl]="sixthFormGroup">
+        <ng-template matStepLabel>Choose Gender</ng-template>
+        <mat-form-field>
+          <mat-select formControlName="gender_id" placeholder="Gender">
+            <mat-option *ngFor="let gender of genders" [value]="gender.id">
+              {{ gender.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious type="button">Back</button>
+          <button mat-button matStepperNext color="accent" type="button">Next</button>
+        </div>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Done</ng-template>
+        You are now done. Click Save!
+        <div class="bb-mt-16">
+          <button mat-button matStepperPrevious type="button">Back</button>
+          <button mat-button [disabled]="!formSeason.valid">Save</button>
+        </div>
+      </mat-step>
+    </mat-vertical-stepper>  
+  </form>
 </div>
