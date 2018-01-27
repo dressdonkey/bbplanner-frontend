@@ -1,0 +1,48 @@
+<h3 mat-dialog-title class="bb-color--lime-A400">Add Player to Roster</h3>
+  <mat-dialog-content>
+    <div class="bb-search-filter-wrapper">
+      <mat-form-field floatPlaceholder="never">
+        <input matInput #filter placeholder="Search for Player">
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+    </div>
+  <mat-table #table [dataSource]="dataSource">
+
+    <!-- Avatar Column -->
+    <ng-container cdkColumnDef="avatar">
+      <mat-header-cell *cdkHeaderCellDef fxFlex="10"> Foto </mat-header-cell>
+      <mat-cell *cdkCellDef="let row" fxFlex="10">
+        <img *ngIf="row.avatar" src="http://192.168.33.10/assets/uploads/{{ row.avatar }}" width="30px" alt="" class="mat-avatar">
+        <img *ngIf="!row.avatar" src="/assets/images/avatar-default.png" width="30px" alt="" class="mat-avatar">
+      </mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container cdkColumnDef="userName">
+      <mat-header-cell *cdkHeaderCellDef fxFlex="60"> Name </mat-header-cell>
+      <mat-cell *cdkCellDef="let row" fxFlex="60"> {{row.name}} </mat-cell>
+    </ng-container>
+
+    <!-- Date of Birth Column -->
+    <ng-container cdkColumnDef="dateOfBirth">
+      <mat-header-cell *cdkHeaderCellDef fxFlex="20"> Year </mat-header-cell>
+      <mat-cell *cdkCellDef="let row" fxFlex="20"> {{row.data_nascimento | date:"yyyy"}} </mat-cell>
+    </ng-container>
+
+    <ng-container cdkColumnDef="menu">
+      <mat-header-cell *cdkHeaderCellDef fxFlex="10"></mat-header-cell>
+      <mat-cell *cdkCellDef="let row" fxFlex="10">
+          <mat-slide-toggle
+            class="example-margin"
+            [color]="color">
+        </mat-slide-toggle>
+      </mat-cell>
+    </ng-container>    
+
+    <mat-header-row *cdkHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *cdkRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button type="button" (click)="dialogRef.close()">Fechar</button>
+</mat-dialog-actions>
