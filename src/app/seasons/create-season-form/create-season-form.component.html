@@ -1,17 +1,39 @@
-<div class="dialog-header">
-  <h3 md-dialog-title>Add Season</h3>
-</div>
-<div class="bb-dialog-container">
-  <form [formGroup]="form" (ngSubmit)="onSubmitSeason(form.value)">
+<h3 mat-dialog-title class="bb-color--lime-A400">Add Season</h3>
+<form [formGroup]="formseason" (ngSubmit)="onSubmitCreateSeason(formseason.value)">
+  <mat-dialog-content>  
     <div fxLayout="column" fxLayoutGap="8px">
-      <md-input-container>
-        <input mdInput formControlName="name" placeholder="Season Name" maxlength="255">
-        <md-hint align="end"> {{ form.get('name').value.length }}/ 255</md-hint>
-      </md-input-container>
+      <mat-form-field class="bb-w-100">
+        <input matInput fxflex formControlName="name" placeholder="Season Name" maxlength="255">
+        <mat-hint align="end"> {{ formseason.get('name').value.length }}/ 255</mat-hint>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select formControlName="team_id" placeholder="Team">
+          <mat-option *ngFor="let team of teams" [value]="team.id">
+              {{ team.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select formControlName="gender_id" placeholder="Gender">
+            <mat-option *ngFor="let gender of genders" [value]="gender.id">
+                {{ gender.name }}
+            </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select formControlName="level_id" placeholder="Age Level">
+            <mat-option *ngFor="let level of levels" [value]="level.id">
+                {{ level.name }}
+            </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <textarea matInput formControlName="observations" placeholder="Observations" rows="10"></textarea>
+      </mat-form-field>
     </div>
-    <md-dialog-actions align="end">
-      <button md-button type="button" (click)="dialogRef.close()">Cancel</button>
-      <button md-button color="accent" [disabled]="!form.valid">Save Season</button>
-    </md-dialog-actions>
-  </form>
-</div>
+  </mat-dialog-content> 
+  <mat-dialog-actions align="end">
+    <button mat-button type="button" (click)="dialogRef.close()">Cancel</button>
+    <button mat-button color="accent" [disabled]="!formseason.valid">Save Season</button>
+  </mat-dialog-actions>
+</form>

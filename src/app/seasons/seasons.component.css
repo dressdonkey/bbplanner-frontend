@@ -1,1 +1,30 @@
+.mat-row .mat-cell:nth-child(1), 
+.mat-header-row .mat-header-cell:nth-child(1) {
+    flex: 1;
+    flex-grow: 3;
+}
 
+.mat-row .mat-cell:nth-child(2), 
+.mat-header-row .mat-header-cell:nth-child(2) {
+    flex: 1;
+    flex-grow: 3;
+}
+
+.mat-row .mat-cell:nth-child(3), 
+.mat-header-row .mat-header-cell:nth-child(3) {
+    flex: 1;
+    flex-grow: 2;
+}
+
+.mat-row .mat-cell:nth-child(4), 
+.mat-header-row .mat-header-cell:nth-child(4) {
+    flex: 1;
+    flex-grow: 2;
+}
+
+.mat-row .mat-cell:nth-child(5), 
+.mat-header-row .mat-header-cell:nth-child(5) {
+    flex: 1;
+    flex-grow: 1;
+    text-align: center;
+}

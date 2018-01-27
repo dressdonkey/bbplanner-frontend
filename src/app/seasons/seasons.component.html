@@ -1,22 +1,53 @@
 <div class="content" fxLayout="column" fxFlex>
-  <div class="content-header">
-    <h2>Seasons</h2>
-  </div>
-  <md-card fxFlex>
-    <md-list>
-      <md-list-item *ngFor="let season of seasons">
-        <img md-list-avatar src="{{season.avatar}}" alt="...">
-        <h3 md-line> {{season.name}} </h3>
-        <span fxFlex></span>
-        <button md-icon-button (click)="openEditSeasonFormDialog(season.$key, season)">
-          <md-icon class="icon">edit</md-icon>
+  <h2 class="bb-p-24 bb-color--lime-A400">Seasons</h2>
+  <mat-table #table [dataSource]="dataSource">
+
+    <!-- Name Column -->
+    <ng-container cdkColumnDef="name">
+      <mat-header-cell *cdkHeaderCellDef> Season Description </mat-header-cell>
+      <mat-cell *cdkCellDef="let row"> {{row.name}} </mat-cell>
+    </ng-container>
+
+    <!-- Team Column -->
+    <ng-container cdkColumnDef="team">
+      <mat-header-cell *cdkHeaderCellDef> Team </mat-header-cell>
+      <mat-cell *cdkCellDef="let row"> {{row.team.name}} </mat-cell>
+    </ng-container>
+
+    <!-- Age Level Column -->
+    <ng-container cdkColumnDef="agelevel">
+      <mat-header-cell *cdkHeaderCellDef> Age Level </mat-header-cell>
+      <mat-cell *cdkCellDef="let row"> {{row.level.name}} </mat-cell>
+    </ng-container>
+
+    <!-- Gender Column -->
+    <ng-container cdkColumnDef="gender">
+      <mat-header-cell *cdkHeaderCellDef> Gender </mat-header-cell>
+      <mat-cell *cdkCellDef="let row"> {{row.gender.name}} </mat-cell>
+    </ng-container>
+
+    <ng-container cdkColumnDef="menu">
+      <mat-header-cell *cdkHeaderCellDef></mat-header-cell>
+      <mat-cell *cdkCellDef="let row">
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>more_vert</mat-icon>
         </button>
-      </md-list-item>
-    </md-list>
-  </md-card>
+        <mat-menu #menu="matMenu">
+          <!-- Edit Button -->
+          <button mat-menu-item (click)="openEditSeasonDialog(row)">
+            <mat-icon class="icon">edit </mat-icon>
+            <span>Edit Season</span>
+          </button>
+        </mat-menu>
+      </mat-cell>
+    </ng-container> 
 
-  <button md-fab class="fab-bottom-right" (click)="openCreateSeasonFormDialog()">
-    <md-icon>add</md-icon>
+    <mat-header-row *cdkHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *cdkRowDef="let row; columns: displayedColumns;"></mat-row>
+
+  </mat-table>
+
+  <button mat-fab class="fab-bottom-right" (click)="openCreateSeasonDialog()">
+    <mat-icon>add</mat-icon>
   </button>
-
 </div>
