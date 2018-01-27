@@ -1,17 +1,15 @@
-<div class="dialog-header">
-  <h3 md-dialog-title>Add Association</h3>
-</div>
-<div class="bb-dialog-container">
-  <form [formGroup]="formassociation" (ngSubmit)="onSubmitAssociation(formassociation.value)">
+<h3 mat-dialog-title class="bb-color--lime-A400">Add Association</h3>
+<form [formGroup]="formassociation" (ngSubmit)="onSubmitAssociation(formassociation.value)">
+  <mat-dialog-content>    
     <div fxLayout="column" fxLayoutGap="8px">
-      <md-input-container>
-        <input mdInput formControlName="name" placeholder="Association Name" maxlength="255">
-        <md-hint align="end"> {{ formassociation.get('name').value.length }}/ 255</md-hint>
-      </md-input-container>
+      <mat-form-field>
+        <input matInput formControlName="name" placeholder="Association Name" maxlength="255">
+        <mat-hint align="end" > {{ formassociation.get('name').value.length }}/ 255</mat-hint>
+      </mat-form-field>
     </div>
-    <md-dialog-actions align="end">
-      <button md-button type="button" (click)="dialogRef.close()">Cancel</button>
-      <button md-button color="accent" [disabled]="!formassociation.valid">Save</button>
-    </md-dialog-actions>
-  </form>
-</div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button type="button" (click)="dialogCreateRef.close()">Cancel</button>
+    <button mat-button color="accent" [disabled]="!formassociation.valid">Save</button>
+  </mat-dialog-actions>
+</form>

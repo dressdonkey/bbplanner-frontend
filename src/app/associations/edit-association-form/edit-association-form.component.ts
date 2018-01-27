@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormControl, FormBuilder, FormGroup, Validators, AbstractControl } from "@angular/forms";
-import { MdDialogRef, MD_DIALOG_DATA } from "@angular/material";
+import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { AssociationsService } from "./../associations.service";
 import { AuthService } from "./../../auth/auth.service";
 import { Association } from "./../../interfaces/association";
@@ -17,9 +17,9 @@ export class EditAssociationFormComponent implements OnInit {
   associationId: number;
 
   constructor(
-    public dialogEditRef: MdDialogRef<EditAssociationFormComponent>, 
+    public dialogEditRef: MatDialogRef<EditAssociationFormComponent>, 
     public associationsService: AssociationsService,
-    @Inject(MD_DIALOG_DATA) public data: any,
+    @Inject(MAT_DIALOG_DATA) public data: any,
     public fb: FormBuilder
   ) { 
       this.formassociation = this.fb.group({

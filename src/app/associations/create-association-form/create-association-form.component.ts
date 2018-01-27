@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormBuilder, FormGroup, Validators, AbstractControl } from "@angular/forms";
-import { MdDialogRef } from "@angular/material";
+import { MatDialogRef } from "@angular/material/dialog";
 import { AssociationsService } from "./../associations.service";
 import { AuthService } from "./../../auth/auth.service";
 import { Association } from "./../../interfaces/association";
@@ -16,7 +16,7 @@ export class CreateAssociationFormComponent implements OnInit {
   association: Association;
 
   constructor(
-    public dialogCreateRef: MdDialogRef<CreateAssociationFormComponent>, 
+    public dialogCreateRef: MatDialogRef<CreateAssociationFormComponent>, 
     public associationsService: AssociationsService,
     public fb: FormBuilder,
     public authService: AuthService
@@ -32,6 +32,8 @@ export class CreateAssociationFormComponent implements OnInit {
   }
 
   onSubmitAssociation(association): void {
+    console.log('csdcdscds');
+    
     association.user_id = 1
     
     this.associationsService.addAssociation(association)

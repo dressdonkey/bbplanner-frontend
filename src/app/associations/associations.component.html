@@ -1,56 +1,54 @@
 <div class="content" fxLayout="column" fxFlex>
-  <div class="content-header">
-    <h2>Associations</h2>
-  </div>
-  <md-table #table [dataSource]="dataSource">
+  <h2 class="bb-p-24 bb-color--lime-A400">Associations</h2>
+  <mat-table #table [dataSource]="dataSource">
   
     <!-- Avatar Column -->
     <ng-container cdkColumnDef="logo">
-      <md-header-cell *cdkHeaderCellDef> Logo </md-header-cell>
-      <md-cell *cdkCellDef="let row">
-        <img *ngIf="row.logo" src="http://192.168.33.10/assets/uploads/{{ row.logo }}" width="30px" alt="" class="md-avatar">
-        <img *ngIf="!row.logo" src="/assets/images/avatar-default.png" width="30px" alt="" class="md-avatar">
-      </md-cell>
+      <mat-header-cell *cdkHeaderCellDef> Logo </mat-header-cell>
+      <mat-cell *cdkCellDef="let row">
+        <img *ngIf="row.logo" src="http://192.168.33.10/assets/uploads/{{ row.logo }}" width="30px" alt="" class="mat-avatar">
+        <img *ngIf="!row.logo" src="/assets/images/avatar-default.png" width="30px" alt="" class="mat-avatar">
+      </mat-cell>
     </ng-container>
 
     <!-- Name Column -->
     <ng-container cdkColumnDef="name">
-      <md-header-cell *cdkHeaderCellDef> Association Name </md-header-cell>
-      <md-cell *cdkCellDef="let row"> {{row.name}} </md-cell>
+      <mat-header-cell *cdkHeaderCellDef> Association Name </mat-header-cell>
+      <mat-cell *cdkCellDef="let row"> {{row.name}} </mat-cell>
     </ng-container>
 
     <ng-container cdkColumnDef="menu">
-      <md-header-cell *cdkHeaderCellDef></md-header-cell>
-      <md-cell *cdkCellDef="let row">
-        <button md-icon-button [mdMenuTriggerFor]="menu">
-          <md-icon>more_vert</md-icon>
+      <mat-header-cell *cdkHeaderCellDef></mat-header-cell>
+      <mat-cell *cdkCellDef="let row">
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>more_vert</mat-icon>
         </button>
-        <md-menu #menu="mdMenu">
+        <mat-menu #menu="matMenu">
           <!-- Edit Button -->
-          <button md-menu-item (click)="openEditAssociationDialog(row)">
-            <md-icon class="icon">edit </md-icon>
+          <button mat-menu-item (click)="openEditAssociationDialog(row)">
+            <mat-icon class="icon">edit </mat-icon>
             <span>Edit Association</span>
           </button>
           <!-- Edit Image | Avatar -->
-          <button md-menu-item (click)="openEditAssociationLogoDialog(row)">
-            <md-icon class="icons">photo</md-icon>
+          <button mat-menu-item (click)="openEditAssociationLogoDialog(row)">
+            <mat-icon class="icons">photo</mat-icon>
             <span>Edit Association Logo</span>
           </button>
           <!-- Delete Button -->
-          <button *ngIf="!row.has_seasons" md-menu-item (click)="openDeleteAssociationDialog(row)">
-            <md-icon class="icons">delete</md-icon>
-            <span>Remove Association</span>
+          <button *ngIf="!row.has_seasons" mat-menu-item (click)="openDeleteAssociationDialog(row)">
+            <mat-icon class="icons">delete</mat-icon>
+            <span>Delete Association</span>
           </button>
-        </md-menu>
-      </md-cell>
+        </mat-menu>
+      </mat-cell>
     </ng-container> 
 
-    <md-header-row *cdkHeaderRowDef="displayedColumns"></md-header-row>
-    <md-row *cdkRowDef="let row; columns: displayedColumns;"></md-row>
+    <mat-header-row *cdkHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *cdkRowDef="let row; columns: displayedColumns;"></mat-row>
 
-  </md-table>
+  </mat-table>
 
-  <button md-fab class="fab-bottom-right" (click)="openCreateAssociationDialog()">
-    <md-icon>add</md-icon>
+  <button mat-fab class="fab-bottom-right" (click)="openCreateAssociationDialog()">
+    <mat-icon>add</mat-icon>
   </button>
 </div>

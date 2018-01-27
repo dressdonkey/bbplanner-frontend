@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { AssociationsService } from "./associations.service";
 import { Association } from "./../interfaces/association";
-import { MdDialog } from "@angular/material";
+import { MatDialog } from "@angular/material/dialog";
 import { CreateAssociationFormComponent } from './create-association-form/create-association-form.component';
 import { EditAssociationFormComponent } from './edit-association-form/edit-association-form.component';
 import { EditAssociationLogoComponent } from './edit-association-logo/edit-association-logo.component';
 import { DeleteAssociationComponent } from './delete-association/delete-association.component';
-import { DataSource } from '@angular/cdk';
+import { DataSource } from '@angular/cdk/table';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
-import { MdSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import 'rxjs/Rx';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/observable/merge';
@@ -23,19 +23,20 @@ import 'rxjs/add/operator/map';
 export class AssociationsComponent implements OnInit {
   displayedColumns = ['logo', 'name', 'menu'];
   dataSource: AssociationDataSource | null;
+  associationDatabase = new AssociationDatabase(this.associationsService);
   associations: Array<any>;
 
   constructor(
-    private dialog: MdDialog, 
-    private dialogedit: MdDialog, 
-    private dialogdelete: MdDialog, 
-    private dialogeditimage: MdDialog,
+    private dialog: MatDialog, 
+    private dialogedit: MatDialog, 
+    private dialogdelete: MatDialog, 
+    private dialogeditimage: MatDialog,
     private associationsService: AssociationsService,
-    public snackBar: MdSnackBar) {
+    public snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
-    this.dataSource = new AssociationDataSource(this.associationsService);
+    this.dataSource = new AssociationDataSource(this.associationDatabase);
 
     /**
      * 
@@ -43,7 +44,7 @@ export class AssociationsComponent implements OnInit {
 
     this.associationsService.addedAssociation.subscribe(
       (data) => {
-        this.dataSource.addAssociation(data.association);
+        this.associationDatabase.addAssociation(data.association);
         
         this.snackBar.open(data.message, null, {
           duration: 2000,
@@ -63,7 +64,7 @@ export class AssociationsComponent implements OnInit {
           duration: 2000,
         });
         
-        this.dataSource.updateAssociation(data.association);
+        this.associationDatabase.updateAssociation(data.association);
       },
       error => console.log('Problem Updating Association')
       
@@ -80,7 +81,7 @@ export class AssociationsComponent implements OnInit {
           duration: 2000,
         });
 
-        this.dataSource.deleteAssociation(data.association);
+        this.associationDatabase.deleteAssociation(data.association);
       },
       error => console.log('Problem Deleting Association')
       
@@ -140,23 +141,16 @@ export class AssociationsComponent implements OnInit {
 
 }
 
-export class AssociationDataSource extends DataSource<any> {
-  associations: Array<any>;
+export class AssociationDatabase{
   dataChange: BehaviorSubject<Association[]> = new BehaviorSubject<Association[]>([]);
+  associations: Array<any>;
 
-  constructor(private associationsService: AssociationsService) {
-      super();
-  }
-
-  get data(): Association[] {
+  get data(): Association[] { 
     return this.dataChange.value; 
   }
 
-  ngOnInit() {
+  constructor(private associationsService: AssociationsService){
     
-  }
-
-  connect(): Observable<Association[]> {
     this.associationsService.getAllAssociations()
       .subscribe(data => {
         
@@ -170,8 +164,7 @@ export class AssociationDataSource extends DataSource<any> {
         console.log('ERROR');
       }
     );
-    
-    return this.dataChange;
+
   }
 
   /**
@@ -224,6 +217,26 @@ export class AssociationDataSource extends DataSource<any> {
     this.dataChange.next(copiedData);
 
   }
+
+}
+
+export class AssociationDataSource extends DataSource<any> {
+
+  constructor(private _playerDatabase: AssociationDatabase) {
+      super();
+  }
+
+  ngOnInit() {
+    
+  }
+
+  connect(): Observable<Association[]> {
+    
+    return this._playerDatabase.dataChange;
+
+  }
+
+  
 
   disconnect() {}
 }

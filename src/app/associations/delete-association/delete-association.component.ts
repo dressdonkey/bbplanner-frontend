@@ -1,7 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MdDialogRef } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AssociationsService } from './../../associations/associations.service';
-import { MD_DIALOG_DATA } from '@angular/material';
 import { Association } from "./../../interfaces/association";
 
 @Component({
@@ -13,9 +12,9 @@ export class DeleteAssociationComponent implements OnInit {
   association: Association;
 
   constructor(
-    public dialogRef: MdDialogRef<DeleteAssociationComponent>, 
+    public dialogRef: MatDialogRef<DeleteAssociationComponent>, 
     private associationService: AssociationsService,
-    @Inject(MD_DIALOG_DATA) public data:any
+    @Inject(MAT_DIALOG_DATA) public data:any
   ) { 
       this.association = this.data;
   }

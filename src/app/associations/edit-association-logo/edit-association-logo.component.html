@@ -1,31 +1,31 @@
-<div class="dialog-header">
-  <h3 md-dialog-title>Insert/Update</h3>
-</div>
-<div class="bb-dialog-container">  
+<h3 mat-dialog-title class="bb-color--lime-A400">Insert/Update</h3>
+
   <div fxLayout="column" fxLayoutGap="8px">
 
-    <div fxLayout="row" fxLayoutAlign="center center" class="bb-pos-rel">
-      <img *ngIf="!association.logo" src="/assets/images/avatar-default.png" width="100px" alt="" class="">
-      <img *ngIf="association.logo" src="http://192.168.33.10/assets/uploads/{{ association.logo }}" width="100px" alt="" class="">
-    </div>
+  <div fxLayout="row" fxLayoutAlign="center center" class="bb-pos-rel">
+    <img *ngIf="!association.logo" src="/assets/images/avatar-default.png" width="100px" alt="" class="">
+    <img *ngIf="association.logo" src="http://192.168.33.10/assets/uploads/{{ association.logo }}" width="100px" alt="" class="">
+  </div>
 
-    <div class="bb-dialog-container">
-      <div class="drop-container" ngFileDrop (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput" [ngClass]="{ 'is-drop-over': dragOver }" fxLayout="column" fxLayoutAlign="center center">
-        <h1>Drag & Drop</h1>
-        <div>
-          <span>your files here or</span>
-          <label class="upload-button">
-            <input type="file" ngFileSelect (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput"> browse
-          </label>
-        </div>
-        <md-chip-list *ngIf="filename" class="bb-mt-8"  [selectable]="selectable">
-            <md-chip>Chosen File: {{ filename }}</md-chip>
-        </md-chip-list>
+  <mat-dialog-content> 
+    <div class="drop-container" ngFileDrop (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput" [ngClass]="{ 'is-drop-over': dragOver }" fxLayout="column" fxLayoutAlign="center center">
+      <h1>Drag & Drop</h1>
+      <div>
+        <span>your files here or</span>
+        <label class="upload-button">
+          <input type="file" ngFileSelect (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput"> browse
+        </label>
       </div>
-    </div>   
-
-  <md-dialog-actions align="end">
-    <button md-button type="button" (click)="dialogRef.close()">Cancel</button>
-    <button md-button color="accent" class="start-upload-btn" (click)="startUpload(association.id)" [disabled]="!filename">Start Upload</button>
-  </md-dialog-actions>
+      <mat-chip-list *ngIf="filename" class="bb-mt-8">
+          <mat-chip>Chosen File: {{ filename }}</mat-chip>
+      </mat-chip-list>
+      <mat-chip-list *ngIf="errorMessage" class="bb-mt-8">
+          <mat-chip class="bb-bg-color--red-500">{{ errorMessage }}</mat-chip>
+      </mat-chip-list>
+    </div>
+  </mat-dialog-content> 
+  <mat-dialog-actions align="end">
+    <button mat-button type="button" (click)="dialogRef.close()">Cancel</button>
+    <button mat-button color="accent" class="start-upload-btn" (click)="startUpload(association.id)" [disabled]="!filename">Start Upload</button>
+  </mat-dialog-actions>
 </div>
