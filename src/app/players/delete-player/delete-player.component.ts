@@ -13,12 +13,14 @@ export class DeletePlayerComponent implements OnInit {
   player: Player;
 
   constructor(
-    public dialogRef: MatDialogRef<DeletePlayerComponent>, 
+    public dialogRef: MatDialogRef<DeletePlayerComponent>,
     private playerService: PlayersService,
-    @Inject(MAT_DIALOG_DATA) public data: any) { 
+    @Inject(MAT_DIALOG_DATA) public data: any,
+
+  ) {
 
       this.player = this.data;
-           
+
     }
 
   ngOnInit() {
@@ -29,15 +31,18 @@ export class DeletePlayerComponent implements OnInit {
    * @param id player id
    */
 
-  onDelete(id: number){
+  onDelete(id: number) {
 
     this.playerService.deletePlayer(id)
       .subscribe((data) => {
-          
-          console.log('Player Deleted');          
 
-        },
-        error => console.log('Problems deleting Player!')  
+        console.log(data);
+        console.log('Player Deleted');
+
+
+
+      },
+        error => console.log('Problems deleting Player!')
       );
 
     this.dialogRef.close();

@@ -19,7 +19,7 @@ export class EditPlayerFormComponent implements OnInit {
 
   constructor(
     public fb: FormBuilder,
-    public dialogRef: MatDialogRef<EditPlayerFormComponent>, 
+    public dialogRef: MatDialogRef<EditPlayerFormComponent>,
     public playersService: PlayersService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
@@ -64,14 +64,14 @@ export class EditPlayerFormComponent implements OnInit {
   }
 
   onSubmitEditPlayer(player): void {
-    
+
     this.playersService.updatePlayer(this.playerId, player)
       .subscribe();
     this.dialogRef.close();
 
   }
 
-  toggleShowMore(){
+  toggleShowMore() {
     this.showMore = !this.showMore;
 
     this.showMoreText = (!this.showMore) ? 'Show More' : 'Show Less';
