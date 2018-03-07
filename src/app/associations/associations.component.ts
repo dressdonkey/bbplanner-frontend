@@ -27,9 +27,9 @@ export class AssociationsComponent implements OnInit {
   associations: Array<any>;
 
   constructor(
-    private dialog: MatDialog, 
-    private dialogedit: MatDialog, 
-    private dialogdelete: MatDialog, 
+    private dialog: MatDialog,
+    private dialogedit: MatDialog,
+    private dialogdelete: MatDialog,
     private dialogeditimage: MatDialog,
     private associationsService: AssociationsService,
     public snackBar: MatSnackBar) {
@@ -39,13 +39,13 @@ export class AssociationsComponent implements OnInit {
     this.dataSource = new AssociationDataSource(this.associationDatabase);
 
     /**
-     * 
+     *
      */
 
     this.associationsService.addedAssociation.subscribe(
       (data) => {
         this.associationDatabase.addAssociation(data.association);
-        
+
         this.snackBar.open(data.message, null, {
           duration: 2000,
         });
@@ -54,29 +54,29 @@ export class AssociationsComponent implements OnInit {
     );
 
     /**
-     * 
+     *
      */
 
     this.associationsService.updatedAssociation.subscribe(
       (data) => {
-        
+
         this.snackBar.open(data.message, null, {
           duration: 2000,
         });
-        
+
         this.associationDatabase.updateAssociation(data.association);
       },
       error => console.log('Problem Updating Association')
-      
+
     );
 
     /**
-     * 
+     *
      */
 
     this.associationsService.deletedAssociation.subscribe(
       (data) => {
-        
+
         this.snackBar.open(data.message, null, {
           duration: 2000,
         });
@@ -84,7 +84,7 @@ export class AssociationsComponent implements OnInit {
         this.associationDatabase.deleteAssociation(data.association);
       },
       error => console.log('Problem Deleting Association')
-      
+
     );
   }
 
@@ -93,7 +93,7 @@ export class AssociationsComponent implements OnInit {
    */
 
   openCreateAssociationDialog(){
-    this.dialog.open(CreateAssociationFormComponent, 
+    this.dialog.open(CreateAssociationFormComponent,
     {
       width: '500px'
     })
@@ -104,7 +104,7 @@ export class AssociationsComponent implements OnInit {
    */
 
   openEditAssociationDialog(association: Association){
-    this.dialog.open(EditAssociationFormComponent, 
+    this.dialog.open(EditAssociationFormComponent,
     {
       width: '500px',
       data : association
@@ -115,9 +115,9 @@ export class AssociationsComponent implements OnInit {
    * Open Dialog to edit or insert player foto
    * @param association players data in json
    */
-  
+
   private openEditAssociationLogoDialog(association: Association) {
-    
+
     let dialogEditImageRef = this.dialogeditimage.open(EditAssociationLogoComponent, {
       width: '500px',
       data: association
@@ -129,9 +129,9 @@ export class AssociationsComponent implements OnInit {
    * Open Dialog to delete player
    * @param association players data in json
    */
-  
+
   private openDeleteAssociationDialog(association: Association) {
-    
+
     let dialogDeleteRef = this.dialogdelete.open(DeleteAssociationComponent, {
       width: '500px',
       data: association
@@ -145,19 +145,19 @@ export class AssociationDatabase{
   dataChange: BehaviorSubject<Association[]> = new BehaviorSubject<Association[]>([]);
   associations: Array<any>;
 
-  get data(): Association[] { 
-    return this.dataChange.value; 
+  get data(): Association[] {
+    return this.dataChange.value;
   }
 
   constructor(private associationsService: AssociationsService){
-    
+
     this.associationsService.getAllAssociations()
       .subscribe(data => {
-        
-        this.associations = data; 
+
+        this.associations = data;
 
         for (let association of this.associations) {
-            this.addAssociation(association); 
+            this.addAssociation(association);
         }
 
       },err => {
@@ -168,21 +168,21 @@ export class AssociationDatabase{
   }
 
   /**
-   * 
-   * @param association 
+   *
+   * @param association
    */
 
   addAssociation(association){
     const copiedData = this.data.slice();
-    
+
     copiedData.push(association);
 
     this.dataChange.next(copiedData);
   }
 
   /**
-   * 
-   * @param association 
+   *
+   * @param association
    */
 
   updateAssociation(association){
@@ -199,16 +199,16 @@ export class AssociationDatabase{
   }
 
   /**
-   * 
-   * @param association 
+   *
+   * @param association
    */
 
-  deleteAssociation(association){
+  deleteAssociation(association) {
     const copiedData = this.data.slice();
 
     const position = copiedData.findIndex(
       (associationEl: Association) => {
-        return associationEl.id == association.id;
+        return associationEl.id === association.id;
       }
     );
 
@@ -227,16 +227,16 @@ export class AssociationDataSource extends DataSource<any> {
   }
 
   ngOnInit() {
-    
+
   }
 
   connect(): Observable<Association[]> {
-    
+
     return this._playerDatabase.dataChange;
 
   }
 
-  
+
 
   disconnect() {}
 }
