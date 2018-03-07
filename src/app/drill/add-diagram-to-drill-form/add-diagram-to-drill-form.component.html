@@ -1,0 +1,69 @@
+<h3 mat-dialog-title class="bb-color--lime-A400">Add/Edit Diagram/Graphic</h3>
+<div fxLayout="row"fxLayoutGap="24px">
+  <div fxFlex="33">
+    <div fxLayout="column">
+      <mat-dialog-content>
+        <div fxLayout="column" fxLayoutGap="8px">
+          <div class="drop-container" ngFileDrop (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput" [ngClass]="{ 'is-drop-over': dragOver }" fxLayout="column" fxLayoutAlign="center center">
+            <h1>Drag & Drop</h1>
+            <div>
+              <span>your files here or</span>
+              <label class="upload-button">
+                <input type="file" ngFileSelect (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput"> browse
+              </label>
+            </div>
+            <div>
+              <p class="bb-text-xs bb-color--lime-A400 bb-text-center">Diagrams must have the following dimensions: 384 x 540 pixels. <br> Images not having these dimension will be croped and resized.</p>
+            </div>
+            <mat-chip-list *ngIf="filename" class="bb-mt-8">
+                <mat-chip>Chosen File: {{ filename }}</mat-chip>
+            </mat-chip-list>
+            <mat-chip-list *ngIf="errorMessage" class="bb-mt-8">
+                <mat-chip class="bb-bg-color--red-500">{{ errorMessage }}</mat-chip>
+            </mat-chip-list>
+          </div>
+        </div>
+      </mat-dialog-content>
+      <mat-dialog-actions align="end">
+        <button mat-button type="button" (click)="dialogRef.close()">Cancel</button>
+        <button mat-button color="accent" class="start-upload-btn" (click)="startUpload(drillID)" [disabled]="!filename">Start Upload</button>
+      </mat-dialog-actions>
+    </div>
+  </div>
+  <div fxFlex="66">
+      <div fxLayout="column">
+        <div fxLayout="column" fxLayoutGap="24px" class="bb-mt-1">
+          <mat-card *ngFor="let diagram of drill_diagrams; let i = index" >
+            <div fxLayout="column" class="bb-mt-1">
+              <div fxLayout="row" class="bb-mt-1">
+                <div fxFlex="20" >
+                  <div class="bb-mb-2">
+                    <img mat-card-image src="http://192.168.33.10/assets/uploads/drill_diagrams/{{ diagram.file }}">
+                    <div class="bb-text-center bb-font-size-14">Fig. {{ i+1 }}</div>
+                  </div>
+                </div>
+                <div class="pm-drill-discription" fxFlex="80">{{diagram.drill_diagram_note}}</div>
+              </div>
+            </div>
+            <mat-card-actions align="end">
+              <button mat-icon-button (click)="editDiagramDrill( diagram )">
+                <mat-icon class="material-icons">image</mat-icon>
+              </button>
+              <button mat-icon-button (click)="editDiagramNote( diagram )">
+                <mat-icon class="material-icons">text_fields</mat-icon>
+              </button>
+              <button mat-icon-button *ngIf="i != 0" (click)="moveUp(i)">
+                  <mat-icon class="material-icons">arrow_upward</mat-icon>
+              </button>
+              <button mat-icon-button *ngIf="drill_diagrams.length > i+1" (click)="moveDown(i)">
+                  <mat-icon class="material-icons">arrow_downward</mat-icon>
+              </button>
+              <button mat-icon-button (click)="deleteDiagramFromDrill( diagram.id )">
+                  <mat-icon class="material-icons">delete</mat-icon>
+              </button>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+      </div>
+  </div>
+</div>

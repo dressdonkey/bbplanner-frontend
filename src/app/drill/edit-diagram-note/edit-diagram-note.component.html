@@ -1,0 +1,14 @@
+<h3 mat-dialog-title class="bb-color--lime-A400">Edit Diagram Note</h3>
+<form [formGroup]="formdiagram" (ngSubmit)="onSubmitEditDiagram(formdiagram.value)">
+  <mat-dialog-content>
+    <div fxLayout="column" fxLayoutGap="8px">
+      <mat-input-container>
+        <textarea matInput formControlName="drill_diagram_note" placeholder="Diagram Note" rows="10"></textarea>
+      </mat-input-container>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button type="button" (click)="dialogRef.close()">Cancel</button>
+    <button mat-button color="accent" [disabled]="!formdiagram.valid">Save</button>
+  </mat-dialog-actions>
+</form>

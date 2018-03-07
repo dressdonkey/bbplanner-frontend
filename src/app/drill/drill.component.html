@@ -10,7 +10,7 @@
 
     <!-- Name Column -->
     <ng-container cdkColumnDef="name">
-      <mat-header-cell *cdkHeaderCellDef> Name </mat-header-cell>
+      <mat-header-cell *cdkHeaderCellDef> Drill Title </mat-header-cell>
       <mat-cell *cdkCellDef="let row"> {{row.name}} </mat-cell>
     </ng-container>
 
@@ -21,19 +21,23 @@
           <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="openAddDiagramToDrillFormDialog(row.id)">
+            <mat-icon class="icon">image</mat-icon>
+            <span>Add/Edit Diagram/Graphic</span>
+          </button>
           <!-- Edit Button -->
           <button mat-menu-item (click)="openEditDrillFormDialog(row)">
             <mat-icon class="icon">edit</mat-icon>
             <span>Edit Drill</span>
           </button>
           <!-- Delete Button -->
-          <button mat-menu-item (click)="openDeleteDrillDialog(row)">
+          <button mat-menu-item *ngIf="!row.used" (click)="openDeleteDrillDialog(row)">
             <mat-icon class="icons">delete</mat-icon>
             <span>Remove Drill</span>
           </button>
         </mat-menu>
       </mat-cell>
-    </ng-container>    
+    </ng-container>
 
     <mat-header-row *cdkHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *cdkRowDef="let row; columns: displayedColumns;"></mat-row>

@@ -1,0 +1,30 @@
+<h3 mat-dialog-title class="bb-color--lime-A400">Edit Diagram Drill</h3>
+<mat-dialog-content>
+  <div fxLayout="column" fxLayoutGap="8px">
+    <div fxLayout="row" fxLayoutAlign="center center" class="bb-pos-rel">
+      <img *ngIf="!diagram.file" src="/assets/images/file-default.png" width="100px" alt="" class="">
+      <img *ngIf="diagram.file" src="http://192.168.33.10/assets/uploads/drill_diagrams/{{ diagram.file }}" width="150px" alt="" class="">
+    </div>
+
+    <div class="drop-container" ngFileDrop (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput" [ngClass]="{ 'is-drop-over': dragOver }" fxLayout="column" fxLayoutAlign="center center">
+      <h1>Drag & Drop</h1>
+      <div>
+        <span>your files here or</span>
+        <label class="upload-button">
+          <input type="file" ngFileSelect (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput"> browse
+        </label>
+      </div>
+      <mat-chip-list *ngIf="filename" class="bb-mt-8">
+          <mat-chip>Chosen File: {{ filename }}</mat-chip>
+      </mat-chip-list>
+      <mat-chip-list *ngIf="errorMessage" class="bb-mt-8">
+          <mat-chip class="bb-bg-color--red-500">{{ errorMessage }}</mat-chip>
+      </mat-chip-list>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button type="button" (click)="dialogRef.close()">Cancel</button>
+  <button mat-button color="accent" class="start-upload-btn" (click)="startUpload(diagram.id)" [disabled]="!filename">Start Upload</button>
+</mat-dialog-actions>
+

@@ -1,5 +1,5 @@
 <h3 mat-dialog-title class="bb-color--lime-A400">Create Drill</h3>
-<form [formGroup]="formdrill" (ngSubmit)="onSubmitCreateDrill(formdrill.value)">
+<form [formGroup]="formdrill" (ngSubmit)="onSubmitEditDrill(formdrill.value)">
   <div fxLayout="column" fxLayoutGap="8px">
     <mat-form-field>
       <input matInput formControlName="name" placeholder="Drill Title" maxlength="255">
