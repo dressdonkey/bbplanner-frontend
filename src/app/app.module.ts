@@ -10,16 +10,16 @@ import { routes } from './app.router';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { 
-  MatNativeDateModule, 
-  MatIconModule, 
-  MatMenuModule, 
-  MatTableModule, 
-  MatSelectModule, 
-  MatDatepickerModule, 
-  MatChipsModule, 
-  MatSnackBarModule, 
-  MatToolbarModule, 
+import {
+  MatNativeDateModule,
+  MatIconModule,
+  MatMenuModule,
+  MatTableModule,
+  MatSelectModule,
+  MatDatepickerModule,
+  MatChipsModule,
+  MatSnackBarModule,
+  MatToolbarModule,
   MatSidenavModule,
   MatButtonModule,
   MatListModule,
@@ -31,7 +31,8 @@ import {
   MatTabsModule,
   MatSlideToggleModule,
   MatGridListModule,
-  MatCheckboxModule
+  MatCheckboxModule,
+  MatExpansionModule
 } from '@angular/material';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -67,7 +68,8 @@ import { RosterService } from './roster/roster.service';
 import { PracticesService } from './practices/practices.service';
 import { DrillService } from './drill/drill.service';
 import { PlaysService } from './plays/plays.service';
-import { AttendanceService } from "./practices/attendance/attendance.service";
+import { AttendanceService } from './practices/attendance/attendance.service';
+import { DrillDiagramService } from './drill-diagram/drill-diagram.service';
 
 
 /* Dialogs */
@@ -102,6 +104,13 @@ import { PracticeComponent } from './practices/practice/practice.component';
 import { AttendanceComponent } from './practices/attendance/attendance.component';
 import { DrillComponent } from './drill/drill.component';
 import { CreateDrillFormComponent } from './drill/create-drill-form/create-drill-form.component';
+import { AddDiagramToDrillFormComponent } from './drill/add-diagram-to-drill-form/add-diagram-to-drill-form.component';
+import { DrillDiagramComponent } from './drill-diagram/drill-diagram.component';
+import { DeleteDiagramFromDrillComponent } from './drill/delete-diagram-from-drill/delete-diagrma-from-drill.component';
+import { EditDiagramNoteComponent } from './drill/edit-diagram-note/edit-diagram-note.component';
+import { EditDiagramDrillComponent } from './drill/edit-diagram-drill/edit-diagram-drill.component';
+import { EditDrillFormComponent } from './drill/edit-drill-form/edit-drill-form.component';
+import { DeleteDrillComponent } from './drill/delete-drill/delete-drill.component';
 
 @NgModule({
   declarations: [
@@ -149,7 +158,14 @@ import { CreateDrillFormComponent } from './drill/create-drill-form/create-drill
     PlaysComponent,
     PracticeComponent,
     AttendanceComponent,
-    CreateDrillFormComponent
+    CreateDrillFormComponent,
+    AddDiagramToDrillFormComponent,
+    DrillDiagramComponent,
+    DeleteDiagramFromDrillComponent,
+    EditDiagramNoteComponent,
+    EditDiagramDrillComponent,
+    EditDrillFormComponent,
+    DeleteDrillComponent
   ],
   imports: [
     BrowserModule,
@@ -182,7 +198,8 @@ import { CreateDrillFormComponent } from './drill/create-drill-form/create-drill
     HttpClientModule,
     MatCardModule,
     MatGridListModule,
-    MatCheckboxModule    
+    MatCheckboxModule,
+    MatExpansionModule
   ],
   providers : [
     SeasonsService,
@@ -199,6 +216,7 @@ import { CreateDrillFormComponent } from './drill/create-drill-form/create-drill
     DrillService,
     PlaysService,
     AttendanceService,
+    DrillDiagramService
   ],
   entryComponents: [
     CreateSeasonFormComponent,
@@ -224,7 +242,13 @@ import { CreateDrillFormComponent } from './drill/create-drill-form/create-drill
     EditTeamLogoComponent,
     MessageComponent,
     AddPlayerComponent,
-    CreateDrillFormComponent
+    CreateDrillFormComponent,
+    AddDiagramToDrillFormComponent,
+    DeleteDiagramFromDrillComponent,
+    EditDiagramNoteComponent,
+    EditDiagramDrillComponent,
+    EditDrillFormComponent,
+    DeleteDrillComponent
   ],
   bootstrap: [AppComponent]
 })
