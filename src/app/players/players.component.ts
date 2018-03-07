@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { PlayersService } from "./players.service";
-import { Player } from "./../interfaces/player";
+import { PlayersService } from './players.service';
+import { Player } from './../interfaces/player';
 import { CreatePlayerFormComponent } from './create-player-form/create-player-form.component';
 import { EditPlayerFormComponent } from './edit-player-form/edit-player-form.component';
 import { DeletePlayerComponent } from './delete-player/delete-player.component';
-import { EditPlayerFotoComponent } from "./edit-player-foto/edit-player-foto.component";
+import { EditPlayerFotoComponent } from './edit-player-foto/edit-player-foto.component';
 import { DataSource } from '@angular/cdk/table';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
@@ -30,55 +30,55 @@ export class PlayersComponent {
   dataSource: PlayerDataSource | null;
 
   @ViewChild('filter') filter: ElementRef;
-  
+
   constructor(
     private playersService: PlayersService,
-    private dialog: MatDialog, 
-    private dialogedit: MatDialog, 
-    private dialogdelete: MatDialog, 
+    private dialog: MatDialog,
+    private dialogedit: MatDialog,
+    private dialogdelete: MatDialog,
     private dialogeditimage: MatDialog,
     public snackBar: MatSnackBar
-  ){
-    
+  ) {
+
   }
 
   ngOnInit() {
-    
+
     this.dataSource = new PlayerDataSource(this.playerDatabase);
 
     Observable.fromEvent(this.filter.nativeElement, 'keyup')
       .debounceTime(150)
       .distinctUntilChanged()
       .subscribe(() => {
-        if (!this.dataSource) { 
-          return; 
+        if (!this.dataSource) {
+          return;
         }
         this.dataSource.filter = this.filter.nativeElement.value;
       });
 
     /**
-     * 
+     *
      */
 
     this.playersService.addedPlayer.subscribe(
       (data) => {
         this.playerDatabase.addPlayer(data.player);
-        
+
         this.snackBar.open(data.message, null, {
           duration: 2000,
         });
       },
       error => console.log('Problem Creating Player')
-      
+
     );
 
     /**
-     * 
+     *
      */
 
     this.playersService.deletedPlayer.subscribe(
       (data) => {
-        
+
         this.snackBar.open(data.message, null, {
           duration: 2000,
         });
@@ -86,26 +86,26 @@ export class PlayersComponent {
         this.playerDatabase.deletePlayer(data.player);
       },
       error => console.log('Problem Deleting Player')
-      
+
     );
 
     /**
-     * 
+     *
      */
 
     this.playersService.updatedPlayer.subscribe(
       (data) => {
-        
+
         this.snackBar.open(data.message, null, {
           duration: 2000,
         });
-        
+
         this.playerDatabase.updatePlayer(data.player);
       },
       error => console.log('Problem Updating Player')
-      
+
     );
-      
+
   }
 
   /**
@@ -114,10 +114,10 @@ export class PlayersComponent {
 
   private openCreatePlayerFormDialog() {
 
-    let dialogRef = this.dialog.open(CreatePlayerFormComponent, {
+    const dialogRef = this.dialog.open(CreatePlayerFormComponent, {
       width: '500px',
     });
-    
+
   }
 
   /**
@@ -126,8 +126,8 @@ export class PlayersComponent {
    */
 
   private openEditPlayerFormDialog(player: Player) {
-    
-    let dialogEditRef = this.dialogedit.open(EditPlayerFormComponent, {
+
+    const dialogEditRef = this.dialogedit.open(EditPlayerFormComponent, {
       width: '500px',
       data: player
     });
@@ -138,10 +138,10 @@ export class PlayersComponent {
    * Open Dialog to delete player
    * @param player players data in json
    */
-  
+
   private openDeletePlayerDialog(player: Player) {
-    
-    let dialogDeleteRef = this.dialogdelete.open(DeletePlayerComponent, {
+
+    const dialogDeleteRef = this.dialogdelete.open(DeletePlayerComponent, {
       width: '500px',
       data: player
     });
@@ -152,10 +152,10 @@ export class PlayersComponent {
    * Open Dialog to edit or insert player foto
    * @param player players data in json
    */
-  
+
   private openEditPlayerFotoDialog(player: Player) {
-    
-    let dialogEditImageRef = this.dialogeditimage.open(EditPlayerFotoComponent, {
+
+    const dialogEditImageRef = this.dialogeditimage.open(EditPlayerFotoComponent, {
       width: '500px',
       data: player
     });
@@ -170,44 +170,44 @@ export class PlayerDatabase {
   dataChange: BehaviorSubject<Player[]> = new BehaviorSubject<Player[]>([]);
   players: Array<any>;
 
-  get data(): Player[] { 
-    return this.dataChange.value; 
+  get data(): Player[] {
+    return this.dataChange.value;
   }
 
   constructor(private playersService: PlayersService) {
-    
+
     this.playersService.getAllPlayers()
       .subscribe(data => {
-        
-        this.players = data; 
+
+        this.players = data;
 
         for (let player of this.players) {
-            this.addPlayer(player); 
+            this.addPlayer(player);
         }
 
-      },err => {
+      }, err => {
         console.log('ERROR');
       }
     );
-    
+
   }
 
   addPlayer(player) {
-    
+
     const copiedData = this.data.slice();
-    
+
     copiedData.push(player);
 
     this.dataChange.next(copiedData);
-    
+
   }
 
-  deletePlayer(player){
+  deletePlayer(player) {
     const copiedData = this.data.slice();
 
     const position = copiedData.findIndex(
       (playerEl: Player) => {
-        return playerEl.id == player.id;
+        return playerEl.id === player.id;
       }
     );
 
@@ -217,12 +217,12 @@ export class PlayerDatabase {
 
   }
 
-  updatePlayer(player){
+  updatePlayer(player) {
     const copiedData = this.data.slice();
 
     const position = copiedData.findIndex(
       (playerEl: Player) => {
-        return playerEl.id == player.id;
+        return playerEl.id === player.id;
       }
     );
 
@@ -232,15 +232,15 @@ export class PlayerDatabase {
 
 }
 
-export class PlayerDataSource extends DataSource<any>{
+export class PlayerDataSource extends DataSource<any> {
   _filterChange = new BehaviorSubject('');
 
-  get filter(): string { 
-    return this._filterChange.value; 
+  get filter(): string {
+    return this._filterChange.value;
   }
 
-  set filter(filter: string) { 
-    this._filterChange.next(filter); 
+  set filter(filter: string) {
+    this._filterChange.next(filter);
   }
 
   constructor(private _playerDatabase: PlayerDatabase) {
@@ -256,12 +256,11 @@ export class PlayerDataSource extends DataSource<any>{
 
     return Observable.merge(...displayDataChanges).map(() => {
       return this._playerDatabase.data.slice().filter((player: Player) => {
-        let searchStr = (player.name).toLowerCase();
-        return searchStr.indexOf(this.filter.toLowerCase()) != -1;
+        const searchStr = (player.name).toLowerCase();
+        return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
       });
     });
 
-    //return this._exampleDatabase.dataChange;
   }
 
   disconnect() {}
