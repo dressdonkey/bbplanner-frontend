@@ -17,7 +17,7 @@ export class PracticeComponent implements OnInit {
   practiceID: number;
 
   constructor(
-    private practicesService:PracticesService,
+    private practicesService: PracticesService,
     private route: ActivatedRoute
   ) { }
 
@@ -28,26 +28,26 @@ export class PracticeComponent implements OnInit {
       this.practicesService.getPractice(params['id'])
         .subscribe(
           data => {
-          
+
             this.practice = data.practice;
             this.drills =  data.drills;
-  
+
             console.log(data);
-  
+
           },
           err  => {
-            
-            if(err.status === 422){
-  
+
+            if (err.status === 422) {
+
               /*this.snackBar.openFromComponent(MessageComponent, {
                 duration: 5000,
                 data: 'Problems getting season!'
               });*/
-  
+
             }
 
           }
-  
+
         );
 
     });

@@ -7,7 +7,7 @@
   </mat-toolbar>
   <div fxLayout="column" fxLayoutAlign=" stretch" class="bb-mt-1">
     <mat-toolbar>
-      <div>{{ practice?.practice_date | date }} {{ practice?.practice_time }}</div> 
+      <div>{{ practice?.practice_date | date }} {{ practice?.practice_time }}</div>
       <span class="bb-spacer"></span>
       <div>Duration {{ practice?.duration }} mins.</div>
     </mat-toolbar>
@@ -15,7 +15,7 @@
       <mat-card *ngFor="let drill of drills" >
         <mat-card-header>
           <mat-card-title class="bb-color--lime-A400 bb-font-weight-light">{{drill.name}}</mat-card-title>
-          <mat-card-subtitle>{{drill.pivot.duration}} mins</mat-card-subtitle>
+          <mat-card-subtitle>{{ drill.pivot.duration }} mins</mat-card-subtitle>
         </mat-card-header>
         <div fxLayout="column" class="bb-mt-1">
           <div fxLayout="row" class="bb-mt-1" *ngFor="let diagram of drill.drilldiagrams; let i = index">
@@ -63,4 +63,3 @@
     </mat-menu>
   </div>
 </div>
-  
