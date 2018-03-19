@@ -11,11 +11,15 @@
       <span class="bb-spacer"></span>
       <div>Duration {{ practice?.duration }} mins.</div>
     </mat-toolbar>
-    <div fxLayout="column" fxLayoutGap="24px" class="bb-mt-1">
-      <mat-card *ngFor="let drill of drills" >
+    <mat-card class="bb-mb-3">
+      <mat-card-title class="">Practice Objective</mat-card-title>
+      <mat-card-content>{{ practice?.objective }}</mat-card-content>
+    </mat-card>
+    <div fxLayout="column" fxLayoutGap="24px">
+      <mat-card *ngFor="let drill of drills; let x = index" >
         <mat-card-header>
-          <mat-card-title class="bb-color--lime-A400 bb-font-weight-light">{{drill.name}}</mat-card-title>
-          <mat-card-subtitle>{{ drill.pivot.duration }} mins</mat-card-subtitle>
+          <mat-card-title class="bb-color--lime-A400 bb-font-weight-light">#{{x+1}} - {{drill.name}}</mat-card-title>
+          <mat-card-subtitle>{{ practiceTime }} {{ drill.pivot.duration }} mins</mat-card-subtitle>
         </mat-card-header>
         <div fxLayout="column" class="bb-mt-1">
           <div fxLayout="row" class="bb-mt-1" *ngFor="let diagram of drill.drilldiagrams; let i = index">
@@ -25,40 +29,36 @@
                 <div class="bb-text-center bb-font-size-14">Fig. {{ i+1 }}</div>
               </div>
             </div>
-            <div class="pm-drill-discription" fxFlex="80">{{diagram.drill_diagram_note}}</div>
+            <div class="pm-drill-discription" fxFlex="80">{{ diagram.drill_diagram_note }}</div>
           </div>
         </div>
         <mat-card-actions align="end">
-          <button mat-icon-button>
-              <mat-icon class="material-icons">edit</mat-icon>
+          <button mat-icon-button (click)="openEditDrillFromPracticeDialog(drill.pivot, practice?.id)">
+              <mat-icon class="material-icons">timer</mat-icon>
           </button>
-          <button mat-icon-button>
+          <button mat-icon-button *ngIf="x != 0" (click)="moveUp(x, drill.id)">
               <mat-icon class="material-icons">arrow_upward</mat-icon>
           </button>
-          <button mat-icon-button>
+          <button mat-icon-button *ngIf="drills.length > x+1" (click)="moveDown(x)">
               <mat-icon class="material-icons">arrow_downward</mat-icon>
           </button>
-          <button mat-icon-button>
+          <button mat-icon-button (click)="openDeleteDrillFromPracticeDialog(drill.id)">
               <mat-icon class="material-icons">delete</mat-icon>
           </button>
         </mat-card-actions>
       </mat-card>
     </div>
-    <button mat-fab class="fab-bottom-right" (click)="openCreatePlayerFormDialog()" [matMenuTriggerFor]="menu">
+    <button mat-fab class="fab-bottom-right" [matMenuTriggerFor]="menu">
       <mat-icon>add</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-      <button mat-menu-item>
-        <mat-icon>dialpad</mat-icon>
+      <button mat-menu-item (click)="openAddDrillToPracticeDialog()">
+        <mat-icon>image</mat-icon>
         <span>Add Drill</span>
       </button>
-      <button mat-menu-item disabled>
-        <mat-icon>voicemail</mat-icon>
-        <span>Add Play</span>
-      </button>
       <button mat-menu-item>
-        <mat-icon>notifications_off</mat-icon>
-        <span>Disable alerts</span>
+        <mat-icon>book</mat-icon>
+        <span>Add Play</span>
       </button>
     </mat-menu>
   </div>

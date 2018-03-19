@@ -111,6 +111,9 @@ import { EditDiagramNoteComponent } from './drill/edit-diagram-note/edit-diagram
 import { EditDiagramDrillComponent } from './drill/edit-diagram-drill/edit-diagram-drill.component';
 import { EditDrillFormComponent } from './drill/edit-drill-form/edit-drill-form.component';
 import { DeleteDrillComponent } from './drill/delete-drill/delete-drill.component';
+import { DeleteDrillFromPracticeComponent } from './practices/delete-drill-from-practice/delete-drill-from-practice.component';
+import { EditPracticeDrillFormComponent } from './practices/practice/edit-practice-drill-form/edit-practice-drill-form.component';
+import { AddDrillToPracticeComponent } from './practices/practice/add-drill-to-practice/add-drill-to-practice.component';
 
 @NgModule({
   declarations: [
@@ -165,7 +168,10 @@ import { DeleteDrillComponent } from './drill/delete-drill/delete-drill.componen
     EditDiagramNoteComponent,
     EditDiagramDrillComponent,
     EditDrillFormComponent,
-    DeleteDrillComponent
+    DeleteDrillComponent,
+    DeleteDrillFromPracticeComponent,
+    EditPracticeDrillFormComponent,
+    AddDrillToPracticeComponent
   ],
   imports: [
     BrowserModule,
@@ -248,7 +254,10 @@ import { DeleteDrillComponent } from './drill/delete-drill/delete-drill.componen
     EditDiagramNoteComponent,
     EditDiagramDrillComponent,
     EditDrillFormComponent,
-    DeleteDrillComponent
+    DeleteDrillComponent,
+    DeleteDrillFromPracticeComponent,
+    EditPracticeDrillFormComponent,
+    AddDrillToPracticeComponent
   ],
   bootstrap: [AppComponent]
 })

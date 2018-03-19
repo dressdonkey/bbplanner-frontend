@@ -27,7 +27,7 @@ export class AddDiagramToDrillFormComponent implements OnInit {
   humanizeBytes: Function;
   dragOver: boolean;
   filename: string;
-  errorMessage: string = '';
+  errorMessage = '';
 
   constructor(
     private drillDiagramService: DrillDiagramService,
@@ -242,11 +242,6 @@ export class AddDiagramToDrillFormComponent implements OnInit {
 
   }
 
-  /**
-   *
-   * @param association
-   */
-
   deleteDiagram(drill_diagram) {
 
     const position = this.drill_diagrams.findIndex(
@@ -258,11 +253,6 @@ export class AddDiagramToDrillFormComponent implements OnInit {
     this.drill_diagrams.splice(position, 1);
 
   }
-
-  /**
-   *
-   * @param association
-   */
 
   updateDiagram(drill_diagram) {
 

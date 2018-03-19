@@ -38,9 +38,9 @@ export class EditDiagramNoteComponent implements OnInit {
 
   onSubmitEditDiagram(diagram) {
 
-    console.log(diagram);
     this.drillDiagramService.updateDrillDiagram(this.diagramID, diagram);
     this.dialogRef.close();
+
   }
 
 }

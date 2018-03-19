@@ -1,0 +1,8 @@
+<h3 mat-dialog-title class="bb-color--lime-A400">Delete Drill From Practice</h3>
+<mat-dialog-content>
+  <p>Do you wish to delete this drill from this practice session?</p>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button type="button" (click)="dialogDeleteRef.close()">No</button>
+  <button mat-button type="button" color="accent" (click)="onDeleteDrillFromPractice(drillID)">Yes</button>
+</mat-dialog-actions>

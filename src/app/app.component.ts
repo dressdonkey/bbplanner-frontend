@@ -5,6 +5,7 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-root',

@@ -32,7 +32,6 @@ export class DrillService {
     return this.http.post('http://192.168.33.10/api/drills', drill)
     .map(
       data => {
-        console.log(data);
         this.addedDrill.next(data);
       }
 

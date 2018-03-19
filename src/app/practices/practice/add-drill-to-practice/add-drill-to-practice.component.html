@@ -1,0 +1,33 @@
+<h3 mat-dialog-title class="bb-color--lime-A400">Drills</h3>
+<mat-dialog-content>
+  <div class="bb-search-filter-wrapper">
+    <mat-form-field floatPlaceholder="never">
+      <input matInput #filter placeholder="Search for Drill">
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+  </div>
+  <mat-table #table [dataSource]="dataSource">
+
+    <!-- Name Column -->
+    <ng-container cdkColumnDef="name">
+      <mat-header-cell *cdkHeaderCellDef> Drill Title </mat-header-cell>
+      <mat-cell *cdkCellDef="let row"> {{row.name}} </mat-cell>
+    </ng-container>
+
+    <ng-container cdkColumnDef="menu">
+      <mat-header-cell *cdkHeaderCellDef>Actions</mat-header-cell>
+      <mat-cell *cdkCellDef="let row">
+        <button mat-icon-button (click)="addDrillToPractice(row.id)">
+          <mat-icon class="icons">add_circle</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *cdkHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *cdkRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button type="button" (click)="dialogRef.close()">Cancel</button>
+</mat-dialog-actions>
